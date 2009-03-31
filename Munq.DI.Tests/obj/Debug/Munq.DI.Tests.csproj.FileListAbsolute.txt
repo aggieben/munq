@@ -1,0 +1,7 @@
+C:\Users\Matthew\Documents\Visual Studio 2008\projects\Munq\Munq.DI.Tests\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Matthew\Documents\Visual Studio 2008\projects\Munq\Munq.DI.Tests\bin\Debug\Munq.DI.Tests.dll
+C:\Users\Matthew\Documents\Visual Studio 2008\projects\Munq\Munq.DI.Tests\bin\Debug\Munq.DI.Tests.pdb
+C:\Users\Matthew\Documents\Visual Studio 2008\projects\Munq\Munq.DI.Tests\bin\Debug\Munq.DI.dll
+C:\Users\Matthew\Documents\Visual Studio 2008\projects\Munq\Munq.DI.Tests\bin\Debug\Munq.DI.pdb
+C:\Users\Matthew\Documents\Visual Studio 2008\projects\Munq\Munq.DI.Tests\obj\Debug\Munq.DI.Tests.dll
+C:\Users\Matthew\Documents\Visual Studio 2008\projects\Munq\Munq.DI.Tests\obj\Debug\Munq.DI.Tests.pdb
