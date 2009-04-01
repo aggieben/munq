@@ -24,11 +24,11 @@ namespace Munq.DI.LifetimeManagers
                 context = _context;
             }
 
-            TType instance = (TType)context.Items[reg.ID.ToString()];
+            TType instance = (TType)context.Items[reg.ID];
             if (instance == null)
             {
                 instance = reg.Factory(container);
-                context.Items[reg.ID.ToString()] = instance;
+                context.Items[reg.ID] = instance;
             }
             return instance;
         }

@@ -9,7 +9,6 @@ namespace Munq.DI.LifetimeManagers
 {
     public class CachedLifetime<TType> : ILifetimeManager<TType> where TType : class
     {
-        HttpContextBase _context = null;
         #region ILifetimeManager<TType> Members
 
         public TType GetInstance(Container container, Registration<TType> reg)
@@ -24,11 +23,11 @@ namespace Munq.DI.LifetimeManagers
                 cache = HttpRuntime.Cache;
             }
 
-            TType instance = (TType)cache[reg.ID.ToString()];
+            TType instance = (TType)cache[reg.ID];
             if (instance == null)
             {
                 instance = reg.Factory(container);
-                cache[reg.ID.ToString()] = instance;
+                cache[reg.ID] = instance;
             }
             return instance;
         }

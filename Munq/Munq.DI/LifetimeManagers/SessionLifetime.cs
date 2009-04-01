@@ -24,11 +24,11 @@ namespace Munq.DI.LifetimeManagers
                 session = _session;
             }
 
-            TType instance = (TType)session[reg.ID.ToString()];
+            TType instance = (TType)session[reg.ID];
             if (instance == null)
             {
                 instance = reg.Factory(container);
-                session[reg.ID.ToString()] = instance;
+                session[reg.ID] = instance;
             }
             return instance;
         }

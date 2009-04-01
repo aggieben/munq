@@ -364,5 +364,31 @@ namespace Munq.DI.Tests
             Assert.AreSame(result1, result2);       // same request
             Assert.AreSame(result2, result3);    // different request
         }
+
+        // verify Cached Lifetime returns differnt instance  if cache not expired
+        [TestMethod]
+        public void CachedLifetimeManagerReturnsDifferentObjectIfCacheExpired()
+        {
+            var cachedltm = new CachedLifetime<IFoo>();
+
+            var container = new Container();
+            var ireg = container.Register<IFoo>(c => new Foo1())
+                .WithLifetimeManager(cachedltm);
+
+            var result1 = container.Resolve<IFoo>();
+            var result2 = container.Resolve<IFoo>();
+
+            // simulate expiry
+            HttpRuntime.Cache.Remove((ireg as Registration<IFoo>).ID);
+
+            var result3 = container.Resolve<IFoo>();
+
+            Assert.IsNotNull(result1);
+            Assert.IsNotNull(result2);
+            Assert.IsNotNull(result3);
+
+            Assert.AreSame(result1, result2);       // cache not expired
+            Assert.AreNotSame(result2, result3);    // cache expired
+        }
     }
 }
