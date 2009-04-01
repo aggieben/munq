@@ -41,6 +41,10 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +56,10 @@
     <ProjectReference Include="..\Munq.DI\Munq.DI.csproj">
       <Project>{1237629E-7E4B-4074-AD34-F255F9F6D185}</Project>
       <Name>Munq.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MvcFakes\MvcFakes.csproj">
+      <Project>{558790E7-0F46-489F-B717-52AE3746D39B}</Project>
+      <Name>MvcFakes</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

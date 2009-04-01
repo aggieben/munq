@@ -10,6 +10,7 @@ namespace Munq.DI
         internal Func<Container, TType> Factory;
         internal TType Instance = null;
         internal ILifetimeManager<TType> LifetimeManager;
+        internal readonly Guid ID;
         public static readonly ILifetimeManager<TType> AlwayNewLifeTimeManager = new LifetimeManagers.AlwaysNewLifetime<TType>();
         public static readonly ILifetimeManager<TType> ContainerLifeTimeManager = new LifetimeManagers.ContainerLifetime<TType>();
 
@@ -17,6 +18,7 @@ namespace Munq.DI
         {
             Factory = f;
             LifetimeManager = AlwayNewLifeTimeManager;
+            ID = Guid.NewGuid();
         }
 
         internal TType GetInstance(Container container)

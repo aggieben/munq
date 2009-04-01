@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1237629E-7E4B-4074-AD34-F255F9F6D185}</ProjectGuid>
+    <ProjectGuid>{558790E7-0F46-489F-B717-52AE3746D39B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Munq.DI</RootNamespace>
-    <AssemblyName>Munq.DI</AssemblyName>
+    <RootNamespace>MvcFakes</RootNamespace>
+    <AssemblyName>MvcFakes</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
@@ -40,7 +40,17 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Abstractions">
+    <Reference Include="System.Web.Abstractions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\..\Program Files\Microsoft ASP.NET\ASP.NET MVC Beta\Assemblies\System.Web.Abstractions.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files\Microsoft ASP.NET\ASP.NET MVC Beta\Assemblies\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files\Microsoft ASP.NET\ASP.NET MVC Beta\Assemblies\System.Web.Routing.dll</HintPath>
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Xml.Linq">
@@ -53,16 +63,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Container.cs" />
-    <Compile Include="ILifetimeManager.cs" />
-    <Compile Include="IRegistration.cs" />
-    <Compile Include="LifetimeManagers\AlwaysNewLifetime.cs" />
-    <Compile Include="LifetimeManagers\ContainerLifetime.cs" />
-    <Compile Include="LifetimeManagers\CachedLifetime.cs" />
-    <Compile Include="LifetimeManagers\RequestLifetime.cs" />
-    <Compile Include="LifetimeManagers\SessionLifetime.cs" />
+    <Compile Include="FakeControllerContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FakeHttpContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FakeHttpRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FakeHttpResponse.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FakeHttpSessionState.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FakeIdentity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FakePrincipal.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Registration.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

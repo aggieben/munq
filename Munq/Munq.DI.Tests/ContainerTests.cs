@@ -4,6 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Munq.DI;
+using Munq.DI.LifetimeManagers;
+
+using MvcFakes;
+using System.Web;
+using System.Web.SessionState;
+
 
 namespace Munq.DI.Tests
 {
@@ -241,6 +247,122 @@ namespace Munq.DI.Tests
 
             Assert.IsNotNull(result1);
             Assert.AreSame(result1, result2);
+        }
+
+        // verify Session Lifetime returns same instance for session
+        [TestMethod]
+        public void SessionLifetimeManagerReturnsSameObjectForSameSession()
+        {
+            var sessionItems = new SessionStateItemCollection();
+            var context1 = new FakeHttpContext("Http://fakeUrl1.com",null,null,null,null,sessionItems);
+            var context2 = new FakeHttpContext("Http://fakeUrl2.com",null,null,null,null,sessionItems);
+
+            var sessionltm = new SessionLifetime<IFoo>();
+
+            var container = new Container();
+            container.Register<IFoo>(c => new Foo1())
+                .WithLifetimeManager(sessionltm);
+
+            sessionltm.SetContext(context1);
+
+            var result1 = container.Resolve<IFoo>();
+            var result2 = container.Resolve<IFoo>();
+
+            sessionltm.SetContext(context2);
+
+            var result3 = container.Resolve<IFoo>();
+
+            Assert.IsNotNull(result1);
+            Assert.IsNotNull(result2);
+            Assert.IsNotNull(result3);
+
+            Assert.AreSame(result1, result2);   // same request and session
+            Assert.AreSame(result2, result3);   // different requests, same session
+        }
+
+        // verify Session Lifetime returns different instance for different session
+        [TestMethod]
+        public void SessionLifetimeManagerReturnsDifferentObjectForDifferentSession()
+        {
+            var sessionItems1 = new SessionStateItemCollection();
+            var sessionItems2 = new SessionStateItemCollection();
+            var context1 = new FakeHttpContext("Http://fakeUrl1.com", null, null, null, null, sessionItems1);
+            var context2 = new FakeHttpContext("Http://fakeUrl2.com", null, null, null, null, sessionItems2);
+
+            var sessionltm = new SessionLifetime<IFoo>();
+
+            var container = new Container();
+            container.Register<IFoo>(c => new Foo1())
+                .WithLifetimeManager(sessionltm);
+
+            sessionltm.SetContext(context1);
+
+            var result1 = container.Resolve<IFoo>();
+            var result2 = container.Resolve<IFoo>();
+
+            sessionltm.SetContext(context2);
+
+            var result3 = container.Resolve<IFoo>();
+
+            Assert.IsNotNull(result1);
+            Assert.IsNotNull(result2);
+            Assert.IsNotNull(result3);
+
+            Assert.AreSame(result1, result2);       // same session
+            Assert.AreNotSame(result2, result3);    // different sessions
+        }
+
+        // verify Request Lifetime returns same instance for same request, different for different request
+        [TestMethod]
+        public void RequestLifetimeManagerReturnsSameObjectForSameRequest()
+        {
+            var context1 = new FakeHttpContext("Http://fakeUrl1.com");
+            var context2 = new FakeHttpContext("Http://fakeUrl2.com");
+
+            var requestltm = new RequestLifetime<IFoo>();
+
+            var container = new Container();
+            container.Register<IFoo>(c => new Foo1())
+                .WithLifetimeManager(requestltm);
+
+            requestltm.SetContext(context1);
+
+            var result1 = container.Resolve<IFoo>();
+            var result2 = container.Resolve<IFoo>();
+
+            requestltm.SetContext(context2);
+
+            var result3 = container.Resolve<IFoo>();
+
+            Assert.IsNotNull(result1);
+            Assert.IsNotNull(result2);
+            Assert.IsNotNull(result3);
+
+            Assert.AreSame(result1, result2);       // same request
+            Assert.AreNotSame(result2, result3);    // different request
+        }
+
+        // verify Cached Lifetime returns same instance for same if cache not expired
+        [TestMethod]
+        public void CachedLifetimeManagerReturnsSameObjectIfCacheNotExpired()
+        {
+            var cachedltm = new CachedLifetime<IFoo>();
+
+            var container = new Container();
+            container.Register<IFoo>(c => new Foo1())
+                .WithLifetimeManager(cachedltm);
+
+            var result1 = container.Resolve<IFoo>();
+            var result2 = container.Resolve<IFoo>();
+
+            var result3 = container.Resolve<IFoo>();
+
+            Assert.IsNotNull(result1);
+            Assert.IsNotNull(result2);
+            Assert.IsNotNull(result3);
+
+            Assert.AreSame(result1, result2);       // same request
+            Assert.AreSame(result2, result3);    // different request
         }
     }
 }
