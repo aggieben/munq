@@ -7,12 +7,12 @@ using System.Web.SessionState;
 
 namespace Munq.DI.LifetimeManagers
 {
-    public class RequestLifetime<TType> : ILifetimeManager<TType> where TType : class
+    public class RequestLifetime : ILifetimeManager
     {
         HttpContextBase _context = null;
-        #region ILifetimeManager<TType> Members
+        #region ILifetimeManage Members
 
-        public TType GetInstance(Container container, Registration<TType> reg)
+        public object GetInstance(Container container, IRegistration reg)
         {
             HttpContextBase context;
             if (System.Web.HttpContext.Current != null)
@@ -24,10 +24,10 @@ namespace Munq.DI.LifetimeManagers
                 context = _context;
             }
 
-            TType instance = (TType)context.Items[reg.ID];
+            object instance = context.Items[reg.ID];
             if (instance == null)
             {
-                instance = reg.Factory(container);
+                instance = reg.CreateInstance(container);
                 context.Items[reg.ID] = instance;
             }
             return instance;

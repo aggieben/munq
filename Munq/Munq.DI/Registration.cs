@@ -5,33 +5,45 @@ using System.Text;
 
 namespace Munq.DI
 {
-    public class Registration<TType> : IRegistration<TType> where TType:class
+    public class Registration<TType> : IRegistration where TType:class
     {
         internal Func<Container, TType> Factory;
-        internal TType Instance = null;
-        internal ILifetimeManager<TType> LifetimeManager;
-        public readonly string ID;
-        public static readonly ILifetimeManager<TType> AlwayNewLifeTimeManager = new LifetimeManagers.AlwaysNewLifetime<TType>();
-        public static readonly ILifetimeManager<TType> ContainerLifeTimeManager = new LifetimeManagers.ContainerLifetime<TType>();
+        internal ILifetimeManager LifetimeManager;
+        private readonly string _ID;
+        public static readonly ILifetimeManager AlwayNewLifeTimeManager = new LifetimeManagers.AlwaysNewLifetime();
+        public static readonly ILifetimeManager ContainerLifeTimeManager = new LifetimeManagers.ContainerLifetime();
 
         internal Registration(Func<Container, TType> f)
         {
             Factory = f;
             LifetimeManager = AlwayNewLifeTimeManager;
-            ID = Guid.NewGuid().ToString();
+            _ID = Guid.NewGuid().ToString();
         }
+
+        public string ID { get { return _ID; } }
+
+        public object Instance { get; set; }
 
         internal TType GetInstance(Container container)
         {
-            return LifetimeManager.GetInstance(container, this);
+            return (TType)LifetimeManager.GetInstance(container, this);
         }
 
-        #region IRegistration<TType> Members
+        #region IRegistration Members
 
-        public IRegistration<TType> WithLifetimeManager(ILifetimeManager<TType> ltm)
+        public IRegistration WithLifetimeManager(ILifetimeManager ltm)
         {
+            if (ltm == null)
+                throw new ArgumentNullException();
+
             LifetimeManager = ltm;
             return this;
+        }
+
+
+        public object CreateInstance(Container container)
+        {
+            return Factory(container);
         }
 
         #endregion

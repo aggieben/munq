@@ -23,7 +23,7 @@ namespace Munq.DI
         /// <typeparam name="TType">The type being registered</typeparam>
         /// <param name="f">The function that creates the type.  The function takes a single paramenter of type Container</param>
         /// <returns>An IRegistration that can be used to configure the behaviour of the registration</returns>
-        public IRegistration<TType> Register<TType>(Func<Container, TType> f) where TType:class
+        public IRegistration Register<TType>(Func<Container, TType> f) where TType:class
         {
             if (f == null)
                 throw new ArgumentNullException();
@@ -58,7 +58,7 @@ namespace Munq.DI
             }
         }
 
-        public IRegistration<TType> Register<TType>(string name, Func<Container, TType> f) where TType:class
+        public IRegistration Register<TType>(string name, Func<Container, TType> f) where TType:class
         {
              if (f == null)
                 throw new ArgumentNullException();

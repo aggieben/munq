@@ -10,6 +10,9 @@ using MvcFakes;
 using System.Web;
 using System.Web.SessionState;
 
+using System.Threading;
+using System.Web.Caching;
+
 
 namespace Munq.DI.Tests
 {
@@ -83,7 +86,7 @@ namespace Munq.DI.Tests
             var result = container.Register<IFoo>(c => new Foo1());
 
             Assert.IsNotNull(result);
-            Assert.IsNotNull(result as IRegistration<IFoo>);
+            Assert.IsNotNull(result as IRegistration);
         }
 
         // verify that Register<TType> throws exception if passed null
@@ -233,6 +236,18 @@ namespace Munq.DI.Tests
 
         }
 
+        // Verify passing a null LifetimeManager throws and exception
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void NullLifetimeManagerResultsInException()
+        {
+            var container = new Container();
+
+            container.Register<IFoo>(c => new Foo1())
+                .WithLifetimeManager(null);
+
+        }
+
         // verify Container Lifetime always returns same instance 
         [TestMethod]
         public void ContainerLifetimeAlwaysReturnsSameInstance()
@@ -257,7 +272,7 @@ namespace Munq.DI.Tests
             var context1 = new FakeHttpContext("Http://fakeUrl1.com",null,null,null,null,sessionItems);
             var context2 = new FakeHttpContext("Http://fakeUrl2.com",null,null,null,null,sessionItems);
 
-            var sessionltm = new SessionLifetime<IFoo>();
+            var sessionltm = new SessionLifetime();
 
             var container = new Container();
             container.Register<IFoo>(c => new Foo1())
@@ -289,7 +304,7 @@ namespace Munq.DI.Tests
             var context1 = new FakeHttpContext("Http://fakeUrl1.com", null, null, null, null, sessionItems1);
             var context2 = new FakeHttpContext("Http://fakeUrl2.com", null, null, null, null, sessionItems2);
 
-            var sessionltm = new SessionLifetime<IFoo>();
+            var sessionltm = new SessionLifetime();
 
             var container = new Container();
             container.Register<IFoo>(c => new Foo1())
@@ -319,7 +334,7 @@ namespace Munq.DI.Tests
             var context1 = new FakeHttpContext("Http://fakeUrl1.com");
             var context2 = new FakeHttpContext("Http://fakeUrl2.com");
 
-            var requestltm = new RequestLifetime<IFoo>();
+            var requestltm = new RequestLifetime();
 
             var container = new Container();
             container.Register<IFoo>(c => new Foo1())
@@ -346,7 +361,7 @@ namespace Munq.DI.Tests
         [TestMethod]
         public void CachedLifetimeManagerReturnsSameObjectIfCacheNotExpired()
         {
-            var cachedltm = new CachedLifetime<IFoo>();
+            var cachedltm = new CachedLifetime();
 
             var container = new Container();
             container.Register<IFoo>(c => new Foo1())
@@ -365,11 +380,11 @@ namespace Munq.DI.Tests
             Assert.AreSame(result2, result3);    // different request
         }
 
-        // verify Cached Lifetime returns differnt instance  if cache not expired
+        // verify Cached Lifetime returns differnt instance  if cache expired
         [TestMethod]
         public void CachedLifetimeManagerReturnsDifferentObjectIfCacheExpired()
         {
-            var cachedltm = new CachedLifetime<IFoo>();
+            var cachedltm = new CachedLifetime();
 
             var container = new Container();
             var ireg = container.Register<IFoo>(c => new Foo1())
@@ -379,7 +394,7 @@ namespace Munq.DI.Tests
             var result2 = container.Resolve<IFoo>();
 
             // simulate expiry
-            HttpRuntime.Cache.Remove((ireg as Registration<IFoo>).ID);
+            HttpRuntime.Cache.Remove(ireg.ID);
 
             var result3 = container.Resolve<IFoo>();
 
@@ -389,6 +404,98 @@ namespace Munq.DI.Tests
 
             Assert.AreSame(result1, result2);       // cache not expired
             Assert.AreNotSame(result2, result3);    // cache expired
+        }
+
+        // verify Cached Lifetime returns differnt instance  if absoluteTime expires
+        [TestMethod]
+        public void CachedLifetimeManagerReturnsDifferentObjectIfAbsoluteTimeExpired()
+        {
+            var cachedltm = new CachedLifetime()
+                .ExpiresOn(DateTime.UtcNow.AddSeconds(5));
+
+            var container = new Container();
+
+            var ireg = container.Register<IFoo>(c => new Foo1())
+                .WithLifetimeManager(cachedltm);
+
+            var result1 = container.Resolve<IFoo>();
+            var result2 = container.Resolve<IFoo>();
+
+            // simulate expiry
+            Thread.Sleep(6000);
+
+            var result3 = container.Resolve<IFoo>();
+
+            Assert.IsNotNull(result1);
+            Assert.IsNotNull(result2);
+            Assert.IsNotNull(result3);
+
+            Assert.AreSame(result1, result2);       // cache not expired
+            Assert.AreNotSame(result2, result3);    // cache expired
+        }
+
+        // verify Cached Lifetime returns differnt instance  if absoluteTime expires
+        [TestMethod]
+        public void CachedLifetimeManagerReturnsDifferentObjectIfSlidingTimeExpired()
+        {
+            var cachedltm = new CachedLifetime()
+                .ExpiresAfterNotAcessedFor(new TimeSpan(0,0,5));
+
+            var container = new Container();
+
+            var ireg = container.Register<IFoo>(c => new Foo1())
+                .WithLifetimeManager(cachedltm);
+
+            var result1 = container.Resolve<IFoo>();
+            var result2 = container.Resolve<IFoo>();
+
+            // simulate expiry
+            Thread.Sleep(6000);
+
+            var result3 = container.Resolve<IFoo>();
+
+            Assert.IsNotNull(result1);
+            Assert.IsNotNull(result2);
+            Assert.IsNotNull(result3);
+
+            Assert.AreSame(result1, result2);       // cache not expired
+            Assert.AreNotSame(result2, result3);    // cache expired
+        }
+
+        bool itemRemoved;
+        CacheItemRemovedReason reason;
+
+        public void RemovedCallback(String k, Object v, CacheItemRemovedReason r)
+        {
+            itemRemoved = true;
+            reason = r;
+        }
+
+        // verify Callback called when item is removed
+        [TestMethod]
+        public void CallbackIsCalledWhenItemRemovedFromCache()
+        {
+            var cachedltm = new CachedLifetime()
+                .ExpiresAfterNotAcessedFor(new TimeSpan(0, 0, 2))
+                .CallbackOnRemoval(RemovedCallback);
+
+            var container = new Container();
+
+            var ireg = container.Register<IFoo>(c => new Foo1())
+                .WithLifetimeManager(cachedltm);
+            
+            itemRemoved = false;
+            var result1 = container.Resolve<IFoo>();
+
+            // simulate expiry
+            Thread.Sleep(6000);
+            var result2 = container.Resolve<IFoo>();
+
+            Assert.IsNotNull(result1);
+            Assert.IsNotNull(result2);
+            Assert.AreNotSame(result1, result2);
+            Assert.IsTrue(itemRemoved);
+
         }
     }
 }

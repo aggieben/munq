@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Munq.DI
 {
-    public interface ILifetimeManager<TType> where TType : class
+    public interface ILifetimeManager
     {
-        TType GetInstance(Container container, Registration<TType> reg);
+        object GetInstance(Container container, IRegistration reg);
     }
 }

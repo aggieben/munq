@@ -5,15 +5,15 @@ using System.Text;
 
 namespace Munq.DI.LifetimeManagers
 {
-    public class ContainerLifetime<TType> : ILifetimeManager<TType> where TType:class
+    public class ContainerLifetime : ILifetimeManager
     {
-        #region ILifetimeManager<TType> Members
+        #region ILifetimeManager Members
 
-        public TType GetInstance(Container container, Registration<TType> reg)
+        public object GetInstance(Container container, IRegistration reg)
         {
             if (reg.Instance == null)
             {
-                reg.Instance = reg.Factory(container);
+                reg.Instance = reg.CreateInstance(container);
             }
             return reg.Instance;
         }
