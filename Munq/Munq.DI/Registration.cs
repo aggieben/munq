@@ -5,17 +5,15 @@ using System.Text;
 
 namespace Munq.DI
 {
-    public class Registration<TType> : IRegistration where TType:class
+        public class Registration
     {
-        internal Func<Container, TType> Factory;
         internal ILifetimeManager LifetimeManager;
         private readonly string _ID;
         public static readonly ILifetimeManager AlwayNewLifeTimeManager = new LifetimeManagers.AlwaysNewLifetime();
         public static readonly ILifetimeManager ContainerLifeTimeManager = new LifetimeManagers.ContainerLifetime();
 
-        internal Registration(Func<Container, TType> f)
+        internal Registration()
         {
-            Factory = f;
             LifetimeManager = AlwayNewLifeTimeManager;
             _ID = Guid.NewGuid().ToString();
         }
@@ -24,12 +22,16 @@ namespace Munq.DI
 
         public object Instance { get; set; }
 
-        internal TType GetInstance(Container container)
-        {
-            return (TType)LifetimeManager.GetInstance(container, this);
-        }
+    }
 
-        #region IRegistration Members
+    public class Registration<TType> : Registration, IRegistration  where TType:class
+    {
+        internal Func<Container, TType> Factory;
+
+        internal Registration(Func<Container, TType> f)
+        {
+            Factory = f;
+        }
 
         public IRegistration WithLifetimeManager(ILifetimeManager ltm)
         {
@@ -40,13 +42,15 @@ namespace Munq.DI
             return this;
         }
 
+        internal TType GetInstance(Container container)
+        {
+            return (TType)LifetimeManager.GetInstance(container, this);
+        }
 
         public object CreateInstance(Container container)
         {
             return Factory(container);
         }
-
-        #endregion
     }
 
     internal class RegistrationKey<TType> : IRegistrationKey where TType:class

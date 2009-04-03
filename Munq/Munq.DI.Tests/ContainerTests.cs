@@ -255,7 +255,7 @@ namespace Munq.DI.Tests
             var container = new Container();
 
             container.Register<IFoo>(c => new Foo1())
-                .WithLifetimeManager(Registration<IFoo>.ContainerLifeTimeManager);
+                .WithLifetimeManager(Registration.ContainerLifeTimeManager);
 
             var result1 = container.Resolve<IFoo>();
             var result2 = container.Resolve<IFoo>();
@@ -411,7 +411,7 @@ namespace Munq.DI.Tests
         public void CachedLifetimeManagerReturnsDifferentObjectIfAbsoluteTimeExpired()
         {
             var cachedltm = new CachedLifetime()
-                .ExpiresOn(DateTime.UtcNow.AddSeconds(5));
+                .ExpiresOn(DateTime.UtcNow.AddSeconds(2));
 
             var container = new Container();
 
@@ -422,7 +422,7 @@ namespace Munq.DI.Tests
             var result2 = container.Resolve<IFoo>();
 
             // simulate expiry
-            Thread.Sleep(6000);
+            Thread.Sleep(3000);
 
             var result3 = container.Resolve<IFoo>();
 
@@ -439,7 +439,7 @@ namespace Munq.DI.Tests
         public void CachedLifetimeManagerReturnsDifferentObjectIfSlidingTimeExpired()
         {
             var cachedltm = new CachedLifetime()
-                .ExpiresAfterNotAcessedFor(new TimeSpan(0,0,5));
+                .ExpiresAfterNotAcessedFor(new TimeSpan(0,0,2));
 
             var container = new Container();
 
@@ -450,7 +450,7 @@ namespace Munq.DI.Tests
             var result2 = container.Resolve<IFoo>();
 
             // simulate expiry
-            Thread.Sleep(6000);
+            Thread.Sleep(3000);
 
             var result3 = container.Resolve<IFoo>();
 
@@ -488,7 +488,7 @@ namespace Munq.DI.Tests
             var result1 = container.Resolve<IFoo>();
 
             // simulate expiry
-            Thread.Sleep(6000);
+            Thread.Sleep(3000);
             var result2 = container.Resolve<IFoo>();
 
             Assert.IsNotNull(result1);
