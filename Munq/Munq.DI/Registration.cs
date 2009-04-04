@@ -14,7 +14,7 @@ namespace Munq.DI
 
         internal Registration()
         {
-            LifetimeManager = AlwayNewLifeTimeManager;
+            LifetimeManager = null;
             _ID = Guid.NewGuid().ToString();
         }
 
@@ -35,16 +35,16 @@ namespace Munq.DI
 
         public IRegistration WithLifetimeManager(ILifetimeManager ltm)
         {
-            if (ltm == null)
-                throw new ArgumentNullException();
-
             LifetimeManager = ltm;
             return this;
         }
 
         internal TType GetInstance(Container container)
         {
-            return (TType)LifetimeManager.GetInstance(container, this);
+            if (LifetimeManager != null)
+                return (TType)LifetimeManager.GetInstance(container, this);
+            else
+                return Factory(container);
         }
 
         public object CreateInstance(Container container)

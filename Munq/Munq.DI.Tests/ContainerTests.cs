@@ -236,15 +236,20 @@ namespace Munq.DI.Tests
 
         }
 
-        // Verify passing a null LifetimeManager throws and exception
+        // Verify passing a null LifetimeManager equivalent to AlwaysNew
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void NullLifetimeManagerResultsInException()
+        
+        public void NullLifetimeManagerSameAsAlwaysNew()
         {
             var container = new Container();
 
             container.Register<IFoo>(c => new Foo1())
                 .WithLifetimeManager(null);
+
+            var result1 = container.Resolve<IFoo>();
+            var result2 = container.Resolve<IFoo>();
+
+            Assert.AreNotSame(result1, result2);
 
         }
 
