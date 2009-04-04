@@ -78,7 +78,7 @@ namespace Munq.DI
         public override bool Equals(object obj)
         {
             var other = obj as NamedRegistrationKey<TType>;
-            return (obj != null) && (Name == other.Name);
+            return (other != null) && (Name == other.Name);
         }
 
         public override int GetHashCode()

@@ -70,7 +70,7 @@ namespace Munq.DI
             return entry;
        }
 
-        public object Resolve<TType>(string name) where TType:class
+        public TType Resolve<TType>(string name) where TType:class
         {
             try
             {
