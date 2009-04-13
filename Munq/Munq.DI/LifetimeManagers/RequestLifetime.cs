@@ -9,7 +9,7 @@ namespace Munq.DI.LifetimeManagers
 {
     public class RequestLifetime : ILifetimeManager
     {
-        HttpContextBase _context = null;
+        private HttpContextBase testContext;
         #region ILifetimeManage Members
 
         public object GetInstance(Container container, IRegistration reg)
@@ -21,15 +21,16 @@ namespace Munq.DI.LifetimeManagers
             }
             else
             {
-                context = _context;
+                context = this.testContext;
             }
 
-            object instance = context.Items[reg.ID];
+            object instance = context.Items[reg.Id];
             if (instance == null)
             {
                 instance = reg.CreateInstance(container);
-                context.Items[reg.ID] = instance;
+                context.Items[reg.Id] = instance;
             }
+
             return instance;
         }
 
@@ -38,7 +39,7 @@ namespace Munq.DI.LifetimeManagers
         // only used for testing.  Has no effect when in web application
         public void SetContext(HttpContextBase context)
         {
-            _context = context;
+            this.testContext = context;
         }
     }
 }

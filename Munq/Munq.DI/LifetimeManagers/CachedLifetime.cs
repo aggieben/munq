@@ -5,16 +5,15 @@ using System.Text;
 using System.Web;
 using System.Web.Caching;
 
-
 namespace Munq.DI.LifetimeManagers
 {
     public class CachedLifetime : ILifetimeManager 
     {
-	    CacheDependency _dependencies = null;
-	    DateTime _absoluteExpiration = Cache.NoAbsoluteExpiration;
-	    TimeSpan _slidingExpiration = Cache.NoSlidingExpiration;
-	    CacheItemPriority _priority = CacheItemPriority.Default;
-	    CacheItemRemovedCallback _onRemoveCallback = null;
+        private CacheDependency dependencies;
+        private DateTime absoluteExpiration = Cache.NoAbsoluteExpiration;
+        private TimeSpan slidingExpiration = Cache.NoSlidingExpiration;
+        private CacheItemPriority priority = CacheItemPriority.Default;
+        private CacheItemRemovedCallback onRemoveCallback;
 
         #region ILifetimeManager Members
         public object GetInstance(Container container, IRegistration reg)
@@ -29,50 +28,62 @@ namespace Munq.DI.LifetimeManagers
                 cache = HttpRuntime.Cache;
             }
 
-            object instance = cache[reg.ID];
+            object instance = cache[reg.Id];
             if (instance == null)
             {
                 instance = reg.CreateInstance(container);
-                cache.Insert(reg.ID, instance,_dependencies, _absoluteExpiration, _slidingExpiration, _priority, _onRemoveCallback);
+                cache.Insert(
+                    reg.Id, 
+                    instance, 
+                    this.dependencies, 
+                    this.absoluteExpiration, 
+                    this.slidingExpiration,
+                    this.priority, 
+                    this.onRemoveCallback);
             }
+
             return instance;
         }
 
         #endregion
 
-	    public CachedLifetime IsDependentOn(CacheDependency dependencies)
+        public CachedLifetime IsDependentOn(CacheDependency dependencies)
         {
-            _dependencies = dependencies;
+            this.dependencies = dependencies;
             return this;
         }
 
-	    public CachedLifetime ExpiresOn(DateTime absoluteExpiration)
+        public CachedLifetime ExpiresOn(DateTime absoluteExpiration)
         {
             if (absoluteExpiration != Cache.NoAbsoluteExpiration)
-                _slidingExpiration = Cache.NoSlidingExpiration;
+            {
+                this.slidingExpiration = Cache.NoSlidingExpiration;
+            }
 
-            _absoluteExpiration = absoluteExpiration;
+            this.absoluteExpiration = absoluteExpiration;
             return this;
         }
         
-        public CachedLifetime ExpiresAfterNotAcessedFor(TimeSpan slidingExpiration)
+        public CachedLifetime ExpiresAfterNotAccessedFor(TimeSpan slidingExpiration)
         {
             if (slidingExpiration != Cache.NoSlidingExpiration)
-                _absoluteExpiration = Cache.NoAbsoluteExpiration;
+            {
+                this.absoluteExpiration = Cache.NoAbsoluteExpiration;
+            }
 
-            _slidingExpiration = slidingExpiration;
+            this.slidingExpiration = slidingExpiration;
             return this;
         }
 
-	    public CachedLifetime WithPriority(CacheItemPriority priority)
+        public CachedLifetime WithPriority(CacheItemPriority priority)
         {
-            _priority = priority;
+            this.priority = priority;
             return this;
         }
 
         public CachedLifetime CallbackOnRemoval(CacheItemRemovedCallback onRemoveCallback)
         {
-            _onRemoveCallback = onRemoveCallback;
+            this.onRemoveCallback = onRemoveCallback;
             return this;
         }
     }

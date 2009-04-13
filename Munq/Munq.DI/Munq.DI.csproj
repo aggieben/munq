@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Container.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ILifetimeManager.cs" />
     <Compile Include="IRegistration.cs" />
     <Compile Include="LifetimeManagers\AlwaysNewLifetime.cs" />

@@ -15,6 +15,7 @@ namespace Munq.DI.LifetimeManagers
             {
                 reg.Instance = reg.CreateInstance(container);
             }
+
             return reg.Instance;
         }
 

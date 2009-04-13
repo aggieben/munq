@@ -198,7 +198,8 @@ fieldset p
 
 fieldset label 
 {
-    display: block;
+    display: inline-block;
+    width:120px;
 }
 
 fieldset label.inline 

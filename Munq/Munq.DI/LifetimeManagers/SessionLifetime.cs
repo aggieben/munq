@@ -9,7 +9,7 @@ namespace Munq.DI.LifetimeManagers
 {
     public class SessionLifetime : ILifetimeManager
     {
-        HttpSessionStateBase _session = null;
+        private HttpSessionStateBase testSession;
         #region ILifetimeManager Members
 
         public object GetInstance(Container container, IRegistration reg)
@@ -21,15 +21,16 @@ namespace Munq.DI.LifetimeManagers
             }
             else
             {
-                session = _session;
+                session = this.testSession;
             }
 
-            object instance = session[reg.ID];
+            object instance = session[reg.Id];
             if (instance == null)
             {
                 instance = reg.CreateInstance(container);
-                session[reg.ID] = instance;
+                session[reg.Id] = instance;
             }
+
             return instance;
         }
 
@@ -38,7 +39,7 @@ namespace Munq.DI.LifetimeManagers
         // only used for testing.  Has no effect when in web application
         public void SetContext(HttpContextBase context)
         {
-            _session = context.Session;
+            this.testSession = context.Session;
         }
     }
 }

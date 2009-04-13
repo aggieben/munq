@@ -7,16 +7,18 @@ namespace Munq.DI
 {
     public interface IRegistration
     {
-        string ID { get; }
+        string Id { get; }
+
         object Instance { get; set; }
+
         object CreateInstance(Container container);
 
-        IRegistration WithLifetimeManager(ILifetimeManager ltm);
+        IRegistration WithLifetimeManager(ILifetimeManager manager);
     }
 
     public interface IRegistrationKey
     {
-        bool Equals(object obj);
+        bool Equals(object other);
         int GetHashCode();
     }
 }

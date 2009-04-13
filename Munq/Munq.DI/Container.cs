@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Collections.Specialized;
 
 namespace Munq.DI
 {
     public class Container
     {
-        HybridDictionary TypeRegistry = new HybridDictionary();
+        private HybridDictionary typeRegistry = new HybridDictionary();
 
         /// <summary>
         /// Creates an DI Container
@@ -21,16 +19,18 @@ namespace Munq.DI
         /// Registers a function to create instances of a type
         /// </summary>
         /// <typeparam name="TType">The type being registered</typeparam>
-        /// <param name="f">The function that creates the type.  The function takes a single paramenter of type Container</param>
+        /// <param name="func">The function that creates the type.  The function takes a single paramenter of type Container</param>
         /// <returns>An IRegistration that can be used to configure the behaviour of the registration</returns>
-        public IRegistration Register<TType>(Func<Container, TType> f) where TType:class
+        public IRegistration Register<TType>(Func<Container, TType> func) where TType : class
         {
-            if (f == null)
-                throw new ArgumentNullException();
+            if (func == null)
+            {
+                throw new ArgumentNullException("func");
+            }
 
             var key = new RegistrationKey<TType>();
-            var entry = new Registration<TType>(f);
-            TypeRegistry[key] = entry;
+            var entry = new Registration<TType>(func);
+            this.typeRegistry[key] = entry;
 
             return entry;
         }
@@ -40,17 +40,19 @@ namespace Munq.DI
         /// </summary>
         /// <typeparam name="TType">The type to resolve</typeparam>
         /// <returns>An instance of the type.  Throws a KeyNoFoundException if not registered.</returns>
-        public TType Resolve<TType>() where TType:class
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
+        public TType Resolve<TType>() where TType : class
         {
             try
             {
                 var key = new RegistrationKey<TType>();
-                var entry = (Registration<TType>)TypeRegistry[key];
+                var entry = (Registration<TType>)this.typeRegistry[key];
                 if (entry == null)
+                {
                     throw new KeyNotFoundException();
+                }
 
                 return entry.GetInstance(this);
-
             }
             catch
             {
@@ -58,29 +60,33 @@ namespace Munq.DI
             }
         }
 
-        public IRegistration Register<TType>(string name, Func<Container, TType> f) where TType:class
+        public IRegistration Register<TType>(string name, Func<Container, TType> func) where TType : class
         {
-             if (f == null)
-                throw new ArgumentNullException();
+            if (func == null)
+            {
+                throw new ArgumentNullException("func");
+            }
 
             var key = new NamedRegistrationKey<TType>(name);
-            var entry = new Registration<TType>(f);
-            TypeRegistry[key] = entry;
+            var entry = new Registration<TType>(func);
+            this.typeRegistry[key] = entry;
 
             return entry;
        }
 
-        public TType Resolve<TType>(string name) where TType:class
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
+        public TType Resolve<TType>(string name) where TType : class
         {
             try
             {
                 var key = new NamedRegistrationKey<TType>(name);
-                var entry = (Registration<TType>)TypeRegistry[key];
+                var entry = (Registration<TType>)this.typeRegistry[key];
                 if (entry == null)
+                {
                     throw new KeyNotFoundException();
+                }
 
                 return entry.GetInstance(this);
-
             }
             catch
             {

@@ -260,7 +260,7 @@ namespace Munq.DI.Tests
             var container = new Container();
 
             container.Register<IFoo>(c => new Foo1())
-                .WithLifetimeManager(Registration.ContainerLifeTimeManager);
+                .WithLifetimeManager(Registration.ContainerLifetimeManager);
 
             var result1 = container.Resolve<IFoo>();
             var result2 = container.Resolve<IFoo>();
@@ -399,7 +399,7 @@ namespace Munq.DI.Tests
             var result2 = container.Resolve<IFoo>();
 
             // simulate expiry
-            HttpRuntime.Cache.Remove(ireg.ID);
+            HttpRuntime.Cache.Remove(ireg.Id);
 
             var result3 = container.Resolve<IFoo>();
 
@@ -444,7 +444,7 @@ namespace Munq.DI.Tests
         public void CachedLifetimeManagerReturnsDifferentObjectIfSlidingTimeExpired()
         {
             var cachedltm = new CachedLifetime()
-                .ExpiresAfterNotAcessedFor(new TimeSpan(0,0,2));
+                .ExpiresAfterNotAccessedFor(new TimeSpan(0,0,2));
 
             var container = new Container();
 
@@ -481,7 +481,7 @@ namespace Munq.DI.Tests
         public void CallbackIsCalledWhenItemRemovedFromCache()
         {
             var cachedltm = new CachedLifetime()
-                .ExpiresAfterNotAcessedFor(new TimeSpan(0, 0, 2))
+                .ExpiresAfterNotAccessedFor(new TimeSpan(0, 0, 2))
                 .CallbackOnRemoval(RemovedCallback);
 
             var container = new Container();

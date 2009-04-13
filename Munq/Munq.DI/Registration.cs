@@ -1,59 +1,66 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Munq.DI
 {
-        public class Registration
+    public class Registration
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
+        public static readonly ILifetimeManager AlwaysNewLifetimeManager = new LifetimeManagers.AlwaysNewLifetime();
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
+        public static readonly ILifetimeManager ContainerLifetimeManager = new LifetimeManagers.ContainerLifetime();
+
         internal ILifetimeManager LifetimeManager;
-        private readonly string _ID;
-        public static readonly ILifetimeManager AlwayNewLifeTimeManager = new LifetimeManagers.AlwaysNewLifetime();
-        public static readonly ILifetimeManager ContainerLifeTimeManager = new LifetimeManagers.ContainerLifetime();
+
+        private readonly string ID;
 
         internal Registration()
         {
-            LifetimeManager = null;
-            _ID = Guid.NewGuid().ToString();
+           // LifetimeManager = null;
+            this.ID = Guid.NewGuid().ToString();
         }
 
-        public string ID { get { return _ID; } }
+        public string Id 
+        { 
+            get { return this.ID; } 
+        }
 
         public object Instance { get; set; }
+   }
 
-    }
-
-    public class Registration<TType> : Registration, IRegistration  where TType:class
+    public class Registration<TType> : Registration, IRegistration where TType : class
     {
         internal Func<Container, TType> Factory;
 
-        internal Registration(Func<Container, TType> f)
+        internal Registration(Func<Container, TType> func)
         {
-            Factory = f;
+            this.Factory = func;
         }
 
-        public IRegistration WithLifetimeManager(ILifetimeManager ltm)
+        public IRegistration WithLifetimeManager(ILifetimeManager manager)
         {
-            LifetimeManager = ltm;
+            this.LifetimeManager = manager;
             return this;
-        }
-
-        internal TType GetInstance(Container container)
-        {
-            if (LifetimeManager != null)
-                return (TType)LifetimeManager.GetInstance(container, this);
-            else
-                return Factory(container);
         }
 
         public object CreateInstance(Container container)
         {
-            return Factory(container);
+            return this.Factory(container);
+        }
+         
+        internal TType GetInstance(Container container)
+        {
+            if (this.LifetimeManager != null)
+            {
+                return (TType)this.LifetimeManager.GetInstance(container, this);
+            }
+            else
+            {
+                return this.Factory(container);
+            }
         }
     }
 
-    internal class RegistrationKey<TType> : IRegistrationKey where TType:class
+   internal class RegistrationKey<TType> : IRegistrationKey where TType : class
     {
         public override bool Equals(object obj)
         {
@@ -68,17 +75,17 @@ namespace Munq.DI
 
     internal class NamedRegistrationKey<TType> : IRegistrationKey where TType : class
     {
-        private string Name;
+        private string name;
 
         public NamedRegistrationKey(string name)
         {
-            Name = name;
+            this.name = name;
         }
 
         public override bool Equals(object obj)
         {
             var other = obj as NamedRegistrationKey<TType>;
-            return (other != null) && (Name == other.Name);
+            return (other != null) && (this.name == other.name);
         }
 
         public override int GetHashCode()
@@ -86,5 +93,4 @@ namespace Munq.DI
             return typeof(TType).GetHashCode();
         }
     }
-
 }
