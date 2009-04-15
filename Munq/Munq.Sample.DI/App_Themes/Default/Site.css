@@ -108,6 +108,20 @@ page width. Or, you can specify an exact pixel width. */
     font-family: Arial, Helvetica, sans-serif;
     font-size: 32px !important;
 }
+#logo 
+{
+    background-image:url(logo.jpg);
+    width:100px;
+    height:100px;
+    float:left;
+    padding:0px;
+}
+#logo a
+{
+    display:block;
+    width:100px;
+    height:100px;
+}
 
 #main
 {
@@ -135,6 +149,7 @@ ul#menu
     padding: 0 0 2px;
     position: relative;
     margin: 0;
+    margin-left:100px;
     text-align: right;
 }
 

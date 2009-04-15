@@ -36,16 +36,20 @@ namespace Munq.Sample.DI
 
         private void InitializeContainer()
         {
+            // create the Munq.DI.ControllerFactory and get the container
             var controllerFactory = new Munq.MVC.DI.MunqDIControllerFactory();
             var container = controllerFactory.DIContainer;
 
+            // register the Home Controller
             container.Register<IController>("Home", c => new HomeController());
 
+            // register the Account Controller and its dependencies
             container.Register<IFormsAuthentication>(c => new FormsAuthenticationService());
             container.Register<IMembershipService>(c => new AccountMembershipService());
             container.Register<IController>("Account",
                 c => new AccountController(c.Resolve<IFormsAuthentication>(), c.Resolve<IMembershipService>()));
 
+            // set the controller factory
             ControllerBuilder.Current.SetControllerFactory(controllerFactory);
 
         }
