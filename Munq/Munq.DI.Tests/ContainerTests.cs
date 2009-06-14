@@ -502,5 +502,34 @@ namespace Munq.DI.Tests
             Assert.IsTrue(itemRemoved);
 
         }
+
+        // verify Dispose is called on Disposable instance for ContainerLifetime objects
+        static bool disposeWasCalled = false;
+
+        public class DisposableBar : IBar, IDisposable
+        {
+            #region IDisposable Members
+
+            public void Dispose()
+            {
+                disposeWasCalled = true;
+            }
+            #endregion
+        }
+
+        [TestMethod]
+        public void DisposableWithContainerLifetimeAreDisposed()
+        {
+            var c = new Container();
+            var clt = new ContainerLifetime();
+
+            c.Register<IBar>(x => new DisposableBar()).WithLifetimeManager(clt);
+            var df = c.Resolve<IBar>();
+            disposeWasCalled = false;
+
+            c.Dispose();
+
+            Assert.IsTrue(disposeWasCalled);
+        }
     }
 }

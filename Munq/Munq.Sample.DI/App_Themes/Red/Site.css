@@ -5,7 +5,8 @@ to use a different color start by replacing all instances of
 ----------------------------------------------------------*/
 body
 {
-    background-color: #5c87b2;
+    background-image: url("bg.jpg") ;
+    background-repeat:repeat;
     font-size: .75em;
     font-family: Verdana, Helvetica, Sans-Serif;
     margin: 0;
@@ -43,7 +44,7 @@ p, ul
 h1, h2, h3, h4, h5, h6
 {
     font-size: 1.5em;
-    color: #000;
+    color: red;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -93,7 +94,7 @@ page width. Or, you can specify an exact pixel width. */
 {
     position: relative;
     margin-bottom: 0px;
-    color: #000;
+    color: red;
     padding: 0;
 }
 
@@ -102,7 +103,7 @@ page width. Or, you can specify an exact pixel width. */
     font-weight: bold;
     padding: 5px 0;
     margin: 0;
-    color: #fff;
+    color: red;
     border: none;
     line-height: 2em;
     font-family: Arial, Helvetica, sans-serif;
@@ -145,7 +146,7 @@ page width. Or, you can specify an exact pixel width. */
 ----------------------------------------------------------*/
 ul#menu
 {
-    border-bottom: 1px #5C87B2 solid;
+    border-bottom: 1px red solid;
     padding: 0 0 2px;
     position: relative;
     margin: 0;
@@ -294,24 +295,24 @@ div#title
     display:block;
     text-align:right;
     margin:10px;
-    color:White;
+    color:Maroon;
 }
 
 #logindisplay a:link
 {
-    color: white;
+    color: red;
     text-decoration: underline;
 }
 
 #logindisplay a:visited
 {
-    color: white;
+    color: red;
     text-decoration: underline;
 }
 
 #logindisplay a:hover
 {
-    color: white;
+    color: red;
     text-decoration: none;
 }
 

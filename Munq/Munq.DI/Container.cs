@@ -4,9 +4,12 @@ using System.Collections.Specialized;
 
 namespace Munq.DI
 {
-    public class Container
+    public class Container: IDisposable
     {
         private HybridDictionary typeRegistry = new HybridDictionary();
+        // Track whether Dispose has been called.
+        private bool disposed = false;
+
 
         /// <summary>
         /// Creates an DI Container
@@ -93,5 +96,60 @@ namespace Munq.DI
                 throw new KeyNotFoundException();
             }
         }
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            Dispose(true);
+            // Take yourself off the Finalization queue 
+            // to prevent finalization code for this object
+            // from executing a second time.
+            GC.SuppressFinalize(this);
+        }
+
+    // Dispose(bool disposing) executes in two distinct scenarios.
+   // If disposing equals true, the method has been called directly
+   // or indirectly by a user's code. Managed and unmanaged resources
+   // can be disposed.
+   // If disposing equals false, the method has been called by the 
+   // runtime from inside the finalizer and you should not reference 
+   // other objects. Only unmanaged resources can be disposed.
+   protected virtual void Dispose(bool disposing)
+   {
+      // Check to see if Dispose has already been called.
+      if(!this.disposed)
+      {
+         // If disposing equals true, dispose all ContainerLifetime instances
+         if(disposing)
+         {
+             foreach ( Registration reg in this.typeRegistry.Values )
+             {
+                 var instance = reg.Instance as IDisposable;
+                 if (instance != null)
+                 {
+                     instance.Dispose();
+                     reg.Instance = null;
+                 }
+             }
+         }
+      }
+      disposed = true;         
+   }
+
+   // Use C# destructor syntax for finalization code.
+   // This destructor will run only if the Dispose method 
+   // does not get called.
+   // It gives your base class the opportunity to finalize.
+   // Do not provide destructors in types derived from this class.
+   ~Container()      
+   {
+      // Do not re-create Dispose clean-up code here.
+      // Calling Dispose(false) is optimal in terms of
+      // readability and maintainability.
+      Dispose(false);
+   }
+
+       #endregion
     }
 }

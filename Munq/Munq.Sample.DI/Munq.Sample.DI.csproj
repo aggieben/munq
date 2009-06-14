@@ -71,9 +71,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Themes\Red\bg.jpg" />
+    <Content Include="App_Themes\Red\logo.jpg" />
+    <Content Include="App_Themes\Red\Site.css" />
     <Content Include="App_Themes\Default\logo.jpg" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Views\Home\Theme.aspx" />
     <Content Include="Web.config" />
     <Content Include="App_Themes\Default\Site.css" />
     <Content Include="Scripts\jquery-1.3.2.js" />

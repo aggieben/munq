@@ -4,12 +4,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
+    <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
 </head>
 
 <body>
     <div class="page">
         <div id="header">
-        <div id="logo"><a href="\" alt="Home"></a></div>
+            <div id="logo">
+                <a href="\" alt="Home"></a>
+            </div>
             <div id="title">
                 <h1>My MVC Application</h1>
             </div>
@@ -32,6 +35,7 @@
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
 
             <div id="footer">
+               &copy;Matthew Dennis, 2009
             </div>
         </div>
     </div>
