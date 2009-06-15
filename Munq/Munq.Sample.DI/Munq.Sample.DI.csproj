@@ -71,6 +71,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Themes\CodeProject\CodeProject1.jpg" />
+    <Content Include="App_Themes\CodeProject\logo.gif" />
+    <Content Include="App_Themes\CodeProject\Site.css" />
     <Content Include="App_Themes\Red\bg.jpg" />
     <Content Include="App_Themes\Red\logo.jpg" />
     <Content Include="App_Themes\Red\Site.css" />
@@ -78,6 +81,7 @@
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Views\Home\Theme.aspx" />
+    <Content Include="Views\Shared\UseThemes.aspx" />
     <Content Include="Web.config" />
     <Content Include="App_Themes\Default\Site.css" />
     <Content Include="Scripts\jquery-1.3.2.js" />

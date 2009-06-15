@@ -25,7 +25,7 @@
     <h2>Theme</h2>
     <% using(Html.BeginForm("SetTheme", "Home") ){ %>
     <%=Html.DropDownList("theme") %>
-    <input type="submit" />
+    <input type="submit" value="Change Theme" />
     <% } %> 
     
 
