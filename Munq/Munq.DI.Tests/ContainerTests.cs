@@ -22,6 +22,7 @@ namespace Munq.DI.Tests
     [TestClass]
     public class ContainerTests
     {
+        static ContainerLifetime ContainerLifeTimeManager = new ContainerLifetime();
         public ContainerTests()
         {
             //
@@ -260,7 +261,7 @@ namespace Munq.DI.Tests
             var container = new Container();
 
             container.Register<IFoo>(c => new Foo1())
-                .WithLifetimeManager(Registration.ContainerLifetimeManager);
+                .WithLifetimeManager(ContainerLifeTimeManager);
 
             var result1 = container.Resolve<IFoo>();
             var result2 = container.Resolve<IFoo>();

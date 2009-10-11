@@ -14,15 +14,9 @@ namespace Munq.DI.LifetimeManagers
 
         public object GetInstance(Container container, IRegistration reg)
         {
-            HttpContextBase context;
-            if (System.Web.HttpContext.Current != null)
-            {
-                context = new HttpContextWrapper(HttpContext.Current);
-            }
-            else
-            {
-                context = this.testContext;
-            }
+            HttpContextBase context =(System.Web.HttpContext.Current != null)
+                ? new HttpContextWrapper(HttpContext.Current)
+                : this.testContext;
 
             object instance = context.Items[reg.Id];
             if (instance == null)

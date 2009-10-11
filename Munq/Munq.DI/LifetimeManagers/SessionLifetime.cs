@@ -14,15 +14,9 @@ namespace Munq.DI.LifetimeManagers
 
         public object GetInstance(Container container, IRegistration reg)
         {
-            HttpSessionStateBase session;
-            if (System.Web.HttpContext.Current != null)
-            {
-                session = new HttpSessionStateWrapper(HttpContext.Current.Session);
-            }
-            else
-            {
-                session = this.testSession;
-            }
+            HttpSessionStateBase session = (System.Web.HttpContext.Current != null)
+                ? new HttpSessionStateWrapper(HttpContext.Current.Session)
+                : this.testSession;
 
             object instance = session[reg.Id];
             if (instance == null)

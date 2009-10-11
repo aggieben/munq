@@ -12,9 +12,7 @@ namespace Munq.DI.LifetimeManagers
         public object GetInstance(Container container, IRegistration reg)
         {
             if (reg.Instance == null)
-            {
                 reg.Instance = reg.CreateInstance(container);
-            }
 
             return reg.Instance;
         }

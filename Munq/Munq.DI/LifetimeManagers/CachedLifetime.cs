@@ -9,37 +9,23 @@ namespace Munq.DI.LifetimeManagers
 {
     public class CachedLifetime : ILifetimeManager 
     {
-        private CacheDependency dependencies;
-        private DateTime absoluteExpiration = Cache.NoAbsoluteExpiration;
-        private TimeSpan slidingExpiration = Cache.NoSlidingExpiration;
-        private CacheItemPriority priority = CacheItemPriority.Default;
-        private CacheItemRemovedCallback onRemoveCallback;
+        private CacheDependency          _dependencies;
+        private DateTime                 _absoluteExpiration = Cache.NoAbsoluteExpiration;
+        private TimeSpan                 _slidingExpiration  = Cache.NoSlidingExpiration;
+        private CacheItemPriority        _priority           = CacheItemPriority.Default;
+        private CacheItemRemovedCallback _onRemoveCallback;
 
         #region ILifetimeManager Members
         public object GetInstance(Container container, IRegistration reg)
         {
-            System.Web.Caching.Cache cache;
-            if (System.Web.HttpContext.Current != null)
-            {
-                cache = HttpContext.Current.Cache;
-            }
-            else
-            {
-                cache = HttpRuntime.Cache;
-            }
+            System.Web.Caching.Cache cache = HttpRuntime.Cache;
 
             object instance = cache[reg.Id];
             if (instance == null)
             {
-                instance = reg.CreateInstance(container);
-                cache.Insert(
-                    reg.Id, 
-                    instance, 
-                    this.dependencies, 
-                    this.absoluteExpiration, 
-                    this.slidingExpiration,
-                    this.priority, 
-                    this.onRemoveCallback);
+                instance   = reg.CreateInstance(container);
+                cache.Insert(reg.Id, instance, _dependencies, _absoluteExpiration, 
+                                _slidingExpiration, _priority, _onRemoveCallback);
             }
 
             return instance;
@@ -49,41 +35,37 @@ namespace Munq.DI.LifetimeManagers
 
         public CachedLifetime IsDependentOn(CacheDependency dependencies)
         {
-            this.dependencies = dependencies;
+            _dependencies = dependencies;
             return this;
         }
 
         public CachedLifetime ExpiresOn(DateTime absoluteExpiration)
         {
             if (absoluteExpiration != Cache.NoAbsoluteExpiration)
-            {
-                this.slidingExpiration = Cache.NoSlidingExpiration;
-            }
+                _slidingExpiration  = Cache.NoSlidingExpiration;
 
-            this.absoluteExpiration = absoluteExpiration;
+            _absoluteExpiration     = absoluteExpiration;
             return this;
         }
         
         public CachedLifetime ExpiresAfterNotAccessedFor(TimeSpan slidingExpiration)
         {
-            if (slidingExpiration != Cache.NoSlidingExpiration)
-            {
-                this.absoluteExpiration = Cache.NoAbsoluteExpiration;
-            }
+            if (slidingExpiration  != Cache.NoSlidingExpiration)
+                _absoluteExpiration = Cache.NoAbsoluteExpiration;
 
-            this.slidingExpiration = slidingExpiration;
+            _slidingExpiration      = slidingExpiration;
             return this;
         }
 
         public CachedLifetime WithPriority(CacheItemPriority priority)
         {
-            this.priority = priority;
+            _priority = priority;
             return this;
         }
 
         public CachedLifetime CallbackOnRemoval(CacheItemRemovedCallback onRemoveCallback)
         {
-            this.onRemoveCallback = onRemoveCallback;
+            _onRemoveCallback = onRemoveCallback;
             return this;
         }
     }

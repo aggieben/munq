@@ -10,6 +10,9 @@ namespace Munq.Sample.DI.Controllers
     [HandleError]
     public class HomeController : Controller
     {
+		class Test{
+		public string Name { get; set;}
+		}
         public ActionResult Index()
         {
             ViewData["Message"] = "Welcome to ASP.NET MVC!";
