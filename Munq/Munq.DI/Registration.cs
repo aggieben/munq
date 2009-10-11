@@ -2,39 +2,29 @@
 
 namespace Munq.DI
 {
-    public class Registration
+    public class Registration: IRegistration
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
-        public static readonly ILifetimeManager AlwaysNewLifetimeManager = new LifetimeManagers.AlwaysNewLifetime();
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
-        public static readonly ILifetimeManager ContainerLifetimeManager = new LifetimeManagers.ContainerLifetime();
+        internal ILifetimeManager	LifetimeManager;
+        internal Type				InstanceType;
+        internal string				Name;
+        internal object				Factory;
 
-        internal ILifetimeManager LifetimeManager;
+        private readonly string		ID;
 
-        private readonly string ID;
-
-        internal Registration()
+        internal Registration(string name, Type type, object factory)
         {
-           // LifetimeManager = null;
-            this.ID = Guid.NewGuid().ToString();
+            LifetimeManager = null;
+            Name = name;
+            InstanceType	= type;
+            Factory			= factory;
+            this.ID			= Guid.NewGuid().ToString();
         }
 
-        public string Id 
-        { 
-            get { return this.ID; } 
-        }
+        internal Registration(Type type, object factory) : this(null, type, factory) {}
+
+        public string Id { get { return this.ID; } }
 
         public object Instance { get; set; }
-   }
-
-    public class Registration<TType> : Registration, IRegistration where TType : class
-    {
-        internal Func<Container, TType> Factory;
-
-        internal Registration(Func<Container, TType> func)
-        {
-            this.Factory = func;
-        }
 
         public IRegistration WithLifetimeManager(ILifetimeManager manager)
         {
@@ -44,53 +34,32 @@ namespace Munq.DI
 
         public object CreateInstance(Container container)
         {
-            return this.Factory(container);
+            return ((Func<Container, object>)this.Factory)(container);
         }
-         
-        internal TType GetInstance(Container container)
-        {
-            if (this.LifetimeManager != null)
-            {
-                return (TType)this.LifetimeManager.GetInstance(container, this);
-            }
-            else
-            {
-                return this.Factory(container);
-            }
-        }
-    }
 
-   internal class RegistrationKey<TType> : IRegistrationKey where TType : class
-    {
+        public object GetInstance(Container container)
+        {
+            return (this.LifetimeManager != null)
+                ? this.LifetimeManager.GetInstance(container, this)
+                : CreateInstance(container);
+        }
+
+        // comparison methods
         public override bool Equals(object obj)
         {
-            return obj is RegistrationKey<TType>;
+            var r = obj as Registration;
+            return (r != null) &&
+                InstanceType.Equals(r.InstanceType) &&
+                ((Name == null && r.Name == null) || (Name != null && Name.Equals(r.Name)));
         }
 
         public override int GetHashCode()
         {
-            return typeof(TType).GetHashCode();
-        }
-    }
+            var hc = InstanceType.GetHashCode();
+            if(Name != null)
+                hc ^= Name.GetHashCode();
 
-    internal class NamedRegistrationKey<TType> : IRegistrationKey where TType : class
-    {
-        private string name;
-
-        public NamedRegistrationKey(string name)
-        {
-            this.name = name;
+            return hc;
         }
-
-        public override bool Equals(object obj)
-        {
-            var other = obj as NamedRegistrationKey<TType>;
-            return (other != null) && (this.name == other.name);
-        }
-
-        public override int GetHashCode()
-        {
-            return typeof(TType).GetHashCode();
-        }
-    }
+   }
 }
