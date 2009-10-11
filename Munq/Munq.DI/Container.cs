@@ -33,6 +33,9 @@ namespace Munq.DI
 
         public IRegistration RegisterInstance<TType>(string name, TType instance) where TType : class
         { return Register<TType>(name, c => instance); }
+        
+        public IRegistration Register(Type type, object func)
+        { return Register(null, type, func); }
 
         public IRegistration Register(string name, Type type, object func)
         {
