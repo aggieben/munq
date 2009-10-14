@@ -46,8 +46,9 @@ namespace Munq.DI
         {
             var r = obj as Registration;
             return (r != null) &&
-                InstanceType.Equals(r.InstanceType) &&
-                ((Name == null && r.Name == null) || (Name != null && Name.Equals(r.Name)));
+                (InstanceType== r.InstanceType) &&
+                (Name == r.Name);
+				//((Name == null && r.Name == null) || (Name != null && Name.Equals(r.Name)));
         }
 
         public override int GetHashCode()
