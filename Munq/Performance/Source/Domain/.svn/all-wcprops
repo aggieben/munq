@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/15727/trunk/Samples/Performance/Source/Domain
+END
+IDatabase.cs
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/15371/trunk/Samples/Performance/Source/Domain/IDatabase.cs
+END
+WebService.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/15727/trunk/Samples/Performance/Source/Domain/WebService.cs
+END
+Logger.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/15371/trunk/Samples/Performance/Source/Domain/Logger.cs
+END
+IErrorHandler.cs
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/15371/trunk/Samples/Performance/Source/Domain/IErrorHandler.cs
+END
+StockQuote.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/15371/trunk/Samples/Performance/Source/Domain/StockQuote.cs
+END
+IAuthenticator.cs
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/15371/trunk/Samples/Performance/Source/Domain/IAuthenticator.cs
+END
+Database.cs
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/15371/trunk/Samples/Performance/Source/Domain/Database.cs
+END
+ErrorHandler.cs
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/15371/trunk/Samples/Performance/Source/Domain/ErrorHandler.cs
+END
+IWebService.cs
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/15727/trunk/Samples/Performance/Source/Domain/IWebService.cs
+END
+ILogger.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/15371/trunk/Samples/Performance/Source/Domain/ILogger.cs
+END
+Authenticator.cs
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/15371/trunk/Samples/Performance/Source/Domain/Authenticator.cs
+END
+IStockQuote.cs
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/15371/trunk/Samples/Performance/Source/Domain/IStockQuote.cs
+END
