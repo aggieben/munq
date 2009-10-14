@@ -4,18 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Hosting;
+using Munq.Sample.DI.Models;
 
 namespace Munq.Sample.DI.Controllers
 {
     [HandleError]
     public class HomeController : Controller
     {
-		class Test{
-		public string Name { get; set;}
-		}
         public ActionResult Index()
         {
-            ViewData["Message"] = "Welcome to ASP.NET MVC!";
+			var s =  MvcApplication.Container.Resolve<TestConfig>("Default");
+            ViewData["Message"] = "Welcome to ASP.NET MVC!" + s.Name;
+            s.Name += "*";
 
             return View();
         }
@@ -36,7 +36,7 @@ namespace Munq.Sample.DI.Controllers
             {
                 themes.Add(vdir.Name);
             }
-            var sv =ControllerContext.HttpContext.Profile.GetPropertyValue("Theme");
+            var sv =WebProfile.Current.theme;
             var sl = new SelectList(themes,sv);
             ViewData["theme"] = sl;
 
@@ -46,7 +46,7 @@ namespace Munq.Sample.DI.Controllers
         public ActionResult SetTheme(string theme)
         {
             if(!String.IsNullOrEmpty(theme))
-                ControllerContext.HttpContext.Profile.SetPropertyValue("Theme", theme);
+                WebProfile.Current.theme = theme;
 
             return RedirectToAction("Theme");
         }

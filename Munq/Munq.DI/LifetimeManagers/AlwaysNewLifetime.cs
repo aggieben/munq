@@ -9,7 +9,7 @@ namespace Munq.DI.LifetimeManagers
     {
         #region ILifetimeManager Members
 
-        public object GetInstance(Container container, IRegistration reg)
+        public object GetInstance(Container container, Registration reg)
         {
             return reg.CreateInstance(container);
         }

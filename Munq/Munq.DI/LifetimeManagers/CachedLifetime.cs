@@ -16,7 +16,7 @@ namespace Munq.DI.LifetimeManagers
         private CacheItemRemovedCallback _onRemoveCallback;
 
         #region ILifetimeManager Members
-        public object GetInstance(Container container, IRegistration reg)
+        public object GetInstance(Container container, Registration reg)
         {
             System.Web.Caching.Cache cache = HttpRuntime.Cache;
 

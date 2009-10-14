@@ -4,27 +4,24 @@ namespace Munq.DI
 {
     public class Registration: IRegistration
     {
-        internal ILifetimeManager	LifetimeManager;
-        internal Type				InstanceType;
-        internal string				Name;
-        internal object				Factory;
+        internal ILifetimeManager			LifetimeManager;
+        internal Type						InstanceType;
+        internal string						Name;
+        internal Func<Container, object>	Factory;
+        internal object						Instance;
 
-        private readonly string		ID;
-
-        internal Registration(string name, Type type, object factory)
+		internal Registration(string name, Type type, Func<Container, object> factory)
         {
             LifetimeManager = null;
-            Name = name;
+            Name			= name;
             InstanceType	= type;
             Factory			= factory;
-            this.ID			= Guid.NewGuid().ToString();
+            Id				= Guid.NewGuid().ToString();
         }
 
-        internal Registration(Type type, object factory) : this(null, type, factory) {}
+		internal Registration(Type type, Func<Container, object> factory) : this(null, type, factory) { }
 
-        public string Id { get { return this.ID; } }
-
-        public object Instance { get; set; }
+        public string Id { get; private set; }
 
         public IRegistration WithLifetimeManager(ILifetimeManager manager)
         {
@@ -32,15 +29,15 @@ namespace Munq.DI
             return this;
         }
 
-        public object CreateInstance(Container container)
+        internal object CreateInstance(Container container)
         {
-            return ((Func<Container, object>)this.Factory)(container);
+            return this.Factory(container);
         }
 
-        public object GetInstance(Container container)
+        internal object GetInstance(Container container)
         {
-            return (this.LifetimeManager != null)
-                ? this.LifetimeManager.GetInstance(container, this)
+            return (LifetimeManager != null)
+                ? LifetimeManager.GetInstance(container, this)
                 : CreateInstance(container);
         }
 

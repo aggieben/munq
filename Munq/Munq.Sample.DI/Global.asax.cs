@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using System.Web.Routing;
 
 using Munq.Sample.DI.Controllers;
+using Munq.DI;
+using Munq.DI.LifetimeManagers;
+using Munq.Sample.DI.Models;
 
 namespace Munq.Sample.DI
 {
@@ -14,6 +17,7 @@ namespace Munq.Sample.DI
 
     public class MvcApplication : System.Web.HttpApplication
     {
+		static public Container Container { get; set;}
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
@@ -38,16 +42,19 @@ namespace Munq.Sample.DI
         {
             // create the Munq.DI.ControllerFactory and get the container
             var controllerFactory = new Munq.MVC.DI.MunqDIControllerFactory();
-            var container = controllerFactory.DIContainer;
+            Container = controllerFactory.DIContainer;
 
             // register the Home Controller
-            container.Register<IController>("Home", c => new HomeController());
+            Container.Register<IController>("Home", c => new HomeController());
 
             // register the Account Controller and its dependencies
-            container.Register<IFormsAuthentication>(c => new FormsAuthenticationService());
-            container.Register<IMembershipService>(c => new AccountMembershipService());
-            container.Register<IController>("Account",
+            Container.Register<IFormsAuthentication>(c => new FormsAuthenticationService());
+            Container.Register<IMembershipService>(c => new AccountMembershipService());
+            Container.Register<IController>("Account",
                 c => new AccountController(c.Resolve<IFormsAuthentication>(), c.Resolve<IMembershipService>()));
+                
+            Container.Register<TestConfig>("Default", c=>new TestConfig { Name="This is a test"}).
+            WithLifetimeManager(new CachedLifetime().ExpiresAfterNotAccessedFor(new TimeSpan(0,1,0)));
 
             // set the controller factory
             ControllerBuilder.Current.SetControllerFactory(controllerFactory);

@@ -12,7 +12,7 @@ namespace Munq.DI.LifetimeManagers
         private HttpSessionStateBase testSession;
         #region ILifetimeManager Members
 
-        public object GetInstance(Container container, IRegistration reg)
+        public object GetInstance(Container container, Registration reg)
         {
             HttpSessionStateBase session = (System.Web.HttpContext.Current != null)
                 ? new HttpSessionStateWrapper(HttpContext.Current.Session)

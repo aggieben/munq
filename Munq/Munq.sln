@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{9BFF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.Sample.DI", "Munq.Sample.DI\Munq.Sample.DI.csproj", "{0A6A96F0-C516-4EC6-BCEC-E016F2851D96}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Performance", "..\..\..\..\..\..\Funq\trunk\Samples\Performance\Source\Performance.csproj", "{F4F213FC-29C7-4D5F-80D1-422F2567EFDA}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 6
@@ -69,11 +71,16 @@ Global
 		{0A6A96F0-C516-4EC6-BCEC-E016F2851D96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A6A96F0-C516-4EC6-BCEC-E016F2851D96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A6A96F0-C516-4EC6-BCEC-E016F2851D96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4F213FC-29C7-4D5F-80D1-422F2567EFDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4F213FC-29C7-4D5F-80D1-422F2567EFDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4F213FC-29C7-4D5F-80D1-422F2567EFDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4F213FC-29C7-4D5F-80D1-422F2567EFDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0A6A96F0-C516-4EC6-BCEC-E016F2851D96} = {9BFF594F-92FB-48CC-8FCF-FC2E84C832C8}
+		{F4F213FC-29C7-4D5F-80D1-422F2567EFDA} = {9BFF594F-92FB-48CC-8FCF-FC2E84C832C8}
 	EndGlobalSection
 EndGlobal

@@ -7,6 +7,6 @@ namespace Munq.DI
 {
     public interface ILifetimeManager
     {
-        object	GetInstance(Container container, IRegistration reg);
+        object	GetInstance(Container container, Registration reg);
     }
 }

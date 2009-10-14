@@ -12,7 +12,7 @@ namespace Munq.DI.LifetimeManagers
         private HttpContextBase testContext;
         #region ILifetimeManage Members
 
-        public object GetInstance(Container container, IRegistration reg)
+        public object GetInstance(Container container, Registration reg)
         {
             HttpContextBase context =(System.Web.HttpContext.Current != null)
                 ? new HttpContextWrapper(HttpContext.Current)
