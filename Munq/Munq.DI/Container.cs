@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 
 namespace Munq.DI
 {
-    public class Container : IDisposable
+    public partial class Container : IDisposable
     {
 		//private HybridDictionary typeRegistry = new HybridDictionary();
 		private Dictionary<RegistrationKey, Registration> typeRegistry = 
@@ -81,6 +81,31 @@ namespace Munq.DI
 				}
             catch { throw new KeyNotFoundException(); }
         }
+        
+        //--------------------------------------------------------
+        // Lazy Resolve methods returns a delegate that, when called
+        // resolves the instance.  Used in case where you wish to delay
+        // the actual instantation of the class as it may use a scarce 
+        // resource, or logic may not need to resolve it at all.
+		Func<TType> LazyResolve<TType>() where TType : class
+		{
+			return () => Resolve(null, typeof(TType)) as TType;
+		}
+
+		Func<TType> LazyResolve<TType>(string name) where TType : class
+		{
+			return () => Resolve(name, typeof(TType)) as TType;
+		}
+
+		Func<Object> LazyResolve(Type type)
+		{
+			return () => Resolve(null, type);
+		}
+
+		Func<Object> LazyResolve(string name, Type type)
+		{
+			return () => Resolve(name, type);
+		}
         
         public Container UsesDefaultLifetimeManagerOf(ILifetimeManager lifetimeManager)
         {
