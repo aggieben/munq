@@ -6,7 +6,10 @@ namespace Munq.DI
 {
     public class Container : IDisposable
     {
-        private HybridDictionary typeRegistry = new HybridDictionary();
+		//private HybridDictionary typeRegistry = new HybridDictionary();
+		private Dictionary<RegistrationKey, Registration> typeRegistry = 
+			new Dictionary<RegistrationKey, Registration>();
+
         // Track whether Dispose has been called.
         private bool disposed = false;
 		private ILifetimeManager defaultLifetimeManager = null;
@@ -42,9 +45,10 @@ namespace Munq.DI
             if (func == null)
                 throw new ArgumentNullException("func");
 
-            var entry = new Registration(name, type, func);
+            var entry = new Registration(type, func);
             entry.WithLifetimeManager(defaultLifetimeManager);
-            this.typeRegistry[entry] = entry;
+            var key = new RegistrationKey(name, type);
+            this.typeRegistry[key] = entry;
 
             return entry;
         }
@@ -64,12 +68,17 @@ namespace Munq.DI
 
         public object Resolve(string name, Type type)
         {
-            var key = new Registration(name, type, null);
-            var entry = (Registration)this.typeRegistry[key];
+            var key = new RegistrationKey(name, type);
+            var entry = this.typeRegistry[key];
             if (entry == null)
                 throw new KeyNotFoundException();
 
-            try { return entry.GetInstance(this); }
+            try {	
+				// optimization for default case
+				return (entry.LifetimeManager == null)
+					? entry.Factory(this)
+					: entry.GetInstance(this); 
+				}
             catch { throw new KeyNotFoundException(); }
         }
         

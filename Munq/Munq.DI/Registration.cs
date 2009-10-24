@@ -2,24 +2,45 @@
 
 namespace Munq.DI
 {
+	public class RegistrationKey
+	{
+        internal Type	InstanceType;
+        internal string	Name;
+        
+        internal RegistrationKey(string name, Type type)
+        { 
+            Name			= name;
+            InstanceType	= type;
+       }
+        // comparison methods
+        public override bool Equals(object obj)
+        {
+            var r = obj as RegistrationKey;
+            return (r != null) &&
+                (InstanceType == r.InstanceType) &&
+                (Name == r.Name);
+        }
+
+        public override int GetHashCode()
+        {
+            var hc = InstanceType.GetHashCode();
+            return hc;
+        }
+	}
+
     public class Registration: IRegistration
     {
         internal ILifetimeManager			LifetimeManager;
-        internal Type						InstanceType;
-        internal string						Name;
         internal Func<Container, object>	Factory;
         internal object						Instance;
+        
 
-		internal Registration(string name, Type type, Func<Container, object> factory)
+		internal Registration(Type type, Func<Container, object> factory)
         {
             LifetimeManager = null;
-            Name			= name;
-            InstanceType	= type;
             Factory			= factory;
             Id				= Guid.NewGuid().ToString();
         }
-
-		internal Registration(Type type, Func<Container, object> factory) : this(null, type, factory) { }
 
         public string Id { get; private set; }
 
@@ -41,23 +62,5 @@ namespace Munq.DI
                 : CreateInstance(container);
         }
 
-        // comparison methods
-        public override bool Equals(object obj)
-        {
-            var r = obj as Registration;
-            return (r != null) &&
-                (InstanceType== r.InstanceType) &&
-                (Name == r.Name);
-				//((Name == null && r.Name == null) || (Name != null && Name.Equals(r.Name)));
-        }
-
-        public override int GetHashCode()
-        {
-            var hc = InstanceType.GetHashCode();
-            if(Name != null)
-                hc ^= Name.GetHashCode();
-
-            return hc;
-        }
    }
 }
