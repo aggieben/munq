@@ -2,12 +2,33 @@
 
 namespace Munq.DI
 {
-	public class RegistrationKey
+	public class UnNamedRegistrationKey
+	{
+        internal Type	InstanceType;
+        
+        internal UnNamedRegistrationKey(Type type)
+        { 
+            InstanceType	= type;
+       }
+        // comparison methods
+        public override bool Equals(object obj)
+        {
+			var r = obj as UnNamedRegistrationKey;
+			return (r != null) && (InstanceType == r.InstanceType);
+        }
+        
+        public override int GetHashCode()
+        {
+			return InstanceType.GetHashCode();
+        }
+	}
+	
+	public class NamedRegistrationKey
 	{
         internal Type	InstanceType;
         internal string	Name;
         
-        internal RegistrationKey(string name, Type type)
+        internal NamedRegistrationKey(string name, Type type)
         { 
             Name			= name;
             InstanceType	= type;
@@ -15,7 +36,7 @@ namespace Munq.DI
         // comparison methods
         public override bool Equals(object obj)
         {
-            var r = obj as RegistrationKey;
+            var r = obj as NamedRegistrationKey;
             return (r != null) &&
                 (InstanceType == r.InstanceType) &&
                 (Name == r.Name);
@@ -23,8 +44,7 @@ namespace Munq.DI
 
         public override int GetHashCode()
         {
-            var hc = InstanceType.GetHashCode();
-            return hc;
+			return InstanceType.GetHashCode();
         }
 	}
 
@@ -33,7 +53,6 @@ namespace Munq.DI
         internal ILifetimeManager			LifetimeManager;
         internal Func<Container, object>	Factory;
         internal object						Instance;
-        
 
 		internal Registration(Type type, Func<Container, object> factory)
         {

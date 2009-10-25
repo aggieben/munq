@@ -6,9 +6,9 @@ namespace Munq.DI
 {
     public partial class Container : IDisposable
     {
-		//private HybridDictionary typeRegistry = new HybridDictionary();
-		private Dictionary<RegistrationKey, Registration> typeRegistry = 
-			new Dictionary<RegistrationKey, Registration>();
+		private HybridDictionary typeRegistry = new HybridDictionary();
+		//private Dictionary<RegistrationKey, Registration> typeRegistry = 
+		//    new Dictionary<RegistrationKey, Registration>();
 
         // Track whether Dispose has been called.
         private bool disposed = false;
@@ -26,7 +26,7 @@ namespace Munq.DI
 		/// The function takes a single paramenter of type Container</param>
         /// <returns>An IRegistration that can be used to configure the behaviour of the registration</returns>
         public IRegistration Register<TType>(Func<Container, TType> func) where TType : class
-        { return Register(null, typeof(TType), c=>(object)func(c)); }
+        { return Register(typeof(TType), c=>(object)func(c)); }
 
         public IRegistration Register<TType>(string name, Func<Container, TType> func) where TType : class
 		{ return Register(name, typeof(TType), c => (object)func(c)); }
@@ -48,7 +48,17 @@ namespace Munq.DI
 		}
 		
 		public IRegistration Register(Type type, Func<Container, object> func)
-        { return Register(null, type, func); }
+        {
+			if (func == null)
+				throw new ArgumentNullException("func");
+
+			var entry = new Registration(type, func);
+			entry.WithLifetimeManager(defaultLifetimeManager);
+
+			this.typeRegistry[new UnNamedRegistrationKey(type)] = entry;
+
+			return entry;
+		}
 
 		public IRegistration Register(string name, Type type, Func<Container, object> func)
         {
@@ -57,8 +67,8 @@ namespace Munq.DI
 
             var entry = new Registration(type, func);
             entry.WithLifetimeManager(defaultLifetimeManager);
-            var key = new RegistrationKey(name, type);
-            this.typeRegistry[key] = entry;
+
+            typeRegistry[new NamedRegistrationKey(name, type)] = entry;
 
             return entry;
         }
@@ -68,20 +78,27 @@ namespace Munq.DI
         /// <typeparam name="TType">The type to resolve</typeparam>
         /// <returns>An instance of the type.  Throws a KeyNoFoundException if not registered.</returns>
         public TType Resolve<TType>() where TType : class
-        { return Resolve(null, typeof(TType))as TType; }
+        { return (TType)Resolve(typeof(TType)); }
 
         public TType Resolve<TType>(string name) where TType : class
-        { return Resolve(name, typeof(TType)) as TType; }
+        { return (TType)Resolve(name, typeof(TType)); }
         
         public object Resolve(Type type)
-        { return Resolve(null, type); }
+        { 
+			var entry = (Registration)typeRegistry[new UnNamedRegistrationKey(type)];
+
+            try {	
+				// optimization for default case
+				return (entry.LifetimeManager == null)
+					? entry.Factory(this)
+					: entry.GetInstance(this); 
+				}
+            catch { throw new KeyNotFoundException(); }
+		}
 
         public object Resolve(string name, Type type)
         {
-            var key = new RegistrationKey(name, type);
-            var entry = this.typeRegistry[key];
-            if (entry == null)
-                throw new KeyNotFoundException();
+            var entry = (Registration)typeRegistry[new NamedRegistrationKey(name, type)];
 
             try {	
 				// optimization for default case

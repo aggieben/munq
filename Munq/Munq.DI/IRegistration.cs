@@ -5,6 +5,12 @@ using System.Text;
 
 namespace Munq.DI
 {
+	public interface IRegistrationKey
+	{
+		bool Equals(object obj);
+		int GetHashCode();
+	}
+	
     public interface IRegistration
     {
         string Id { get; }

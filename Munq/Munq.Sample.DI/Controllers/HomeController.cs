@@ -30,12 +30,11 @@ namespace Munq.Sample.DI.Controllers
             VirtualPathProvider vpp = HostingEnvironment.VirtualPathProvider;
             VirtualDirectory themDir = vpp.GetDirectory("~/App_Themes");
 
-            List<string> themes = new List<string>();
-
-            foreach (VirtualDirectory vdir in themDir.Directories)
-            {
-                themes.Add(vdir.Name);
-            }
+            List<string> themes = themDir.Directories
+										.OfType<VirtualDirectory>()
+										.Select(vd=>vd.Name)
+										.ToList();
+										
             var sv =WebProfile.Current.theme;
             var sl = new SelectList(themes,sv);
             ViewData["theme"] = sl;

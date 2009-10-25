@@ -9,6 +9,7 @@ using Munq.Sample.DI.Controllers;
 using Munq.DI;
 using Munq.DI.LifetimeManagers;
 using Munq.Sample.DI.Models;
+using Munq.MVC.DI;
 
 namespace Munq.Sample.DI
 {
@@ -17,7 +18,8 @@ namespace Munq.Sample.DI
 
     public class MvcApplication : System.Web.HttpApplication
     {
-		static public Container Container { get; set;}
+		static public Container Container { get; private set;}
+		
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
@@ -41,7 +43,7 @@ namespace Munq.Sample.DI
         private void InitializeContainer()
         {
             // create the Munq.DI.ControllerFactory and get the container
-            var controllerFactory = new Munq.MVC.DI.MunqDIControllerFactory();
+            var controllerFactory = new MunqDIControllerFactory();
             Container = controllerFactory.DIContainer;
 
             // register the Home Controller

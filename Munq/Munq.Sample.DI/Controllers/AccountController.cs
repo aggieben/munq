@@ -15,21 +15,21 @@ namespace Munq.Sample.DI.Controllers
     public class AccountController : Controller
     {
 
-        // This constructor is used by the MVC framework to instantiate the controller using
-        // the default forms authentication and membership providers.
-
-        public AccountController()
-            : this(null, null)
-        {
-        }
-
         // This constructor is not used by the MVC framework but is instead provided for ease
         // of unit testing this type. See the comments at the end of this file for more
         // information.
         public AccountController(IFormsAuthentication formsAuth, IMembershipService service)
         {
-            FormsAuth = formsAuth ?? new FormsAuthenticationService();
-            MembershipService = service ?? new AccountMembershipService();
+			IFormsAuthentication iformsAuth = formsAuth as IFormsAuthentication;
+			if(iformsAuth == null)
+				throw new ArgumentNullException("formsAuth", "Requires an object that implements IFormsAuthentication");
+				
+			IMembershipService imemberService = service as IMembershipService;
+			if(imemberService == null)
+				throw new ArgumentNullException("service", "Requires an object that implements IMembershipService");
+			
+            FormsAuth = formsAuth;
+            MembershipService = service;
         }
 
         public IFormsAuthentication FormsAuth
