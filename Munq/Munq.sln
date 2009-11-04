@@ -12,17 +12,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcFakes", "MvcFakes\MvcFakes.csproj", "{558790E7-0F46-489F-B717-52AE3746D39B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.MVC.DI", "Munq.MVC.DI\Munq.MVC.DI.csproj", "{E6371237-5A32-43EA-AED4-DA1F1E59B6F6}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{9BFF594F-92FB-48CC-8FCF-FC2E84C832C8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.Sample.DI", "Munq.Sample.DI\Munq.Sample.DI.csproj", "{0A6A96F0-C516-4EC6-BCEC-E016F2851D96}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Performance", "..\..\..\..\..\..\Funq\trunk\Samples\Performance\Source\Performance.csproj", "{F4F213FC-29C7-4D5F-80D1-422F2567EFDA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountMembershipService", "AccountMembershipService\AccountMembershipService.csproj", "{BAC3200A-C012-44ED-8B14-8DB100D25398}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormsAuthenticationService", "FormsAuthenticationService\FormsAuthenticationService.csproj", "{15A452B9-60FC-4ACB-A02E-A04E5E8EDD5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalApp", "FinalApp\FinalApp.csproj", "{8329B0CF-F909-498C-9158-2E9B9C768592}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalApp.Interfaces", "FinalApp.Interfaces\FinalApp.Interfaces.csproj", "{BD916440-70A2-4891-BE3B-3E4EA86D1F5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalApp.Tests", "FinalApp.Tests\FinalApp.Tests.csproj", "{EDC239D9-CDBC-47BE-A23D-C1C93CB8AC10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.MVC", "Munq.MVC\Munq.MVC.csproj", "{C12D40D9-C2AC-45BD-88A2-4768CE818FAE}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 6
+		SccNumberOfProjects = 11
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs10.codeplex.com/
 		SccLocalPath0 = .
@@ -35,13 +43,33 @@ Global
 		SccProjectUniqueName3 = MvcFakes\\MvcFakes.csproj
 		SccProjectName3 = MvcFakes
 		SccLocalPath3 = MvcFakes
-		SccProjectUniqueName4 = Munq.MVC.DI\\Munq.MVC.DI.csproj
-		SccProjectName4 = Munq.MVC.DI
-		SccLocalPath4 = Munq.MVC.DI
-		SccProjectUniqueName5 = Munq.Sample.DI\\Munq.Sample.DI.csproj
+		SccProjectUniqueName4 = Munq.Sample.DI\\Munq.Sample.DI.csproj
+		SccProjectTopLevelParentUniqueName4 = Munq.sln
+		SccProjectName4 = Munq.Sample.DI
+		SccLocalPath4 = Munq.Sample.DI
+		SccProjectUniqueName5 = AccountMembershipService\\AccountMembershipService.csproj
 		SccProjectTopLevelParentUniqueName5 = Munq.sln
-		SccProjectName5 = Munq.Sample.DI
-		SccLocalPath5 = Munq.Sample.DI
+		SccProjectName5 = AccountMembershipService
+		SccLocalPath5 = AccountMembershipService
+		SccProjectUniqueName6 = FormsAuthenticationService\\FormsAuthenticationService.csproj
+		SccProjectTopLevelParentUniqueName6 = Munq.sln
+		SccProjectName6 = FormsAuthenticationService
+		SccLocalPath6 = FormsAuthenticationService
+		SccProjectUniqueName7 = FinalApp\\FinalApp.csproj
+		SccProjectTopLevelParentUniqueName7 = Munq.sln
+		SccProjectName7 = FinalApp
+		SccLocalPath7 = FinalApp
+		SccProjectUniqueName8 = FinalApp.Interfaces\\FinalApp.Interfaces.csproj
+		SccProjectTopLevelParentUniqueName8 = Munq.sln
+		SccProjectName8 = FinalApp.Interfaces
+		SccLocalPath8 = FinalApp.Interfaces
+		SccProjectUniqueName9 = FinalApp.Tests\\FinalApp.Tests.csproj
+		SccProjectTopLevelParentUniqueName9 = Munq.sln
+		SccProjectName9 = FinalApp.Tests
+		SccLocalPath9 = FinalApp.Tests
+		SccProjectUniqueName10 = Munq.MVC\\Munq.MVC.csproj
+		SccProjectName10 = Munq.MVC
+		SccLocalPath10 = Munq.MVC
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Munq.vsmdi
@@ -63,24 +91,44 @@ Global
 		{558790E7-0F46-489F-B717-52AE3746D39B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{558790E7-0F46-489F-B717-52AE3746D39B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{558790E7-0F46-489F-B717-52AE3746D39B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E6371237-5A32-43EA-AED4-DA1F1E59B6F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E6371237-5A32-43EA-AED4-DA1F1E59B6F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E6371237-5A32-43EA-AED4-DA1F1E59B6F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E6371237-5A32-43EA-AED4-DA1F1E59B6F6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0A6A96F0-C516-4EC6-BCEC-E016F2851D96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0A6A96F0-C516-4EC6-BCEC-E016F2851D96}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0A6A96F0-C516-4EC6-BCEC-E016F2851D96}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0A6A96F0-C516-4EC6-BCEC-E016F2851D96}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F4F213FC-29C7-4D5F-80D1-422F2567EFDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F4F213FC-29C7-4D5F-80D1-422F2567EFDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4F213FC-29C7-4D5F-80D1-422F2567EFDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4F213FC-29C7-4D5F-80D1-422F2567EFDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAC3200A-C012-44ED-8B14-8DB100D25398}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAC3200A-C012-44ED-8B14-8DB100D25398}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAC3200A-C012-44ED-8B14-8DB100D25398}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAC3200A-C012-44ED-8B14-8DB100D25398}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15A452B9-60FC-4ACB-A02E-A04E5E8EDD5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15A452B9-60FC-4ACB-A02E-A04E5E8EDD5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15A452B9-60FC-4ACB-A02E-A04E5E8EDD5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15A452B9-60FC-4ACB-A02E-A04E5E8EDD5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8329B0CF-F909-498C-9158-2E9B9C768592}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8329B0CF-F909-498C-9158-2E9B9C768592}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8329B0CF-F909-498C-9158-2E9B9C768592}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8329B0CF-F909-498C-9158-2E9B9C768592}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD916440-70A2-4891-BE3B-3E4EA86D1F5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD916440-70A2-4891-BE3B-3E4EA86D1F5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD916440-70A2-4891-BE3B-3E4EA86D1F5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD916440-70A2-4891-BE3B-3E4EA86D1F5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDC239D9-CDBC-47BE-A23D-C1C93CB8AC10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDC239D9-CDBC-47BE-A23D-C1C93CB8AC10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDC239D9-CDBC-47BE-A23D-C1C93CB8AC10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDC239D9-CDBC-47BE-A23D-C1C93CB8AC10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C12D40D9-C2AC-45BD-88A2-4768CE818FAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C12D40D9-C2AC-45BD-88A2-4768CE818FAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C12D40D9-C2AC-45BD-88A2-4768CE818FAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C12D40D9-C2AC-45BD-88A2-4768CE818FAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{0A6A96F0-C516-4EC6-BCEC-E016F2851D96} = {9BFF594F-92FB-48CC-8FCF-FC2E84C832C8}
 		{F4F213FC-29C7-4D5F-80D1-422F2567EFDA} = {9BFF594F-92FB-48CC-8FCF-FC2E84C832C8}
+		{BAC3200A-C012-44ED-8B14-8DB100D25398} = {9BFF594F-92FB-48CC-8FCF-FC2E84C832C8}
+		{15A452B9-60FC-4ACB-A02E-A04E5E8EDD5E} = {9BFF594F-92FB-48CC-8FCF-FC2E84C832C8}
+		{8329B0CF-F909-498C-9158-2E9B9C768592} = {9BFF594F-92FB-48CC-8FCF-FC2E84C832C8}
+		{BD916440-70A2-4891-BE3B-3E4EA86D1F5C} = {9BFF594F-92FB-48CC-8FCF-FC2E84C832C8}
+		{EDC239D9-CDBC-47BE-A23D-C1C93CB8AC10} = {9BFF594F-92FB-48CC-8FCF-FC2E84C832C8}
 	EndGlobalSection
 EndGlobal
