@@ -1,15 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using System.Web.Routing;
+
 using Munq.DI;
 using Munq.MVC;
-using FinalApp.Controllers;
 
+using FinalApp.Controllers;
 using FinalApp.Interfaces;
-using System.Web.Security;
+using FinalApp.AccountMembership;
+using FinalApp.Authentication;
 
 namespace FinalApp
 {
@@ -52,9 +53,8 @@ namespace FinalApp
             // Register the dependencies
             // Article3
             // The dependencies to the concrete implementation should be externalized
-            IOC.Register<IFormsAuthentication>(ioc => new FormsAuthenticationService());
-            IOC.Register<MembershipProvider>(ioc => Membership.Provider);
-            IOC.Register<IMembershipService>(ioc => new AccountMembershipService(ioc.Resolve<MembershipProvider>()));
+            new AccountMembershipRegistrar().Register(IOC);
+            new AuthenticationRegistrar().Register(IOC);
 
             // Register the Controllers
             IOC.Register<IController>("Home", ioc => new HomeController());

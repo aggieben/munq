@@ -4,7 +4,7 @@ using System.Web.Security;
 
 using FinalApp.Interfaces;
 
-namespace FinalApp
+namespace FinalApp.AccountMembership
 {
     public class AccountMembershipService : IMembershipService
     {

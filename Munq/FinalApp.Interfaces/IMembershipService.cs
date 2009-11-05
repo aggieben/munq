@@ -1,6 +1,4 @@
-﻿// Article3
-using System;
-using System.Web.Security;
+﻿using System.Web.Security;
 
 namespace FinalApp.Interfaces
 {

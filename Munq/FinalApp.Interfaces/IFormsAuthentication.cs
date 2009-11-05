@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace FinalApp.Interfaces
+﻿namespace FinalApp.Interfaces
 {
     public interface IFormsAuthentication
     {

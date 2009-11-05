@@ -69,9 +69,9 @@
     <Content Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AccountMembershipService\AccountMembershipService.csproj">
+    <ProjectReference Include="..\AccountMembershipService\AccountMembership.csproj">
       <Project>{BAC3200A-C012-44ED-8B14-8DB100D25398}</Project>
-      <Name>AccountMembershipService</Name>
+      <Name>AccountMembership</Name>
     </ProjectReference>
     <ProjectReference Include="..\FinalApp.Interfaces\FinalApp.Interfaces.csproj">
       <Project>{BD916440-70A2-4891-BE3B-3E4EA86D1F5C}</Project>
@@ -81,9 +81,9 @@
       <Project>{8329B0CF-F909-498C-9158-2E9B9C768592}</Project>
       <Name>FinalApp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FormsAuthenticationService\FormsAuthenticationService.csproj">
+    <ProjectReference Include="..\FormsAuthenticationService\FormsAuthentication.csproj">
       <Project>{15A452B9-60FC-4ACB-A02E-A04E5E8EDD5E}</Project>
-      <Name>FormsAuthenticationService</Name>
+      <Name>FormsAuthentication</Name>
     </ProjectReference>
     <ProjectReference Include="..\Munq.DI\Munq.DI.csproj">
       <Project>{1237629E-7E4B-4074-AD34-F255F9F6D185}</Project>

@@ -9,6 +9,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FinalApp;
 using FinalApp.Controllers; 
 using FinalApp.Interfaces;
+using FinalApp.AccountMembership;
+using FinalApp.Authentication;
 
 using FinalApp.Tests.Mocks;
 

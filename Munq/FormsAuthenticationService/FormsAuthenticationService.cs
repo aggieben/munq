@@ -5,7 +5,7 @@ using System.Web.Security;
 
 using FinalApp.Interfaces;
 
-namespace FinalApp
+namespace FinalApp.Authentication
 {
     public class FormsAuthenticationService : IFormsAuthentication
     {
