@@ -9,7 +9,7 @@ namespace FinalApp.AccountMembership
     {
         #region IMunqConfig Members
 
-        public void Register(Container container)
+        public void RegisterIn(Container container)
         {
             container.Register<MembershipProvider>(ioc => Membership.Provider);
             container.Register<IMembershipService>(

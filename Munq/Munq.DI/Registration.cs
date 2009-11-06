@@ -2,14 +2,17 @@
 
 namespace Munq.DI
 {
-	public class UnNamedRegistrationKey
+    public class UnNamedRegistrationKey : IRegistrationKey
 	{
         internal Type	InstanceType;
         
         internal UnNamedRegistrationKey(Type type)
         { 
             InstanceType	= type;
-       }
+        }
+       
+        public Type GetInstanceType() { return InstanceType; }
+
         // comparison methods
         public override bool Equals(object obj)
         {
@@ -22,8 +25,8 @@ namespace Munq.DI
 			return InstanceType.GetHashCode();
         }
 	}
-	
-	public class NamedRegistrationKey
+
+    public class NamedRegistrationKey : IRegistrationKey
 	{
         internal Type	InstanceType;
         internal string	Name;
@@ -33,6 +36,9 @@ namespace Munq.DI
             Name			= name;
             InstanceType	= type;
        }
+       
+       public Type GetInstanceType() { return InstanceType; }
+       
         // comparison methods
         public override bool Equals(object obj)
         {

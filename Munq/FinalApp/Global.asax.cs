@@ -9,8 +9,7 @@ using Munq.MVC;
 
 using FinalApp.Controllers;
 using FinalApp.Interfaces;
-using FinalApp.AccountMembership;
-using FinalApp.Authentication;
+using Munq.DI.Configuration;
 
 namespace FinalApp
 {
@@ -53,8 +52,10 @@ namespace FinalApp
             // Register the dependencies
             // Article3
             // The dependencies to the concrete implementation should be externalized
-            new AccountMembershipRegistrar().Register(IOC);
-            new AuthenticationRegistrar().Register(IOC);
+            //new AccountMembershipRegistrar().Register(IOC);
+            //new AuthenticationRegistrar().Register(IOC);
+
+            ConfigurationLoader.FindAndRegisterDependencies(IOC);
 
             // Register the Controllers
             IOC.Register<IController>("Home", ioc => new HomeController());

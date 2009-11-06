@@ -7,7 +7,7 @@ namespace FinalApp.Authentication
     {
         #region IMunqConfig Members
 
-        public void Register(Munq.DI.Container container)
+        public void RegisterIn(Munq.DI.Container container)
         {
             container.Register<IFormsAuthentication>(ioc => new FormsAuthenticationService());
         }
