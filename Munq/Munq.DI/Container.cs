@@ -36,7 +36,7 @@ namespace Munq.DI
             if (func == null)
                 throw new ArgumentNullException("func");
 
-            var entry = new Registration(type, func);
+            var entry = new Registration(null, type, func);
             entry.WithLifetimeManager(defaultLifetimeManager);
 
             this.typeRegistry[new UnNamedRegistrationKey(type)] = entry;
@@ -49,7 +49,7 @@ namespace Munq.DI
             if (func == null)
                 throw new ArgumentNullException("func");
 
-            var entry = new Registration(type, func);
+            var entry = new Registration(name, type, func);
             entry.WithLifetimeManager(defaultLifetimeManager);
 
             typeRegistry[new NamedRegistrationKey(name, type)] = entry;

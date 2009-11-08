@@ -60,14 +60,17 @@ namespace Munq.DI
         internal Func<Container, object>	Factory;
         internal object						Instance;
 
-		internal Registration(Type type, Func<Container, object> factory)
+		internal Registration(string name, Type type, Func<Container, object> factory)
         {
             LifetimeManager = null;
             Factory			= factory;
             Id				= Guid.NewGuid().ToString();
+            Name            = name;
         }
 
         public string Id { get; private set; }
+        
+        public string Name { get; private set; }
 
         public IRegistration WithLifetimeManager(ILifetimeManager manager)
         {

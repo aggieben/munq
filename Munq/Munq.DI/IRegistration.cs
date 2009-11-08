@@ -15,6 +15,7 @@ namespace Munq.DI
     public interface IRegistration
     {
         string Id { get; }
+        string Name { get; }
         IRegistration WithLifetimeManager(ILifetimeManager manager);
     }
 }
