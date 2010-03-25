@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.IocContainer2008", "Munq.IocContainer2008\Munq.IocContainer2008.csproj", "{3A5BC8F1-5817-4B0E-A82B-D92FFC5BE440}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.IocContainer", "Munq.IocContainer2008\Munq.IocContainer.csproj", "{3A5BC8F1-5817-4B0E-A82B-D92FFC5BE440}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.IocContainer.UnitTests", "Munq.IocContainer.UnitTests\Munq.IocContainer.UnitTests.csproj", "{17AF53D1-D6C9-453B-ABD5-27DF99830014}"
 EndProject
@@ -31,7 +31,7 @@ Global
 		SccProjectUniqueName2 = Munq.IocContainer.UnitTests\\Munq.IocContainer.UnitTests.csproj
 		SccProjectName2 = Munq.IocContainer.UnitTests
 		SccLocalPath2 = Munq.IocContainer.UnitTests
-		SccProjectUniqueName3 = Munq.IocContainer2008\\Munq.IocContainer2008.csproj
+		SccProjectUniqueName3 = Munq.IocContainer2008\\Munq.IocContainer.csproj
 		SccProjectName3 = Munq.IocContainer2008
 		SccLocalPath3 = Munq.IocContainer2008
 	EndGlobalSection

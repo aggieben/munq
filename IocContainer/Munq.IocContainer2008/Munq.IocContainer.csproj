@@ -8,8 +8,8 @@
     <ProjectGuid>{3A5BC8F1-5817-4B0E-A82B-D92FFC5BE440}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Munq.IocContainer2008</RootNamespace>
-    <AssemblyName>Munq.IocContainer2008</AssemblyName>
+    <RootNamespace>Munq.IocContainer</RootNamespace>
+    <AssemblyName>Munq.IocContainer</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
