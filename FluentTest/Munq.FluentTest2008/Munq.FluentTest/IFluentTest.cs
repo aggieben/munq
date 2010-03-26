@@ -12,6 +12,9 @@ namespace Munq.FluentTest
         void InConclusive();
         void InConclusive(string msg);
         
+        Type FailExceptionType {get;}
+        Type InConclusiveExceptionType { get;}
+        
     }
 
     /// <summary>

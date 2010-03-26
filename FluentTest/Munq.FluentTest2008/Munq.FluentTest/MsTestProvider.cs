@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Munq.FluentTest
 {
@@ -24,6 +25,17 @@ namespace Munq.FluentTest
         public void InConclusive(string msg)
         {
             Assert.Inconclusive(msg);
+        }
+
+
+        public Type FailExceptionType
+        {
+            get { return typeof(AssertFailedException); }
+        }
+
+        public Type InConclusiveExceptionType
+        {
+            get { return typeof(AssertInconclusiveException); }
         }
 
         #endregion

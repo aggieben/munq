@@ -1,8 +1,10 @@
 ﻿
+using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Munq.FluentTest
 {
     public class Verify 
-    {
+    {      
         public static IFluentTestProvider Provider { get; set;}
         
         static Verify()
