@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace Munq.FluentTest.UnitTests
 {  
+   
     /// <summary>
     ///This is a test class for IFluentTestTest and is intended
     ///to contain all IFluentTestTest Unit Tests
@@ -12,6 +13,11 @@ namespace Munq.FluentTest.UnitTests
     [TestClass()]
     public class IFluentTestObjectIsEqualTest
     {
+        [AssemblyInitialize]
+        public static void ClassInitialize(TestContext context)
+        {
+            Verify.Provider = new MsTestProvider();
+        }
          #region IsEqualTo
         /// <summary>
         ///A test for IsEqualTo

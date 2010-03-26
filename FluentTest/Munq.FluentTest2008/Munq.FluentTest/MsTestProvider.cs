@@ -3,8 +3,9 @@ using System;
 
 namespace Munq.FluentTest
 {
-    class MsTestProvider : IFluentTestProvider
+    public class MsTestProvider : IFluentTestProvider
     {
+         
         #region IFluentTestProvider Members
 
         public void Fail()

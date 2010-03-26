@@ -1,6 +1,5 @@
-﻿
-using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+
 namespace Munq.FluentTest
 {
     public class Verify 
@@ -9,11 +8,13 @@ namespace Munq.FluentTest
         
         static Verify()
         {
-            Provider = new MsTestProvider();
         }
             
         public static IFluentTest That(object objectToTest)
         {
+            if (Provider == null)
+                throw new NullReferenceException("Test Framework Provider not initialized");
+                
             return new FluentTestObject(objectToTest);
         }
         
