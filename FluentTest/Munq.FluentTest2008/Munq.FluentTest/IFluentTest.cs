@@ -4,6 +4,16 @@ using System.Text.RegularExpressions;
 
 namespace Munq.FluentTest
 {
+    public interface IFluentTestProvider
+    {
+        void Fail();
+        void Fail(string msg);
+        
+        void InConclusive();
+        void InConclusive(string msg);
+        
+    }
+
     /// <summary>
     /// Methods that are terminating checks regardless of the type of the object under test.
     /// </summary>

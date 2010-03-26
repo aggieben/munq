@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+﻿
 namespace Munq.FluentTest
 {
     public class FluentTestCommon : Munq.FluentTest.IFluentTestCommon
@@ -14,32 +13,34 @@ namespace Munq.FluentTest
         #region IFluentTestCommon members
         public void Fail()
         {
-            Assert.Fail();
+            Verify.Provider.Fail();
         }
 
         public void Fail(string msg)
         {
-            Assert.Fail(msg);
+            Verify.Provider.Fail(msg);
         }
 
         public void Inconclusive()
         {
-            Assert.Inconclusive();
+            Verify.Provider.InConclusive();
         }
 
         public void Inconclusive(string msg)
         {
-            Assert.Inconclusive(msg);
+            Verify.Provider.InConclusive(msg);
         }
 
         public void IsNull()
         {
-            Assert.IsNull(ObjectToTest);
+            if(ObjectToTest != null)
+                Verify.Provider.Fail();
         }
 
         public void IsNull(string msg)
         {
-            Assert.IsNull(ObjectToTest, msg);
+            if (ObjectToTest != null)
+                Verify.Provider.Fail(msg);
         }
 
         #endregion

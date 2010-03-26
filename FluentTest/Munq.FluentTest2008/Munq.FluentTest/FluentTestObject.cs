@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Munq.FluentTest
 {
@@ -12,141 +11,206 @@ namespace Munq.FluentTest
         }
 
         #region IFluentTest members
+        private bool _IsEqual(object objectToCompare)
+        {
+            if (ObjectToTest == null && objectToCompare == null)
+                return true;
+
+            return (ObjectToTest != null && objectToCompare != null
+                    && ObjectToTest.Equals(objectToCompare));
+        }
 
         IFluentTest IFluentTest.IsEqualTo(object objectToCompare)
         {
-            Assert.AreEqual(ObjectToTest, objectToCompare);
+            if (!_IsEqual(objectToCompare))
+                Verify.Provider.Fail();
             return this;
         }
 
         IFluentTest IFluentTest.IsEqualTo(object objectToCompare, string msg)
         {
-            Assert.AreEqual(ObjectToTest, objectToCompare, msg);
+            if (!_IsEqual(objectToCompare))
+                Verify.Provider.Fail(msg);
             return this;
         }
 
         IFluentTest IFluentTest.IsNotEqualTo(object objectToCompare)
         {
-            Assert.AreNotEqual(ObjectToTest, objectToCompare);
+            if (_IsEqual(objectToCompare))
+                Verify.Provider.Fail();
             return this;
         }
 
         IFluentTest IFluentTest.IsNotEqualTo(object objectToCompare, string msg)
         {
-            Assert.AreNotEqual(ObjectToTest, objectToCompare, msg);
+            if (_IsEqual(objectToCompare))
+                Verify.Provider.Fail(msg);
             return this;
         }
 
         IFluentTest IFluentTest.IsTheSameObjectAs(object objectToCompare)
         {
-            Assert.AreSame(ObjectToTest, objectToCompare);
+            if (!Object.ReferenceEquals(ObjectToTest, objectToCompare))
+                Verify.Provider.Fail();
             return this;
         }
 
         IFluentTest IFluentTest.IsTheSameObjectAs(object objectToCompare, string msg)
         {
-            Assert.AreSame(ObjectToTest, objectToCompare, msg);
+            if (!Object.ReferenceEquals(ObjectToTest, objectToCompare))
+                Verify.Provider.Fail(msg);
             return this;
         }
 
         IFluentTest IFluentTest.IsNotTheSameObjectAs(object objectToCompare)
         {
-            Assert.AreNotSame(ObjectToTest, objectToCompare);
+            if (Object.ReferenceEquals(ObjectToTest, objectToCompare))
+                Verify.Provider.Fail();
             return this;
         }
 
         IFluentTest IFluentTest.IsNotTheSameObjectAs(object objectToCompare, string msg)
         {
-            Assert.AreNotSame(ObjectToTest, objectToCompare, msg);
+            if (!Object.ReferenceEquals(ObjectToTest, objectToCompare))
+                Verify.Provider.Fail(msg);
             return this;
         }
 
+
+        private bool _IsTrue()
+        {
+            try
+            {
+                return ObjectToTest != null && (bool)ObjectToTest;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        
         IFluentTest IFluentTest.IsTrue()
         {
-            Assert.IsInstanceOfType(ObjectToTest, typeof(bool));
-            Assert.IsTrue((bool)ObjectToTest);
+            if (!_IsTrue())
+                Verify.Provider.Fail();
             return this;
         }
 
         IFluentTest IFluentTest.IsTrue(string msg)
         {
-            Assert.IsInstanceOfType(ObjectToTest, typeof(bool));
-            Assert.IsTrue((bool)ObjectToTest, msg);
+            if (!_IsTrue())
+                Verify.Provider.Fail(msg);
             return this;
         }
 
+
+        private bool _IsFalse()
+        {
+            try
+            {
+            return ObjectToTest != null && !(bool)ObjectToTest;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         IFluentTest IFluentTest.IsFalse()
         {
-            Assert.IsInstanceOfType(ObjectToTest, typeof(bool));
-            Assert.IsFalse((bool)ObjectToTest);
+            if (!_IsFalse())
+                Verify.Provider.Fail();
             return this;
         }
 
         IFluentTest IFluentTest.IsFalse(string msg)
         {
-            Assert.IsInstanceOfType(ObjectToTest, typeof(bool));
-            Assert.IsFalse((bool)ObjectToTest, msg);
+            if (!_IsFalse())
+                Verify.Provider.Fail(msg);
             return this;
         }
 
+        private bool _IsAnInstanceOf(Type type)
+        {
+            return ObjectToTest != null &&
+                    type.IsAssignableFrom(ObjectToTest.GetType());
+        }
+        
         IFluentTest IFluentTest.IsAnInstanceOfType(Type type)
         {
-            Assert.IsInstanceOfType(ObjectToTest, type);
+            if (!_IsAnInstanceOf(type))
+                Verify.Provider.Fail();
             return this;
         }
 
         IFluentTest IFluentTest.IsAnInstanceOfType(Type type, string msg)
         {
-            Assert.IsInstanceOfType(ObjectToTest, type, msg);
+            if (!_IsAnInstanceOf(type))
+                Verify.Provider.Fail(msg);
             return this;
         }
 
+        private bool _IsNotAnInstanceOf(Type type)
+        {
+            return ObjectToTest != null &&
+                    !type.IsAssignableFrom(ObjectToTest.GetType());
+        }
         IFluentTest IFluentTest.IsNotAnInstanceOfType(Type type)
         {
-            Assert.IsNotInstanceOfType(ObjectToTest, type);
+            if (!_IsNotAnInstanceOf(type))
+                Verify.Provider.Fail();
             return this;
         }
 
         IFluentTest IFluentTest.IsNotAnInstanceOfType(Type type, string msg)
         {
-            Assert.IsNotInstanceOfType(ObjectToTest, type, msg);
+            if (!_IsNotAnInstanceOf(type))
+                Verify.Provider.Fail(msg);
             return this;
         }
 
         IFluentTest IFluentTest.IsNotNull()
         {
-            Assert.IsNotNull(ObjectToTest);
+            if (ObjectToTest == null)
+                Verify.Provider.Fail();
             return this;
         }
 
         IFluentTest IFluentTest.IsNotNull(string msg)
         {
-            Assert.IsNotNull(ObjectToTest, msg);
+            if (ObjectToTest == null)
+                Verify.Provider.Fail(msg);
             return this;
         }
 
         IFluentCollectionTest IFluentTest.IsACollection()
         {
-            Assert.IsInstanceOfType(ObjectToTest, typeof(ICollection));
-            
+            if (!_IsAnInstanceOf(typeof(ICollection)))
+                Verify.Provider.Fail();
+
             return new FluentTestCollection(ObjectToTest as ICollection);
         }
 
         IFluentCollectionTest IFluentTest.IsACollection(string msg)
         {
-            Assert.IsInstanceOfType(ObjectToTest, typeof(ICollection), msg);
+            if (!_IsAnInstanceOf(typeof(ICollection)))
+                Verify.Provider.Fail(msg);
+
             return new FluentTestCollection(ObjectToTest as ICollection);
         }
 
         IFluentStringTest IFluentTest.IsAString()
         {
-            Assert.IsInstanceOfType(ObjectToTest, typeof(string));
+            if (!_IsAnInstanceOf(typeof(string)))
+                Verify.Provider.Fail();
+
             return new FluentTestString(ObjectToTest as string);
         }
 
         IFluentStringTest IFluentTest.IsAString(string msg)
         {
-            Assert.IsInstanceOfType(ObjectToTest, typeof(string), msg);
+            if (!_IsAnInstanceOf(typeof(string)))
+                Verify.Provider.Fail();
+
             return new FluentTestString(ObjectToTest as string);
         }
         #endregion
