@@ -13,7 +13,7 @@ namespace Munq.FluentTest.UnitTests
     [TestClass()]
     public class IFluentTestObjectIsEqualTest
     {
-        [AssemblyInitialize]
+        [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
             Verify.Provider = new MsTestProvider();

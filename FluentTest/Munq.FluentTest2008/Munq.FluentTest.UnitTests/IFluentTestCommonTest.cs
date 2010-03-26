@@ -10,6 +10,12 @@ namespace Munq.FluentTest.UnitTests
     [TestClass()]
     public class IFluentTestCommonTest
     {
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext context)
+        {
+            Verify.Provider = new MsTestProvider();
+        }
+
         /// <summary>
         ///A test for Fail
         ///</summary>

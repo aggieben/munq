@@ -12,6 +12,12 @@ namespace Munq.FluentTest.UnitTests
     [TestClass()]
     public class IFluentTestStringMatchesTest
     {
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext context)
+        {
+            Verify.Provider = new MsTestProvider();
+        }
+
          #region Matches
         #endregion
 

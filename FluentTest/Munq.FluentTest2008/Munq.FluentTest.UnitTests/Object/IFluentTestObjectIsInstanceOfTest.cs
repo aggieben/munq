@@ -15,6 +15,11 @@ namespace Munq.FluentTest.UnitTests
         private class MyTestClass
         {
         }
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext context)
+        {
+            Verify.Provider = new MsTestProvider();
+        }
 
         #region IsAnInstanceOf
         /// <summary>

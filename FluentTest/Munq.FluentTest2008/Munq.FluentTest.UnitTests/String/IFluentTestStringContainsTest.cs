@@ -12,9 +12,16 @@ namespace Munq.FluentTest.UnitTests
     [TestClass()]
     public class IFluentTestStringContainsTest
     {
-    // no need to check if the object under test is a string.  You can't get here
-    // if it isn't.
-    const string StringUnderTest = "A Test String with Jump in it.";
+        // no need to check if the object under test is a string.  You can't get here
+        // if it isn't.
+        const string StringUnderTest = "A Test String with Jump in it.";
+        
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext context)
+        {
+            Verify.Provider = new MsTestProvider();
+        }
+
          #region Contains
         [TestMethod]
         public void ContainsPassesIfStringUnderTestContainsStringToCompare()

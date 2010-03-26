@@ -13,6 +13,12 @@ namespace Munq.FluentTest.UnitTests
     public class IFluentTestStringEndsWithTest
     {
         private const string testString = "May the Force be with you.";
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext context)
+        {
+            Verify.Provider = new MsTestProvider();
+        }
+
         #region EndsWith
         
         [TestMethod]

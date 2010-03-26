@@ -12,6 +12,12 @@ namespace Munq.FluentTest.UnitTests
     [TestClass()]
     public class IFluentTestObjectIsTrueOrFalseTest
     {
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext context)
+        {
+            Verify.Provider = new MsTestProvider();
+        }
+        
         #region IsTrue
         /// <summary>
         ///A test for IsTrue
