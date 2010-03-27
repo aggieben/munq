@@ -12,15 +12,39 @@ namespace Munq.FluentTest
         }
 
         #region IFluentStringTest methods
+        private bool _StringContains(string stringToCompare)
+        {
+            return stringToCompare != null && StringToTest.Contains(stringToCompare);
+        }
         IFluentStringTest IFluentStringTest.Contains(string stringToCompare)
         {
-            StringAssert.Contains(StringToTest, stringToCompare);
+            if (!_StringContains(stringToCompare))
+                Verify.Provider.Fail();
             return this;
         }
 
         IFluentStringTest IFluentStringTest.Contains(string stringToCompare, string msg)
         {
-            StringAssert.Contains(StringToTest, stringToCompare, msg);
+            if (!_StringContains(stringToCompare))
+                Verify.Provider.Fail(msg);
+            return this;
+        }
+
+        private bool _StringDoesNotContain(string stringToCompare)
+        {
+            return stringToCompare != null && !StringToTest.Contains(stringToCompare);
+        }
+        IFluentStringTest IFluentStringTest.DoesNotContain(string stringToCompare)
+        {
+            if (!_StringDoesNotContain(stringToCompare))
+                Verify.Provider.Fail();
+            return this;
+        }
+
+        IFluentStringTest IFluentStringTest.DoesNotContain(string stringToCompare, string msg)
+        {
+            if (!_StringDoesNotContain(stringToCompare))
+                Verify.Provider.Fail(msg);
             return this;
         }
 
@@ -72,25 +96,7 @@ namespace Munq.FluentTest
             return this;
         }
 
-        IFluentStringTest IFluentStringTest.DoesNotContain(string stringToCompare)
-        {
-            if (stringToCompare == null)
-                Assert.Fail("String to compare is null");
-                
-            Assert.IsTrue(!StringToTest.Contains(stringToCompare), "String under test contains the string to compare.");
-            return this;
-        }
-
-        IFluentStringTest IFluentStringTest.DoesNotContain(string stringToCompare, string msg)
-        {
-            if (stringToCompare == null)
-                Assert.Fail("String to compare is null");
-
-            Assert.IsTrue(!StringToTest.Contains(stringToCompare), msg);
-            return this;
-        }
-
-        IFluentStringTest IFluentStringTest.DoesNotStartsWith(string stringToCompare)
+         IFluentStringTest IFluentStringTest.DoesNotStartsWith(string stringToCompare)
         {
             Assert.IsTrue(!StringToTest.StartsWith(stringToCompare), "String under test starts with the string to compare.");
             return this;
