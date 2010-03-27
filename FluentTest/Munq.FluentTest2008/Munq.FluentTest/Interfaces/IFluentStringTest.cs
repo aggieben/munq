@@ -8,9 +8,26 @@ namespace Munq.FluentTest
     /// </summary>
     public interface IFluentStringTest : IFluentTestCommon
     {
+        /// <summary>
+        /// The assertion fails if the string is not empty.
+        /// </summary>
         IFluentStringTest IsEmpty();
+        
+        /// <summary>
+        /// The assertion fails if the string is not empty.
+        /// </summary>
+        /// <param name="msg">The message to display.</param>
         IFluentStringTest IsEmpty(string msg);
+
+        /// <summary>
+        /// The assertion fails if the string is empty.
+        /// </summary>
         IFluentStringTest IsNotEmpty();
+
+        /// <summary>
+        /// The assertion fails if the string is empty.
+        /// </summary>
+        /// <param name="msg">The message to display.</param>
         IFluentStringTest IsNotEmpty(string msg);
 
         /// <summary>

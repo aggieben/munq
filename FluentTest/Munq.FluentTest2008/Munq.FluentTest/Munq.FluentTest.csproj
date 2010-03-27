@@ -41,16 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FluentTestCollection.cs" />
-    <Compile Include="FluentTestCommon.cs" />
-    <Compile Include="FluentTestObject.cs" />
-    <Compile Include="FluentTestString.cs" />
-    <Compile Include="IFluentCollectionTest.cs" />
-    <Compile Include="IFluentStringTest.cs" />
-    <Compile Include="IFluentTest.cs" />
-    <Compile Include="IFluentTestCommon.cs" />
-    <Compile Include="IFluentTestProvider.cs" />
-    <Compile Include="MsTestProvider.cs" />
+    <Compile Include="Implementation\FluentTestCollection.cs" />
+    <Compile Include="Implementation\FluentTestCommon.cs" />
+    <Compile Include="Implementation\FluentTestObject.cs" />
+    <Compile Include="Implementation\FluentTestString.cs" />
+    <Compile Include="Interfaces\IFluentCollectionTest.cs" />
+    <Compile Include="Interfaces\IFluentStringTest.cs" />
+    <Compile Include="Interfaces\IFluentTest.cs" />
+    <Compile Include="Interfaces\IFluentTestCommon.cs" />
+    <Compile Include="Interfaces\IFluentTestProvider.cs" />
+    <Compile Include="Providers\MsTestProvider.cs" />
     <Compile Include="MunqTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
