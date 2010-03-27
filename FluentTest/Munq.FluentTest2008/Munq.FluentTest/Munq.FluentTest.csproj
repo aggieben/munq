@@ -45,7 +45,11 @@
     <Compile Include="FluentTestCommon.cs" />
     <Compile Include="FluentTestObject.cs" />
     <Compile Include="FluentTestString.cs" />
+    <Compile Include="IFluentCollectionTest.cs" />
+    <Compile Include="IFluentStringTest.cs" />
     <Compile Include="IFluentTest.cs" />
+    <Compile Include="IFluentTestCommon.cs" />
+    <Compile Include="IFluentTestProvider.cs" />
     <Compile Include="MsTestProvider.cs" />
     <Compile Include="MunqTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

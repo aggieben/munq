@@ -1,4 +1,5 @@
 ﻿using System;
+using Munq.FluentTest.MsTest;
 
 namespace Munq.FluentTest
 {
@@ -8,6 +9,7 @@ namespace Munq.FluentTest
         
         static Verify()
         {
+            Provider = new MsTestProvider();
         }
             
         public static IFluentTest That(object objectToTest)

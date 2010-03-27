@@ -1,7 +1,5 @@
-﻿using Munq.FluentTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Munq.FluentTest;
 
 namespace Munq.FluentTest.UnitTests
 {  
@@ -16,12 +14,6 @@ namespace Munq.FluentTest.UnitTests
         // if it isn't.
         const string StringUnderTest = "A Test String with Jump in it.";
         
-        [ClassInitialize]
-        public static void ClassInitialize(TestContext context)
-        {
-            Verify.Provider = new MsTestProvider();
-        }
-
          #region Contains
         [TestMethod]
         public void ContainsPassesIfStringUnderTestContainsStringToCompare()
@@ -60,7 +52,7 @@ namespace Munq.FluentTest.UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(AssertFailedException))]
-        public void ContainsWithMsgFailsIfStringToComparIsNull()
+        public void ContainsWithMsgFailsIfStringToCompareIsNull()
         {
             Verify.That(StringUnderTest).IsAString()
             .Contains(null, "Contains(string msg) Passed!");
@@ -106,7 +98,7 @@ namespace Munq.FluentTest.UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(AssertFailedException))]
-        public void DoesNotContainWithMsgPassesIfStringToComparIsNull()
+        public void DoesNotContainWithMsgPassesIfStringToCompareIsNull()
         {
             Verify.That(StringUnderTest).IsAString()
             .DoesNotContain(null, "DoesNotContain(string msg) Passed!");

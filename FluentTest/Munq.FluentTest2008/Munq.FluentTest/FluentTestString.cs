@@ -114,5 +114,28 @@ namespace Munq.FluentTest
             return this;
         }
          #endregion
-   }
+
+        #region IFluentStringTest Members
+
+        IFluentStringTest IFluentStringTest.IsEmpty()
+        {
+            throw new System.NotImplementedException();
+        }
+        IFluentStringTest IFluentStringTest.IsEmpty(string msg)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        IFluentStringTest IFluentStringTest.IsNotEmpty()
+        {
+            throw new System.NotImplementedException();
+        }
+        IFluentStringTest IFluentStringTest.IsNotEmpty(string msg)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        #endregion
+
+    }
 }

@@ -1,7 +1,5 @@
-﻿using Munq.FluentTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Munq.FluentTest;
 
 namespace Munq.FluentTest.UnitTests
 {  
@@ -14,11 +12,6 @@ namespace Munq.FluentTest.UnitTests
     {
         private class MyTestClass
         {
-        }
-        [ClassInitialize]
-        public static void ClassInitialize(TestContext context)
-        {
-            Verify.Provider = new MsTestProvider();
         }
 
         #region IsNotNull

@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Munq.FluentTest;
 
 namespace Munq.FluentTest.UnitTests
-{
-    
+{   
     /// <summary>
     ///This is a test class for IFluentTestCommonTest and is intended
     ///to contain all IFluentTestCommonTest Unit Tests
@@ -10,12 +10,6 @@ namespace Munq.FluentTest.UnitTests
     [TestClass()]
     public class IFluentTestCommonTest
     {
-        [ClassInitialize]
-        public static void ClassInitialize(TestContext context)
-        {
-            Verify.Provider = new MsTestProvider();
-        }
-
         /// <summary>
         ///A test for Fail
         ///</summary>

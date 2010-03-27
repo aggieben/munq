@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace Munq.FluentTest
+namespace Munq.FluentTest.MsTest
 {
     public class MsTestProvider : IFluentTestProvider
     {
