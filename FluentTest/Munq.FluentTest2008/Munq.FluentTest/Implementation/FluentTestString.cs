@@ -70,7 +70,7 @@ namespace Munq.FluentTest
             return this;
         }
 
-         IFluentStringTest IFluentStringTest.DoesNotStartsWith(string stringToCompare)
+         IFluentStringTest IFluentStringTest.DoesNotStartWith(string stringToCompare)
         {
             CheckStringToCompareNotNull(stringToCompare);
             if (StringToTest.StartsWith(stringToCompare, ComparisonMode))
@@ -112,15 +112,17 @@ namespace Munq.FluentTest
         #region IFluentStringTest Members
 
 
-        IFluentStringTest IFluentStringTest.IsEqual(string stringToCompare)
+        IFluentStringTest IFluentStringTest.IsEqualTo(string stringToCompare)
         {
-             if (!StringToTest.Equals(stringToCompare, ComparisonMode))
+            CheckStringToCompareNotNull(stringToCompare);
+            if (!StringToTest.Equals(stringToCompare, ComparisonMode))
                 Verify.Fail();
              return this;
         }
 
-        IFluentStringTest IFluentStringTest.IsNotEqual(string stringToCompare)
+        IFluentStringTest IFluentStringTest.IsNotEqualTo(string stringToCompare)
         {
+            CheckStringToCompareNotNull(stringToCompare);
             if (StringToTest.Equals(stringToCompare, ComparisonMode))
                 Verify.Fail();
             return this;

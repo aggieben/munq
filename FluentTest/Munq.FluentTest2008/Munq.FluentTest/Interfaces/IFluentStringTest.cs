@@ -30,8 +30,18 @@ namespace Munq.FluentTest
         /// </summary>
         IFluentStringTest IsNotEmpty();
 
-        IFluentStringTest IsEqual(string stringToCompare);
-        IFluentStringTest IsNotEqual(string stringToCompare);
+        /// <summary>
+        /// The Assertion fails if the strings are not equal
+        /// </summary>
+        /// <param name="stringToCompare">The string to compare to the string under test.</param>
+        IFluentStringTest IsEqualTo(string stringToCompare);
+
+
+        /// <summary>
+        /// The Assertion fails if the strings are equal
+        /// </summary>
+        /// <param name="stringToCompare">The string to compare to the string under test.</param>
+        IFluentStringTest IsNotEqualTo(string stringToCompare);
 
         /// <summary>
         /// The assertion fails if the string under test does not contain the specified string.
@@ -67,7 +77,7 @@ namespace Munq.FluentTest
         /// The assertion fails if the string under test starts with the specified string.
         /// </summary>
         /// <param name="stringToCompare">The string to test against the string under test.</param>
-        IFluentStringTest DoesNotStartsWith(string stringToCompare);
+        IFluentStringTest DoesNotStartWith(string stringToCompare);
 
         ///<summary>
         /// The assertion fails if the string under test does not end with the specified string.
