@@ -50,7 +50,6 @@ namespace Munq.FluentTest
             return this;
         }
 
-
         private bool _IsTrue()
         {
             try
@@ -81,6 +80,7 @@ namespace Munq.FluentTest
                 return false;
             }
         }
+        
         IFluentTest IFluentTest.IsFalse()
         {
             if (!_IsFalse())

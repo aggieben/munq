@@ -74,6 +74,7 @@ namespace Munq.FluentTest
             Assert.IsNotNull(CollectionToTest, msg);
             return this;
         }
+        
         IFluentCollectionTest IFluentCollectionTest.AllItemsAreInstancesOfType(Type type)
         {
             CollectionAssert.AllItemsAreInstancesOfType(CollectionToTest, type);
