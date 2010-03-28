@@ -29,12 +29,12 @@ namespace Munq.FluentTest.UnitTests
                 () => Verify.That(testString).IsAString().IsEqualTo("monkey")
             );
         }
+        
         [TestMethod]
         public void StringIsEqualToPassesIfStringIsEqualToStringToCompare()
         {
             Verify.That(testString).IsAString().IsEqualTo(testString);
         }
-
 
         [TestMethod]
         public void StringIsEqualToFailsIfStringToCompareIsEmpty()
@@ -45,10 +45,36 @@ namespace Munq.FluentTest.UnitTests
         }
         #endregion
 
-        #region IsNotEqualTo
-        // TODO: more tests
-        #endregion
+        #region IsNotEqualTo            
+        [TestMethod]
+        public void StringIsNotEqualToFailsIfStringToCompareIsNull()
+        {
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(testString).IsAString().IsNotEqualTo(null)
+            );
+        }
 
+        [TestMethod]
+        public void StringIsNotEqualToFailsIfDoesIsEqualTotring()
+        {
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(testString).IsAString().IsNotEqualTo(testString)
+            );
+        }
+        
+        [TestMethod]
+        public void StringIsNotEqualToPassesIfStringIsNotEqualToStringToCompare()
+        {
+            Verify.That(testString).IsAString().IsNotEqualTo("monkey");
+        }
 
+        [TestMethod]
+        public void StringIsNotEqualToFailsIfStringToCompareIsEmpty()
+        {
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(testString).IsAString().IsNotEqualTo(String.Empty)
+            );
+        }
+       #endregion
     }
 }
