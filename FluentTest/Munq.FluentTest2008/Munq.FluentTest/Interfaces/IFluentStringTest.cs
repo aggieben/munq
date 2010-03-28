@@ -13,6 +13,13 @@ namespace Munq.FluentTest
         /// </summary>
         /// <param name="msg"The message to use.</param>
         IFluentStringTest WithFailureMessage(string msg);
+        
+        /// <summary>
+        /// Sets the Comparison mode.
+        /// </summary>
+        /// <param name="comparisonMode"></param>
+        /// <returns></returns>
+        IFluentStringTest UsingStringComparison(StringComparison comparisonMode);
 
         /// The assertion fails if the string is not empty.
         /// </summary>
@@ -22,6 +29,9 @@ namespace Munq.FluentTest
         /// The assertion fails if the string is empty.
         /// </summary>
         IFluentStringTest IsNotEmpty();
+
+        IFluentStringTest IsEqual(string stringToCompare);
+        IFluentStringTest IsNotEqual(string stringToCompare);
 
         /// <summary>
         /// The assertion fails if the string under test does not contain the specified string.

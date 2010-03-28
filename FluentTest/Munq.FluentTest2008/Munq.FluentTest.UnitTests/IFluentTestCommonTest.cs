@@ -51,7 +51,7 @@ namespace Munq.FluentTest.UnitTests
         [TestMethod()]
         public void IsNullPassesForNullObject()
         {
-            Verify.That(null).IsNull();        
+            Verify.That(null).IsNull();      
         }
     }
 }

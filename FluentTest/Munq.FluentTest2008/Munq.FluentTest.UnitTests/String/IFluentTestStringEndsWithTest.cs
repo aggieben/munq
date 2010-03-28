@@ -13,8 +13,7 @@ namespace Munq.FluentTest.UnitTests
     {
         private const string testString = "May the Force be with you.";
 
-        #region EndsWith
-        
+        #region EndsWith       
         [TestMethod]
         public void StringEndsWithFailsIfStringToCompareIsNull()
         {
@@ -30,15 +29,52 @@ namespace Munq.FluentTest.UnitTests
                 () => Verify.That(testString).IsAString().EndsWith("monkey")
             );
         }
+        [TestMethod]
+        public void StringEndsWithPassesIfStringEndsWithStringToCompare()
+        {
+            Verify.That(testString).IsAString().EndsWith("be with you.");
+        }
+
         
         [TestMethod]
         public void StringEndsWithFailsIfStringToCompareIsEmpty()
         {
-            Verify.That(testString).IsAString().EndsWith(String.Empty);
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(testString).IsAString().EndsWith(String.Empty)
+            );
         }
         #endregion
 
         #region DoesNotEndWith
+        [TestMethod]
+        public void StringDoesNotEndWithFailsIfStringToCompareIsNull()
+        {
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(testString).IsAString().DoesNotEndsWith(null)
+            );
+        }
+
+        [TestMethod]
+        public void StringDoesNotEndWithFailsIfStringEndWithStringToCompare()
+        {
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(testString).IsAString().DoesNotEndsWith("be with you.")
+            );
+        }
+        
+        [TestMethod]
+        public void StringDoesNotEndWithPassesIfStringDoesNotEndWithStringToCompare()
+        {
+            Verify.That(testString).IsAString().DoesNotEndsWith("monkey.");
+        }
+
+        [TestMethod]
+        public void StringDoesNotEndWithFailsIfStringToCompareIsEmpty()
+        {
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(testString).IsAString().DoesNotEndsWith(String.Empty)
+            );
+        }
         #endregion
 
 

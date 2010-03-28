@@ -1,88 +1,128 @@
 ﻿using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Munq.FluentTest
 {
     public partial class FluentTestObject : IFluentStringTest
     {
         private string StringToTest { get { return ObjectToTest as string; } }
+        private StringComparison ComparisonMode = StringComparison.CurrentCulture;
 
         #region IFluentStringTest methods
-        private bool _StringContains(string stringToCompare)
+        IFluentStringTest IFluentStringTest.WithFailureMessage(string msg)
         {
-            return stringToCompare != null && StringToTest.Contains(stringToCompare);
+            ErrorMessage = msg;
+            return this;
         }
+        
+        public IFluentStringTest UsingStringComparison(StringComparison comparisonMode)
+        {
+            ComparisonMode = comparisonMode;
+            return this;
+        }
+
+        private static void CheckStringToCompareNotNull(string stringToCompare)
+        {
+           if(string.IsNullOrEmpty(stringToCompare))
+            Verify.Fail();
+        }
+        
         IFluentStringTest IFluentStringTest.Contains(string stringToCompare)
         {
-            if (!_StringContains(stringToCompare))
+            CheckStringToCompareNotNull(stringToCompare);
+            if (!StringToTest.Contains(stringToCompare))
                 Verify.Fail();
             return this;
         }
 
-        private bool _StringDoesNotContain(string stringToCompare)
-        {
-            return stringToCompare != null && !StringToTest.Contains(stringToCompare);
-        }
         IFluentStringTest IFluentStringTest.DoesNotContain(string stringToCompare)
         {
-            if (!_StringDoesNotContain(stringToCompare))
+            CheckStringToCompareNotNull(stringToCompare);
+            if (StringToTest.Contains(stringToCompare))
                 Verify.Fail();
             return this;
         }
 
         IFluentStringTest IFluentStringTest.DoesNotMatch(Regex regex)
         {
-            StringAssert.DoesNotMatch(StringToTest, regex);
+            if (regex == null)
+                Verify.Fail();
+            if (regex.IsMatch(StringToTest))
+                Verify.Fail();
             return this;
         }
 
         IFluentStringTest IFluentStringTest.Matches(Regex regex)
         {
-            StringAssert.Matches(StringToTest, regex);
+            if (regex == null)
+                Verify.Fail();
+            if (!regex.IsMatch(StringToTest))
+                Verify.Fail();
             return this;
         }
 
         IFluentStringTest IFluentStringTest.StartsWith(string stringToCompare)
         {
-            StringAssert.StartsWith(StringToTest, stringToCompare);
-            return this;
-        }
-
-        IFluentStringTest IFluentStringTest.EndsWith(string stringToCompare)
-        {
-            StringAssert.EndsWith(StringToTest, stringToCompare);
+            CheckStringToCompareNotNull(stringToCompare);
+            if (!StringToTest.StartsWith(stringToCompare, ComparisonMode))
+                Verify.Fail();
             return this;
         }
 
          IFluentStringTest IFluentStringTest.DoesNotStartsWith(string stringToCompare)
         {
-            Assert.IsTrue(!StringToTest.StartsWith(stringToCompare), "String under test starts with the string to compare.");
+            CheckStringToCompareNotNull(stringToCompare);
+            if (StringToTest.StartsWith(stringToCompare, ComparisonMode))
+                Verify.Fail();
+            return this;
+        }
+        
+        IFluentStringTest IFluentStringTest.EndsWith(string stringToCompare)
+        {
+            CheckStringToCompareNotNull(stringToCompare);
+            if (!StringToTest.EndsWith(stringToCompare, ComparisonMode))
+                Verify.Fail();
             return this;
         }
 
         IFluentStringTest IFluentStringTest.DoesNotEndsWith(string stringToCompare)
         {
-            Assert.IsTrue(!StringToTest.EndsWith(stringToCompare), "String under test ends with the string to compare.");
+            CheckStringToCompareNotNull(stringToCompare);
+            if (StringToTest.EndsWith(stringToCompare, ComparisonMode))
+                Verify.Fail();
             return this;
         }
 
         IFluentStringTest IFluentStringTest.IsEmpty()
         {
-            if (!string.IsNullOrEmpty(StringToTest))
+            if (StringToTest != string.Empty)
                 Verify.Fail();
             return this;
         }
 
         IFluentStringTest IFluentStringTest.IsNotEmpty()
         {
-            if (string.IsNullOrEmpty(StringToTest))
+            if (StringToTest == string.Empty)
                 Verify.Fail();
             return this;
         }
+        #endregion
 
-        IFluentStringTest IFluentStringTest.WithFailureMessage(string msg)
+        #region IFluentStringTest Members
+
+
+        IFluentStringTest IFluentStringTest.IsEqual(string stringToCompare)
         {
-            ErrorMessage = msg;
+             if (!StringToTest.Equals(stringToCompare, ComparisonMode))
+                Verify.Fail();
+             return this;
+        }
+
+        IFluentStringTest IFluentStringTest.IsNotEqual(string stringToCompare)
+        {
+            if (StringToTest.Equals(stringToCompare, ComparisonMode))
+                Verify.Fail();
             return this;
         }
 

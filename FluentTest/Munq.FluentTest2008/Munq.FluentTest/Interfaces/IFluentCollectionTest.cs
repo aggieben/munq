@@ -44,7 +44,8 @@ namespace Munq.FluentTest
         IFluentCollectionTest IsNotTheSameCollectionAs(ICollection objToCompare);
 
         /// <summary>
-        /// The assertion fails if any of the objects in the collection are not instance of, or derived from, the specified type.
+        /// The assertion fails if any of the objects in the collection are not instance of,
+        /// or derived from, the specified type.
         /// </summary>
         /// <param name="type">The Type to compare against.</param>
         IFluentCollectionTest AllItemsAreInstancesOfType(Type type);
