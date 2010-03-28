@@ -19,10 +19,11 @@ namespace Munq.FluentTest.UnitTests
         ///A test for IsNotNull
         ///</summary>
         [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
         public void IsNotNullFailsForNull()
         {
-            Verify.That(null).IsNotNull();
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(null).IsNotNull()
+            );
         }
 
         ///<summary>
@@ -34,24 +35,6 @@ namespace Munq.FluentTest.UnitTests
             Verify.That(new MyTestClass()).IsNotNull();
         }
 
-        /// <summary>
-        ///A test for IsNotNull
-        ///</summary>
-        [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
-        public void IsNotNullWithMessageFailsForNull()
-        {
-            Verify.That(null).IsNotNull("IsNotNull(string msg) Passed!");
-        }
-
-        ///<summary>
-        ///A test for IsNotNull
-        ///</summary>
-        [TestMethod()]
-        public void IsNotNullWithMessagePassesFoNonNull()
-        {
-            Verify.That(new MyTestClass()).IsNotNull("IsNotNull(string msg) Failed!");
-        }
         #endregion
     }
 }

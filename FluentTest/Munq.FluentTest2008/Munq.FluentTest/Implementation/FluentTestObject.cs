@@ -3,14 +3,16 @@ using System.Collections;
 
 namespace Munq.FluentTest
 {
-    public class FluentTestObject : FluentTestCommon, Munq.FluentTest.IFluentTest
+    public partial class FluentTestObject : IFluentTestCommon, IFluentTest, IFluentStringTest, IFluentCollectionTest
     {
-        public FluentTestObject(object objectToTest)
-            : base(objectToTest)
-        {
-        }
 
         #region IFluentTest members
+        IFluentTest IFluentTest.WithFailureMessage(string msg)
+        {
+            ErrorMessage = msg;
+            return this;
+        }
+
         private bool _IsEqual(object objectToCompare)
         {
             if (ObjectToTest == null && objectToCompare == null)
@@ -23,56 +25,28 @@ namespace Munq.FluentTest
         IFluentTest IFluentTest.IsEqualTo(object objectToCompare)
         {
             if (!_IsEqual(objectToCompare))
-                Verify.Provider.Fail();
-            return this;
-        }
-
-        IFluentTest IFluentTest.IsEqualTo(object objectToCompare, string msg)
-        {
-            if (!_IsEqual(objectToCompare))
-                Verify.Provider.Fail(msg);
+                Verify.Fail();
             return this;
         }
 
         IFluentTest IFluentTest.IsNotEqualTo(object objectToCompare)
         {
             if (_IsEqual(objectToCompare))
-                Verify.Provider.Fail();
-            return this;
-        }
-
-        IFluentTest IFluentTest.IsNotEqualTo(object objectToCompare, string msg)
-        {
-            if (_IsEqual(objectToCompare))
-                Verify.Provider.Fail(msg);
+                Verify.Fail();
             return this;
         }
 
         IFluentTest IFluentTest.IsTheSameObjectAs(object objectToCompare)
         {
             if (!Object.ReferenceEquals(ObjectToTest, objectToCompare))
-                Verify.Provider.Fail();
-            return this;
-        }
-
-        IFluentTest IFluentTest.IsTheSameObjectAs(object objectToCompare, string msg)
-        {
-            if (!Object.ReferenceEquals(ObjectToTest, objectToCompare))
-                Verify.Provider.Fail(msg);
+                Verify.Fail();
             return this;
         }
 
         IFluentTest IFluentTest.IsNotTheSameObjectAs(object objectToCompare)
         {
             if (Object.ReferenceEquals(ObjectToTest, objectToCompare))
-                Verify.Provider.Fail();
-            return this;
-        }
-
-        IFluentTest IFluentTest.IsNotTheSameObjectAs(object objectToCompare, string msg)
-        {
-            if (!Object.ReferenceEquals(ObjectToTest, objectToCompare))
-                Verify.Provider.Fail(msg);
+                Verify.Fail();
             return this;
         }
 
@@ -92,17 +66,9 @@ namespace Munq.FluentTest
         IFluentTest IFluentTest.IsTrue()
         {
             if (!_IsTrue())
-                Verify.Provider.Fail();
+                Verify.Fail();
             return this;
         }
-
-        IFluentTest IFluentTest.IsTrue(string msg)
-        {
-            if (!_IsTrue())
-                Verify.Provider.Fail(msg);
-            return this;
-        }
-
 
         private bool _IsFalse()
         {
@@ -118,14 +84,7 @@ namespace Munq.FluentTest
         IFluentTest IFluentTest.IsFalse()
         {
             if (!_IsFalse())
-                Verify.Provider.Fail();
-            return this;
-        }
-
-        IFluentTest IFluentTest.IsFalse(string msg)
-        {
-            if (!_IsFalse())
-                Verify.Provider.Fail(msg);
+                Verify.Fail();
             return this;
         }
 
@@ -138,14 +97,7 @@ namespace Munq.FluentTest
         IFluentTest IFluentTest.IsAnInstanceOfType(Type type)
         {
             if (!_IsAnInstanceOf(type))
-                Verify.Provider.Fail();
-            return this;
-        }
-
-        IFluentTest IFluentTest.IsAnInstanceOfType(Type type, string msg)
-        {
-            if (!_IsAnInstanceOf(type))
-                Verify.Provider.Fail(msg);
+                Verify.Fail();
             return this;
         }
 
@@ -154,64 +106,35 @@ namespace Munq.FluentTest
             return ObjectToTest != null &&
                     !type.IsAssignableFrom(ObjectToTest.GetType());
         }
+        
         IFluentTest IFluentTest.IsNotAnInstanceOfType(Type type)
         {
             if (!_IsNotAnInstanceOf(type))
-                Verify.Provider.Fail();
-            return this;
-        }
-
-        IFluentTest IFluentTest.IsNotAnInstanceOfType(Type type, string msg)
-        {
-            if (!_IsNotAnInstanceOf(type))
-                Verify.Provider.Fail(msg);
+                Verify.Fail();
             return this;
         }
 
         IFluentTest IFluentTest.IsNotNull()
         {
             if (ObjectToTest == null)
-                Verify.Provider.Fail();
-            return this;
-        }
-
-        IFluentTest IFluentTest.IsNotNull(string msg)
-        {
-            if (ObjectToTest == null)
-                Verify.Provider.Fail(msg);
+                Verify.Fail();
             return this;
         }
 
         IFluentCollectionTest IFluentTest.IsACollection()
         {
             if (!_IsAnInstanceOf(typeof(ICollection)))
-                Verify.Provider.Fail();
+                Verify.Fail();
 
-            return new FluentTestCollection(ObjectToTest as ICollection);
-        }
-
-        IFluentCollectionTest IFluentTest.IsACollection(string msg)
-        {
-            if (!_IsAnInstanceOf(typeof(ICollection)))
-                Verify.Provider.Fail(msg);
-
-            return new FluentTestCollection(ObjectToTest as ICollection);
+            return this;
         }
 
         IFluentStringTest IFluentTest.IsAString()
         {
             if (!_IsAnInstanceOf(typeof(string)))
-                Verify.Provider.Fail();
+                Verify.Fail();
 
-            return new FluentTestString(ObjectToTest as string);
-        }
-
-        IFluentStringTest IFluentTest.IsAString(string msg)
-        {
-            if (!_IsAnInstanceOf(typeof(string)))
-                Verify.Provider.Fail();
-
-            return new FluentTestString(ObjectToTest as string);
+            return this;
         }
         #endregion
     }

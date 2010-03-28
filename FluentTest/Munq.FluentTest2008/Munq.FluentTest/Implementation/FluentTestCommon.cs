@@ -1,48 +1,39 @@
 ﻿
 namespace Munq.FluentTest
 {
-    public class FluentTestCommon : Munq.FluentTest.IFluentTestCommon
+    public partial class FluentTestObject : IFluentTestCommon, IFluentTest, IFluentStringTest, IFluentCollectionTest
     {
         protected readonly object ObjectToTest;
+        protected string ErrorMessage;
 
-        public FluentTestCommon(object objectToTest)
+        public FluentTestObject(object objectToTest)
         {
             ObjectToTest = objectToTest;
+            ErrorMessage = string.Empty;
         }
 
         #region IFluentTestCommon members
         public void Fail()
         {
-            Verify.Provider.Fail();
-        }
-
-        public void Fail(string msg)
-        {
-            Verify.Provider.Fail(msg);
+            if (string.IsNullOrEmpty(ErrorMessage))
+                Verify.Fail();
+            else
+                Verify.Fail(ErrorMessage);
         }
 
         public void Inconclusive()
         {
-            Verify.Provider.InConclusive();
-        }
-
-        public void Inconclusive(string msg)
-        {
-            Verify.Provider.InConclusive(msg);
+            if (string.IsNullOrEmpty(ErrorMessage))
+                Verify.InConclusive();
+            else
+                Verify.InConclusive(ErrorMessage);
         }
 
         public void IsNull()
         {
             if(ObjectToTest != null)
-                Verify.Provider.Fail();
+                Verify.Fail();
         }
-
-        public void IsNull(string msg)
-        {
-            if (ObjectToTest != null)
-                Verify.Provider.Fail(msg);
-        }
-
         #endregion
     }
 }

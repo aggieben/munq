@@ -2,7 +2,7 @@
 using Munq.FluentTest;
 
 namespace Munq.FluentTest.UnitTests
-{  
+{
     /// <summary>
     ///This is a test class for IFluentTestTest and is intended
     ///to contain all IFluentTestTest Unit Tests
@@ -28,20 +28,23 @@ namespace Munq.FluentTest.UnitTests
         ///A test for IsTheSameObjectAs
         ///</summary>
         [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
         public void IsTheSameObjectFailsForNullTestAndNonNullCompareObjects()
         {
-            Verify.That(null).IsTheSameObjectAs(new MyTestClass());
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(null).IsTheSameObjectAs(new MyTestClass())
+            );
         }
         /// <summary>
         ///A test for IsTheSameObjectAs
         ///</summary>
         [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
         public void IsTheSameObjectFailsForNonNullTestAndNullCompareObjects()
         {
-            Verify.That(new MyTestClass()).IsTheSameObjectAs(null);
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(new MyTestClass()).IsTheSameObjectAs(null)
+            );
         }
+
         /// <summary>
         ///A test for IsTheSameObjectAs
         ///</summary>

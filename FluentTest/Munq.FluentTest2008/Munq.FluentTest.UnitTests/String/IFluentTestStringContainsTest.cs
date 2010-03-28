@@ -22,50 +22,30 @@ namespace Munq.FluentTest.UnitTests
         }
         
         [TestMethod]
-        [ExpectedException(typeof(AssertFailedException))]
         public void ContainsFailsIfStringUnderTestDoesNotContainStringToCompare()
         {
-           Verify.That(StringUnderTest).IsAString().Contains("Zebra"); 
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(StringUnderTest).IsAString().Contains("Zebra")
+            );
         }
         
         [TestMethod]
-        [ExpectedException(typeof(AssertFailedException))]
         public void ContainsFailsIfStringToComparIsNull()
         {
-            Verify.That(StringUnderTest).IsAString().Contains(null);
-        }
-
-        [TestMethod]
-        public void ContainsWithMsgPassesIfStringUnderTestContainsStringToCompare()
-        {
-            Verify.That(StringUnderTest).IsAString()
-            .Contains("Jump","Contains(string msg) Failed!");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(AssertFailedException))]
-        public void ContainsWithMsgFailsIfStringUnderTestDoesNotContainStringToCompare()
-        {
-            Verify.That(StringUnderTest).IsAString()
-            .Contains("Zebra", "Contains(string msg) Passed!");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(AssertFailedException))]
-        public void ContainsWithMsgFailsIfStringToCompareIsNull()
-        {
-            Verify.That(StringUnderTest).IsAString()
-            .Contains(null, "Contains(string msg) Passed!");
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(StringUnderTest).IsAString().Contains(null)
+            );
         }
 
          #endregion
 
         #region DoesNotContain
         [TestMethod]
-        [ExpectedException(typeof(AssertFailedException))]
         public void DoesNotContainFailsIfStringUnderTestContainsStringToCompare()
         {
-            Verify.That(StringUnderTest).IsAString().DoesNotContain("Jump");
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(StringUnderTest).IsAString().DoesNotContain("Jump")
+            );
         }
 
         [TestMethod]
@@ -75,37 +55,12 @@ namespace Munq.FluentTest.UnitTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(AssertFailedException))]
         public void DoesNotContainPassesIfStringToComparIsNull()
         {
-            Verify.That(StringUnderTest).IsAString().DoesNotContain(null);
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(StringUnderTest).IsAString().DoesNotContain(null)
+            );
         }
-
-        [TestMethod]
-        [ExpectedException(typeof(AssertFailedException))]
-        public void DoesNotContainWithMsgFailsIfStringUnderTestContainsStringToCompare()
-        {
-            Verify.That(StringUnderTest).IsAString()
-            .DoesNotContain("Jump", "DoesNotContain(string msg) Passed!");
-        }
-
-        [TestMethod]
-        public void DoesNotContainWithMsgPassesIfStringUnderTestDoesNotContainStringToCompare()
-        {
-            Verify.That(StringUnderTest).IsAString()
-            .DoesNotContain("Zebra", "DoesNotContain(string msg) Failed!");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(AssertFailedException))]
-        public void DoesNotContainWithMsgPassesIfStringToCompareIsNull()
-        {
-            Verify.That(StringUnderTest).IsAString()
-            .DoesNotContain(null, "DoesNotContain(string msg) Passed!");
-        }
-
         #endregion
-
-
     }
 }

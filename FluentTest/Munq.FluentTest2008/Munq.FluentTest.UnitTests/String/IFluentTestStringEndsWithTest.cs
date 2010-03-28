@@ -16,17 +16,19 @@ namespace Munq.FluentTest.UnitTests
         #region EndsWith
         
         [TestMethod]
-        [ExpectedException(typeof(AssertFailedException))]
         public void StringEndsWithFailsIfStringToCompareIsNull()
         {
-            Verify.That(testString).IsAString().EndsWith(null);
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(testString).IsAString().EndsWith(null)
+            );
         }
          
         [TestMethod]
-        [ExpectedException(typeof(AssertFailedException))]
         public void StringEndsWithFailsIfDifferentString()
         {
-            Verify.That(testString).IsAString().EndsWith("monkey");
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(testString).IsAString().EndsWith("monkey")
+            );
         }
         
         [TestMethod]

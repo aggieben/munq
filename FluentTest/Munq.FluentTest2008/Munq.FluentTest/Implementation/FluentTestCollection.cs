@@ -4,16 +4,16 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Munq.FluentTest
 {
-    public class FluentTestCollection : FluentTestCommon, Munq.FluentTest.IFluentCollectionTest
+    public partial class FluentTestObject : IFluentTestCommon, IFluentTest, IFluentStringTest, IFluentCollectionTest
     {
         private ICollection CollectionToTest { get { return ObjectToTest as ICollection; } }
 
-        public FluentTestCollection(ICollection collectionToTest)
-            : base(collectionToTest)
-        {
-        }
-
         #region CollectionAssert members
+        IFluentCollectionTest IFluentCollectionTest.WithFailureMessage(string msg)
+        {
+            ErrorMessage = msg;
+            return this;
+        }
 
         IFluentCollectionTest IFluentCollectionTest.IsTheSameCollectionAs(ICollection objectToCompare)
         {

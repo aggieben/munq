@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Munq.FluentTest;
+using System;
 
 namespace Munq.FluentTest.UnitTests
 {   
@@ -14,66 +15,34 @@ namespace Munq.FluentTest.UnitTests
         ///A test for Fail
         ///</summary>
         [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
-        public void FailWithMessage()
-        {
-            Verify.That(null).Fail("Fail(string msg) Passed!");
-        }
-
-        /// <summary>
-        ///A test for Fail
-        ///</summary>
-        [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
         public void Fail()
         {
-            Verify.That(null).Fail();
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(null).Fail()
+            );
         }
 
         /// <summary>
         ///A test for Inconclusive
         ///</summary>
         [TestMethod()]
-        [ExpectedException(typeof(AssertInconclusiveException))]
-        public void InconclusiveWithMessage()
-        {
-            Verify.That(null).Inconclusive("Inconclusive(string msg) Passed!");
-        }
-
-        /// <summary>
-        ///A test for Inconclusive
-        ///</summary>
-        [TestMethod()]
-        [ExpectedException(typeof(AssertInconclusiveException))]
         public void Inconclusive()
         {
-            Verify.That(null).Inconclusive();
+            Verify.TheExpectedException(Verify.InConclusiveExceptionType).IsThrownWhen(
+                () => Verify.That(null).Inconclusive()
+            );
         }
+
 
         /// <summary>
         ///A test for IsNull
         ///</summary>
         [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
-        public void IsNullWithMessageFailsForNonNullObject()
-        {
-            Verify.That(new object()).IsNull("IsNull(string msg) Passed!");
-        }
-
-        /// <summary>
-        ///A test for IsNull
-        ///</summary>
-        [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
         public void IsNullFailsForNonNullObject()
         {
-            Verify.That(new object()).IsNull();
-        }
-        ///</summary>
-        [TestMethod()]
-        public void IsNullWithMessagePassessForNullObject()
-        {
-            Verify.That(null).IsNull("IsNull(string msg) Passed!");
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(new object()).IsNull()
+            );          
         }
 
        /// <summary>
@@ -82,7 +51,7 @@ namespace Munq.FluentTest.UnitTests
         [TestMethod()]
         public void IsNullPassesForNullObject()
         {
-            Verify.That(null).IsNull();
+            Verify.That(null).IsNull();        
         }
     }
 }

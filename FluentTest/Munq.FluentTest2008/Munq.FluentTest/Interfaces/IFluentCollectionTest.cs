@@ -9,6 +9,12 @@ namespace Munq.FluentTest
     public interface IFluentCollectionTest : IFluentTestCommon
     {
         /// <summary>
+        /// Specifies a message to use on failure.
+        /// </summary>
+        /// <param name="msg"The message to use.</param>
+        IFluentCollectionTest WithFailureMessage(string msg);
+
+        /// <summary>
         /// The assertion fails if the collection is null.
         /// </summary>
         IFluentCollectionTest IsNotNull();

@@ -15,30 +15,33 @@ namespace Munq.FluentTest.UnitTests
         ///A test for IsTrue
         ///</summary>
         [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
         public void IsTrueFailsForNull()
         {
-            Verify.That(null).IsTrue();
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(null).IsTrue()
+            );
         }
 
         /// <summary>
         ///A test for IsTrue
         ///</summary>
         [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
         public void IsTrueFailsForFalse()
         {
-            Verify.That(false).IsTrue();
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(false).IsTrue()
+            );           
         }
 
         /// <summary>
         ///A test for IsTrue
         ///</summary>
         [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
         public void IsTrueFailsForNonBool()
         {
-            Verify.That("A string").IsTrue();
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That("A string").IsTrue()
+            );
         }
 
         /// <summary>
@@ -50,44 +53,6 @@ namespace Munq.FluentTest.UnitTests
             Verify.That(1 == 1).IsTrue();
         }
 
-        /// <summary>
-        ///A test for IsTrue
-        ///</summary>
-        [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
-        public void IsTrueWithMessageFailsForNull()
-        {
-            Verify.That(null).IsTrue("IsTrue(string msg) Passed!");
-        }
-
-        /// <summary>
-        ///A test for IsTrue
-        ///</summary>
-        [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
-        public void IsTrueWithMessageFailsForFalse()
-        {
-            Verify.That(false).IsTrue("IsTrue(string msg) Passed!");
-        }
-
-        /// <summary>
-        ///A test for IsTrue
-        ///</summary>
-        [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
-        public void IsTrueWithMessageFailsForNonBool()
-        {
-            Verify.That("A string").IsTrue("IsTrue(string msg) Passed!");
-        }
-
-        /// <summary>
-        ///A test for IsTrue
-        ///</summary>
-        [TestMethod()]
-        public void IsTrueWithMessagePassesForTrue()
-        {
-            Verify.That(1 == 1).IsTrue("IsTrue(string msg) Failed!");
-        }
         #endregion
 
         #region IsFalse
@@ -95,30 +60,33 @@ namespace Munq.FluentTest.UnitTests
         ///A test for IsFalse
         ///</summary>
         [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
         public void IsFalseFailsForNull()
         {
-            Verify.That(null).IsFalse();
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(null).IsFalse()
+            );
         }
 
         /// <summary>
         ///A test for IsFalse
         ///</summary>
         [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
         public void IsFalseFailsForTrue()
         {
-            Verify.That(true).IsFalse();
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(true).IsFalse()
+            );
         }
 
         /// <summary>
         ///A test for IsFalse
         ///</summary>
         [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
         public void IsFalseFailsForNonBool()
         {
-            Verify.That("A string").IsFalse();
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That("A string").IsFalse()
+            );
         }
 
         /// <summary>
@@ -128,45 +96,6 @@ namespace Munq.FluentTest.UnitTests
         public void IsFalsePassesForFalse()
         {
             Verify.That(1 != 1).IsFalse();
-        }
-
-        /// <summary>
-        ///A test for IsFalse
-        ///</summary>
-        [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
-        public void IsFalseWithMessageFailsForNull()
-        {
-            Verify.That(null).IsFalse("IsFalse(string msg) Passed!");
-        }
-
-        /// <summary>
-        ///A test for IsFalse
-        ///</summary>
-        [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
-        public void IsFalseWithMessageFailsForTrue()
-        {
-            Verify.That(true).IsFalse("IsFalse(string msg) Passed!");
-        }
-
-        /// <summary>
-        ///A test for IsFalse
-        ///</summary>
-        [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
-        public void IsFalseWithMessageFailsForNonBool()
-        {
-            Verify.That("A string").IsFalse("IsFalse(string msg) Passed!");
-        }
-
-        /// <summary>
-        ///A test for IsFalse
-        ///</summary>
-        [TestMethod()]
-        public void IsFalseWithMessagePassesForFalse()
-        {
-            Verify.That(1 != 1).IsFalse("IsFalse(string msg) Failed!");
         }
         #endregion
      }

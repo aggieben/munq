@@ -21,19 +21,22 @@ namespace Munq.FluentTest.UnitTests
         ///A test for IsACollection
         ///</summary>
         [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
         public void IsACollectionFailsForNull()
         {
-            Verify.That(null).IsACollection();
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(null).IsACollection()
+            );
         }
+        
         /// <summary>
         ///A test for IsACollection
         ///</summary>
         [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
         public void IsACollectionFailsForNotCollection()
         {
-            Verify.That(new object()).IsACollection();
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(new object()).IsACollection()
+            );
         }
 
         [TestMethod()]
@@ -42,34 +45,6 @@ namespace Munq.FluentTest.UnitTests
             Verify.That(new List<object>()).IsACollection();
         }
 
-        /// <summary>
-        ///A test for IsACollection
-        ///</summary>
-        [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
-        public void IsACollectionWithMessageFailsForNull()
-        {
-            Verify.That(null).IsACollection("IsACollection(string msg) Passed!");
-        }
-
-        /// <summary>
-        ///A test for IsACollection
-        ///</summary>
-        [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
-        public void IsACollectionWithMessageFailsForNotCollection()
-        {
-            Verify.That(new object()).IsACollection("IsACollection(string msg) Passed!");
-        }
-
-        /// <summary>
-        ///A test for IsACollection
-        ///</summary>
-        [TestMethod()]
-        public void IsACollectionWithMessagePassesForCollection()
-        {
-            Verify.That(new List<object>()).IsACollection("IsACollection(string msg) Failed!");
-        }
         #endregion
 
         #region IsAString
@@ -78,20 +53,22 @@ namespace Munq.FluentTest.UnitTests
         ///A test for IsAString
         ///</summary>
         [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
         public void IsAStringFailsForNull()
         {
-            Verify.That(null).IsAString();
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(null).IsAString()
+            );
         }
 
         ///<summary>
         ///A test for IsAString
         ///</summary>
         [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
         public void IsAStringFailsForNonString()
         {
-            Verify.That(new DateTime()).IsAString();
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(new DateTime()).IsAString()
+            );
         }
 
         ///<summary>
@@ -101,35 +78,6 @@ namespace Munq.FluentTest.UnitTests
         public void IsAStringPassesForString()
         {
             Verify.That("This Should Pass!").IsAString();
-        }
-
-        /// <summary>
-        ///A test for IsAString
-        ///</summary>
-        [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
-        public void IsAStringWithMessageFailsForNull()
-        {
-            Verify.That(null).IsAString("IsAString(string msg) Passed!");
-        }
-
-        ///<summary>
-        ///A test for IsAString
-        ///</summary>
-        [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
-        public void IsAStringWithMessagegFailsForNonString()
-        {
-            Verify.That(new DateTime()).IsAString("IsAString(string msg) Passed!");
-        }
-
-        /// <summary>
-        ///A test for IsAString
-        ///</summary>
-        [TestMethod()]
-        public void IsAStringWithMessagePassesForString()
-        {
-            Verify.That("This Should Pass!").IsAString("IsAString(string msg) Failed!");
         }
 
         #endregion
