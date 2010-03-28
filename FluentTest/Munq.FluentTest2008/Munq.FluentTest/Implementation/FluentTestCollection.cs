@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Munq.FluentTest
 {
-    public partial class FluentTestObject : IFluentTestCommon, IFluentTest, IFluentStringTest, IFluentCollectionTest
+    public partial class FluentTestObject : IFluentCollectionTest
     {
         private ICollection CollectionToTest { get { return ObjectToTest as ICollection; } }
 

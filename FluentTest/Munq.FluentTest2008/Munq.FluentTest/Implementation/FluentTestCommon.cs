@@ -1,7 +1,7 @@
 ﻿
 namespace Munq.FluentTest
 {
-    public partial class FluentTestObject : IFluentTestCommon, IFluentTest, IFluentStringTest, IFluentCollectionTest
+    public partial class FluentTestObject : IFluentTestCommon
     {
         protected readonly object ObjectToTest;
         protected string ErrorMessage;

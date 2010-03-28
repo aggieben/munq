@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Munq.FluentTest
 {
-    public partial class FluentTestObject : IFluentTestCommon, IFluentTest, IFluentStringTest, IFluentCollectionTest
+    public partial class FluentTestObject : IFluentStringTest
     {
         private string StringToTest { get { return ObjectToTest as string; } }
 

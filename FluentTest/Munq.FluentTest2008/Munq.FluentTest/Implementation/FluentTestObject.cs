@@ -3,9 +3,8 @@ using System.Collections;
 
 namespace Munq.FluentTest
 {
-    public partial class FluentTestObject : IFluentTestCommon, IFluentTest, IFluentStringTest, IFluentCollectionTest
+    public partial class FluentTestObject : IFluentTest
     {
-
         #region IFluentTest members
         IFluentTest IFluentTest.WithFailureMessage(string msg)
         {
