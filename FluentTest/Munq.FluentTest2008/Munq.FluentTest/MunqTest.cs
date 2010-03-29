@@ -5,7 +5,7 @@ namespace Munq.FluentTest
 {
     public class Verify
     {      
-        private static IFluentTestProvider Provider { get; set;}
+        public static IFluentTestProvider Provider { get; set;}
         
         static Verify()
         {
