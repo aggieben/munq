@@ -120,7 +120,7 @@ namespace Munq.FluentTest
             return this;
         }
 
-        IFluentCollectionTest IFluentTest.IsACollection()
+        IFluentTestCollection IFluentTest.IsACollection()
         {
             if (!_IsAnInstanceOf(typeof(ICollection)))
                 Verify.Fail();
@@ -128,7 +128,7 @@ namespace Munq.FluentTest
             return this;
         }
 
-        IFluentStringTest IFluentTest.IsAString()
+        IFluentTestString IFluentTest.IsAString()
         {
             if (!_IsAnInstanceOf(typeof(string)))
                 Verify.Fail();

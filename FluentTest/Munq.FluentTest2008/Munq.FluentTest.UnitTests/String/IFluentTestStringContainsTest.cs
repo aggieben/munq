@@ -30,7 +30,7 @@ namespace Munq.FluentTest.UnitTests
         }
         
         [TestMethod]
-        public void ContainsFailsIfStringToComparIsNull()
+        public void ContainsFailsIfStringToCompareIsNull()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(StringUnderTest).IsAString().Contains(null)
@@ -55,7 +55,7 @@ namespace Munq.FluentTest.UnitTests
         }
 
         [TestMethod]
-        public void DoesNotContainPassesIfStringToComparIsNull()
+        public void DoesNotContainPassesIfStringToCompareIsNull()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(StringUnderTest).IsAString().DoesNotContain(null)

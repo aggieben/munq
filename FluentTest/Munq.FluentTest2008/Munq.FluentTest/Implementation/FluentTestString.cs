@@ -4,19 +4,19 @@ using System;
 
 namespace Munq.FluentTest
 {
-    public partial class FluentTestObject : IFluentStringTest
+    public partial class FluentTestObject : IFluentTestString
     {
         private string StringToTest { get { return ObjectToTest as string; } }
         private StringComparison ComparisonMode = StringComparison.CurrentCulture;
 
         #region IFluentStringTest methods
-        IFluentStringTest IFluentStringTest.WithFailureMessage(string msg)
+        IFluentTestString IFluentTestString.WithFailureMessage(string msg)
         {
             ErrorMessage = msg;
             return this;
         }
         
-        public IFluentStringTest UsingStringComparison(StringComparison comparisonMode)
+        public IFluentTestString UsingStringComparison(StringComparison comparisonMode)
         {
             ComparisonMode = comparisonMode;
             return this;
@@ -28,7 +28,7 @@ namespace Munq.FluentTest
             Verify.Fail();
         }
         
-        IFluentStringTest IFluentStringTest.Contains(string stringToCompare)
+        IFluentTestString IFluentTestString.Contains(string stringToCompare)
         {
             CheckStringToCompareNotNull(stringToCompare);
             if (!StringToTest.Contains(stringToCompare))
@@ -36,7 +36,7 @@ namespace Munq.FluentTest
             return this;
         }
 
-        IFluentStringTest IFluentStringTest.DoesNotContain(string stringToCompare)
+        IFluentTestString IFluentTestString.DoesNotContain(string stringToCompare)
         {
             CheckStringToCompareNotNull(stringToCompare);
             if (StringToTest.Contains(stringToCompare))
@@ -44,7 +44,7 @@ namespace Munq.FluentTest
             return this;
         }
 
-        IFluentStringTest IFluentStringTest.DoesNotMatch(Regex regex)
+        IFluentTestString IFluentTestString.DoesNotMatch(Regex regex)
         {
             if (regex == null)
                 Verify.Fail();
@@ -53,7 +53,7 @@ namespace Munq.FluentTest
             return this;
         }
 
-        IFluentStringTest IFluentStringTest.Matches(Regex regex)
+        IFluentTestString IFluentTestString.Matches(Regex regex)
         {
             if (regex == null)
                 Verify.Fail();
@@ -62,7 +62,7 @@ namespace Munq.FluentTest
             return this;
         }
 
-        IFluentStringTest IFluentStringTest.StartsWith(string stringToCompare)
+        IFluentTestString IFluentTestString.StartsWith(string stringToCompare)
         {
             CheckStringToCompareNotNull(stringToCompare);
             if (!StringToTest.StartsWith(stringToCompare, ComparisonMode))
@@ -70,7 +70,7 @@ namespace Munq.FluentTest
             return this;
         }
 
-         IFluentStringTest IFluentStringTest.DoesNotStartWith(string stringToCompare)
+         IFluentTestString IFluentTestString.DoesNotStartWith(string stringToCompare)
         {
             CheckStringToCompareNotNull(stringToCompare);
             if (StringToTest.StartsWith(stringToCompare, ComparisonMode))
@@ -78,7 +78,7 @@ namespace Munq.FluentTest
             return this;
         }
         
-        IFluentStringTest IFluentStringTest.EndsWith(string stringToCompare)
+        IFluentTestString IFluentTestString.EndsWith(string stringToCompare)
         {
             CheckStringToCompareNotNull(stringToCompare);
             if (!StringToTest.EndsWith(stringToCompare, ComparisonMode))
@@ -86,7 +86,7 @@ namespace Munq.FluentTest
             return this;
         }
 
-        IFluentStringTest IFluentStringTest.DoesNotEndsWith(string stringToCompare)
+        IFluentTestString IFluentTestString.DoesNotEndsWith(string stringToCompare)
         {
             CheckStringToCompareNotNull(stringToCompare);
             if (StringToTest.EndsWith(stringToCompare, ComparisonMode))
@@ -94,14 +94,14 @@ namespace Munq.FluentTest
             return this;
         }
 
-        IFluentStringTest IFluentStringTest.IsEmpty()
+        IFluentTestString IFluentTestString.IsEmpty()
         {
             if (StringToTest != string.Empty)
                 Verify.Fail();
             return this;
         }
 
-        IFluentStringTest IFluentStringTest.IsNotEmpty()
+        IFluentTestString IFluentTestString.IsNotEmpty()
         {
             if (StringToTest == string.Empty)
                 Verify.Fail();
@@ -112,7 +112,7 @@ namespace Munq.FluentTest
         #region IFluentStringTest Members
 
 
-        IFluentStringTest IFluentStringTest.IsEqualTo(string stringToCompare)
+        IFluentTestString IFluentTestString.IsEqualTo(string stringToCompare)
         {
             CheckStringToCompareNotNull(stringToCompare);
             if (!StringToTest.Equals(stringToCompare, ComparisonMode))
@@ -120,7 +120,7 @@ namespace Munq.FluentTest
              return this;
         }
 
-        IFluentStringTest IFluentStringTest.IsNotEqualTo(string stringToCompare)
+        IFluentTestString IFluentTestString.IsNotEqualTo(string stringToCompare)
         {
             CheckStringToCompareNotNull(stringToCompare);
             if (StringToTest.Equals(stringToCompare, ComparisonMode))
