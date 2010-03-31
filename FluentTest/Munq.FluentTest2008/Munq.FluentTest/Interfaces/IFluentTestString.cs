@@ -89,6 +89,6 @@ namespace Munq.FluentTest
         /// The assertion fails if the string under test ends with the specified string.
         /// </summary>
         /// <param name="stringToCompare">The string to test against the string under test.</param>
-        IFluentTestString DoesNotEndsWith(string stringToCompare);
+        IFluentTestString DoesNotEndWith(string stringToCompare);
     }
 }

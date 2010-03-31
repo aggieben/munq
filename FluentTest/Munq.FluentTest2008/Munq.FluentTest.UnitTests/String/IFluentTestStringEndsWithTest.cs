@@ -50,7 +50,7 @@ namespace Munq.FluentTest.UnitTests
         public void StringDoesNotEndWithFailsIfStringToCompareIsNull()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().DoesNotEndsWith(null)
+                () => Verify.That(testString).IsAString().DoesNotEndWith(null)
             );
         }
 
@@ -58,21 +58,21 @@ namespace Munq.FluentTest.UnitTests
         public void StringDoesNotEndWithFailsIfStringEndWithStringToCompare()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().DoesNotEndsWith("be with you.")
+                () => Verify.That(testString).IsAString().DoesNotEndWith("be with you.")
             );
         }
         
         [TestMethod]
         public void StringDoesNotEndWithPassesIfStringDoesNotEndWithStringToCompare()
         {
-            Verify.That(testString).IsAString().DoesNotEndsWith("monkey.");
+            Verify.That(testString).IsAString().DoesNotEndWith("monkey.");
         }
 
         [TestMethod]
         public void StringDoesNotEndWithFailsIfStringToCompareIsEmpty()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().DoesNotEndsWith(String.Empty)
+                () => Verify.That(testString).IsAString().DoesNotEndWith(String.Empty)
             );
         }
         #endregion

@@ -86,7 +86,7 @@ namespace Munq.FluentTest
             return this;
         }
 
-        IFluentTestString IFluentTestString.DoesNotEndsWith(string stringToCompare)
+        IFluentTestString IFluentTestString.DoesNotEndWith(string stringToCompare)
         {
             CheckStringToCompareNotNull(stringToCompare);
             if (StringToTest.EndsWith(stringToCompare, ComparisonMode))
