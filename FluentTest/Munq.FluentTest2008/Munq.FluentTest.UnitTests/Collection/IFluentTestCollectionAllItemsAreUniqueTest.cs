@@ -18,7 +18,7 @@ namespace Munq.FluentTest.UnitTests
         public void AllItemsAreUniquePassesIfAllItemsAreUnique()
         {
             var testCollection = new List<object>(new object[]{"One", DateTime.Now, 1});
-            Verify.That(testCollection).IsACollection().AllItemsAreUnique();          
+            Verify.That(testCollection).IsACollectionThat().AllItemsAreUnique();          
         }
         
         [TestMethod]
@@ -26,7 +26,7 @@ namespace Munq.FluentTest.UnitTests
         {
             var testCollection = new List<object>(new object[] { "One", "Three", "Three" });
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testCollection).IsACollection().AllItemsAreUnique()
+                () => Verify.That(testCollection).IsACollectionThat().AllItemsAreUnique()
             );
         }
         #endregion

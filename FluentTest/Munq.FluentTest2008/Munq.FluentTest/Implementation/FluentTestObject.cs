@@ -24,7 +24,9 @@ namespace Munq.FluentTest
         IFluentTest IFluentTest.IsEqualTo(object objectToCompare)
         {
             if (!_IsEqual(objectToCompare))
-                Verify.Fail();
+                FailWithDefaultMessage(String.Format("[{0}] is not equal to expected [{1}].", 
+                                                            ObjectToTest ?? "null", 
+                                                            objectToCompare ?? "null"));
             return this;
         }
 
@@ -120,7 +122,7 @@ namespace Munq.FluentTest
             return this;
         }
 
-        IFluentTestCollection IFluentTest.IsACollection()
+        IFluentTestCollection IFluentTest.IsACollectionThat()
         {
             if (!_IsAnInstanceOf(typeof(ICollection)))
                 Verify.Fail();
@@ -128,7 +130,7 @@ namespace Munq.FluentTest
             return this;
         }
 
-        IFluentTestString IFluentTest.IsAString()
+        IFluentTestString IFluentTest.IsAStringThat()
         {
             if (!_IsAnInstanceOf(typeof(string)))
                 Verify.Fail();

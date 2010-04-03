@@ -24,7 +24,7 @@ namespace Munq.FluentTest.UnitTests
         public void IsACollectionFailsForNull()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(null).IsACollection()
+                () => Verify.That(null).IsACollectionThat()
             );
         }
         
@@ -35,14 +35,14 @@ namespace Munq.FluentTest.UnitTests
         public void IsACollectionFailsForNotCollection()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(new object()).IsACollection()
+                () => Verify.That(new object()).IsACollectionThat()
             );
         }
 
         [TestMethod()]
         public void IsACollectionPassesForCollection()
         {
-            Verify.That(new List<object>()).IsACollection();
+            Verify.That(new List<object>()).IsACollectionThat();
         }
 
         #endregion
@@ -56,7 +56,7 @@ namespace Munq.FluentTest.UnitTests
         public void IsAStringFailsForNull()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(null).IsAString()
+                () => Verify.That(null).IsAStringThat()
             );
         }
 
@@ -67,7 +67,7 @@ namespace Munq.FluentTest.UnitTests
         public void IsAStringFailsForNonString()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(new DateTime()).IsAString()
+                () => Verify.That(new DateTime()).IsAStringThat()
             );
         }
 
@@ -77,7 +77,7 @@ namespace Munq.FluentTest.UnitTests
         [TestMethod()]
         public void IsAStringPassesForString()
         {
-            Verify.That("This Should Pass!").IsAString();
+            Verify.That("This Should Pass!").IsAStringThat();
         }
 
         #endregion

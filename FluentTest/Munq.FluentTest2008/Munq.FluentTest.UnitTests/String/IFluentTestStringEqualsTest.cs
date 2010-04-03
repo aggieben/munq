@@ -18,7 +18,7 @@ namespace Munq.FluentTest.UnitTests
         public void StringIsEqualToFailsIfStringToCompareIsNull()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().IsEqualTo(null)
+                () => Verify.That(testString).IsAStringThat().IsEqualTo(null)
             );
         }
 
@@ -26,21 +26,21 @@ namespace Munq.FluentTest.UnitTests
         public void StringIsEqualToFailsIfDoesIsEqualTotring()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().IsEqualTo("monkey")
+                () => Verify.That(testString).IsAStringThat().IsEqualTo("monkey")
             );
         }
         
         [TestMethod]
         public void StringIsEqualToPassesIfStringIsEqualToStringToCompare()
         {
-            Verify.That(testString).IsAString().IsEqualTo(testString);
+            Verify.That(testString).IsAStringThat().IsEqualTo(testString);
         }
 
         [TestMethod]
         public void StringIsEqualToFailsIfStringToCompareIsEmpty()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().IsEqualTo(String.Empty)
+                () => Verify.That(testString).IsAStringThat().IsEqualTo(String.Empty)
             );
         }
         #endregion
@@ -50,7 +50,7 @@ namespace Munq.FluentTest.UnitTests
         public void StringIsNotEqualToFailsIfStringToCompareIsNull()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().IsNotEqualTo(null)
+                () => Verify.That(testString).IsAStringThat().IsNotEqualTo(null)
             );
         }
 
@@ -58,21 +58,21 @@ namespace Munq.FluentTest.UnitTests
         public void StringIsNotEqualToFailsIfDoesIsEqualTotring()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().IsNotEqualTo(testString)
+                () => Verify.That(testString).IsAStringThat().IsNotEqualTo(testString)
             );
         }
         
         [TestMethod]
         public void StringIsNotEqualToPassesIfStringIsNotEqualToStringToCompare()
         {
-            Verify.That(testString).IsAString().IsNotEqualTo("monkey");
+            Verify.That(testString).IsAStringThat().IsNotEqualTo("monkey");
         }
 
         [TestMethod]
         public void StringIsNotEqualToFailsIfStringToCompareIsEmpty()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().IsNotEqualTo(String.Empty)
+                () => Verify.That(testString).IsAStringThat().IsNotEqualTo(String.Empty)
             );
         }
        #endregion

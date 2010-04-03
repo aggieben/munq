@@ -19,7 +19,7 @@ namespace Munq.FluentTest.UnitTests
         public void IsNotNullPasses()
         {
             var testCollection = new List<string>();
-            Verify.That(testCollection).IsACollection().IsNotNull();          
+            Verify.That(testCollection).IsACollectionThat().IsNotNull();          
         }
         
         #endregion

@@ -19,7 +19,7 @@ namespace Munq.FluentTest.UnitTests
         public void AllItemsNotNullPassedIfAllItemAreNotNull()
         {
             var testCollection = new List<object>(new object[]{"One", DateTime.Now, 1});
-            Verify.That(testCollection).IsACollection().AllItemsAreNotNull();          
+            Verify.That(testCollection).IsACollectionThat().AllItemsAreNotNull();          
         }
         
         [TestMethod]
@@ -27,7 +27,7 @@ namespace Munq.FluentTest.UnitTests
         {
             var testCollection = new List<object>(new object[] { "One", null, "Three" });
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testCollection).IsACollection().AllItemsAreNotNull()
+                () => Verify.That(testCollection).IsACollectionThat().AllItemsAreNotNull()
             );
         }
         #endregion

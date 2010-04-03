@@ -18,14 +18,14 @@ namespace Munq.FluentTest.UnitTests
         public void StringIsEmptyFailsIfIsNotEmpty()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().IsEmpty()
+                () => Verify.That(testString).IsAStringThat().IsEmpty()
             );
         }
         
         [TestMethod]
         public void StringIsEmptyPassesIfStringIsEmpty()
         {
-            Verify.That(String.Empty).IsAString().IsEmpty();
+            Verify.That(String.Empty).IsAStringThat().IsEmpty();
         }
         #endregion
 
@@ -34,14 +34,14 @@ namespace Munq.FluentTest.UnitTests
         public void StringIsNotEmptyFailsIfIsEmpty()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(String.Empty).IsAString().IsNotEmpty()
+                () => Verify.That(String.Empty).IsAStringThat().IsNotEmpty()
             );
         }
 
         [TestMethod]
         public void StringIsNotEmptyPassesIfStringIsNotEmpty()
         {
-            Verify.That(testString).IsAString().IsNotEmpty();
+            Verify.That(testString).IsAStringThat().IsNotEmpty();
         }
         #endregion
     }

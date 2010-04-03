@@ -18,7 +18,7 @@ namespace Munq.FluentTest.UnitTests
         public void StringEndsWithFailsIfStringToCompareIsNull()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().EndsWith(null)
+                () => Verify.That(testString).IsAStringThat().EndsWith(null)
             );
         }
          
@@ -26,13 +26,13 @@ namespace Munq.FluentTest.UnitTests
         public void StringEndsWithFailsIfDifferentString()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().EndsWith("monkey")
+                () => Verify.That(testString).IsAStringThat().EndsWith("monkey")
             );
         }
         [TestMethod]
         public void StringEndsWithPassesIfStringEndsWithStringToCompare()
         {
-            Verify.That(testString).IsAString().EndsWith("be with you.");
+            Verify.That(testString).IsAStringThat().EndsWith("be with you.");
         }
 
         
@@ -40,7 +40,7 @@ namespace Munq.FluentTest.UnitTests
         public void StringEndsWithFailsIfStringToCompareIsEmpty()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().EndsWith(String.Empty)
+                () => Verify.That(testString).IsAStringThat().EndsWith(String.Empty)
             );
         }
         #endregion
@@ -50,7 +50,7 @@ namespace Munq.FluentTest.UnitTests
         public void StringDoesNotEndWithFailsIfStringToCompareIsNull()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().DoesNotEndWith(null)
+                () => Verify.That(testString).IsAStringThat().DoesNotEndWith(null)
             );
         }
 
@@ -58,21 +58,21 @@ namespace Munq.FluentTest.UnitTests
         public void StringDoesNotEndWithFailsIfStringEndWithStringToCompare()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().DoesNotEndWith("be with you.")
+                () => Verify.That(testString).IsAStringThat().DoesNotEndWith("be with you.")
             );
         }
         
         [TestMethod]
         public void StringDoesNotEndWithPassesIfStringDoesNotEndWithStringToCompare()
         {
-            Verify.That(testString).IsAString().DoesNotEndWith("monkey.");
+            Verify.That(testString).IsAStringThat().DoesNotEndWith("monkey.");
         }
 
         [TestMethod]
         public void StringDoesNotEndWithFailsIfStringToCompareIsEmpty()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().DoesNotEndWith(String.Empty)
+                () => Verify.That(testString).IsAStringThat().DoesNotEndWith(String.Empty)
             );
         }
         #endregion

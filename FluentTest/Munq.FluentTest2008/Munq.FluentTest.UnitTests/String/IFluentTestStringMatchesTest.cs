@@ -18,7 +18,7 @@ namespace Munq.FluentTest.UnitTests
         public void MatchesFailsForNullCompareRegEx()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().Matches(null)
+                () => Verify.That(testString).IsAStringThat().Matches(null)
             );
         }
 
@@ -26,14 +26,14 @@ namespace Munq.FluentTest.UnitTests
         public void MatchesFailsForNonMatchingRegEx()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().Matches(new Regex(@"\d\d\d"))
+                () => Verify.That(testString).IsAStringThat().Matches(new Regex(@"\d\d\d"))
             );
         }
 
         [TestMethod]
         public void MatchesPassesForMatchingRegEx()
         {
-            Verify.That(testString).IsAString().Matches(new Regex(@".*F.*"));
+            Verify.That(testString).IsAStringThat().Matches(new Regex(@".*F.*"));
         }
         #endregion
 
@@ -42,7 +42,7 @@ namespace Munq.FluentTest.UnitTests
         public void DoesNotMatchFailsForNullCompareRegEx()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().DoesNotMatch(null)
+                () => Verify.That(testString).IsAStringThat().DoesNotMatch(null)
             );
         }
 
@@ -50,14 +50,14 @@ namespace Munq.FluentTest.UnitTests
         public void DoesNotMatchFailsForMatchingRegEx()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().DoesNotMatch(new Regex(@"^May.*\.$"))
+                () => Verify.That(testString).IsAStringThat().DoesNotMatch(new Regex(@"^May.*\.$"))
             );
         }
 
         [TestMethod]
         public void DoesNotMatchPassesForNonMatchingRegEx()
         {
-            Verify.That(testString).IsAString().DoesNotMatch(new Regex("Jedi"));
+            Verify.That(testString).IsAStringThat().DoesNotMatch(new Regex("Jedi"));
         }
         #endregion
 

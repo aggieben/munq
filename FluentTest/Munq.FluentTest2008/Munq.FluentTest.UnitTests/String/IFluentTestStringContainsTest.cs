@@ -18,14 +18,14 @@ namespace Munq.FluentTest.UnitTests
         [TestMethod]
         public void ContainsPassesIfStringUnderTestContainsStringToCompare()
         {
-            Verify.That(StringUnderTest).IsAString().Contains("Jump");
+            Verify.That(StringUnderTest).IsAStringThat().Contains("Jump");
         }
         
         [TestMethod]
         public void ContainsFailsIfStringUnderTestDoesNotContainStringToCompare()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(StringUnderTest).IsAString().Contains("Zebra")
+                () => Verify.That(StringUnderTest).IsAStringThat().Contains("Zebra")
             );
         }
         
@@ -33,7 +33,7 @@ namespace Munq.FluentTest.UnitTests
         public void ContainsFailsIfStringToCompareIsNull()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(StringUnderTest).IsAString().Contains(null)
+                () => Verify.That(StringUnderTest).IsAStringThat().Contains(null)
             );
         }
 
@@ -44,21 +44,21 @@ namespace Munq.FluentTest.UnitTests
         public void DoesNotContainFailsIfStringUnderTestContainsStringToCompare()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(StringUnderTest).IsAString().DoesNotContain("Jump")
+                () => Verify.That(StringUnderTest).IsAStringThat().DoesNotContain("Jump")
             );
         }
 
         [TestMethod]
         public void DoesNotContainPassesIfStringUnderTestDoesNotContainStringToCompare()
         {
-            Verify.That(StringUnderTest).IsAString().DoesNotContain("Zebra");
+            Verify.That(StringUnderTest).IsAStringThat().DoesNotContain("Zebra");
         }
 
         [TestMethod]
         public void DoesNotContainPassesIfStringToCompareIsNull()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(StringUnderTest).IsAString().DoesNotContain(null)
+                () => Verify.That(StringUnderTest).IsAStringThat().DoesNotContain(null)
             );
         }
         #endregion

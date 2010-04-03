@@ -18,7 +18,7 @@ namespace Munq.FluentTest.UnitTests
         public void IsSameCollectionPassesIfSameCollection()
         {
             var testCollection = new List<string>();
-            Verify.That(testCollection).IsACollection().IsTheSameCollectionAs(testCollection);          
+            Verify.That(testCollection).IsACollectionThat().IsTheSameCollectionAs(testCollection);          
         }
         
         [TestMethod]
@@ -26,7 +26,7 @@ namespace Munq.FluentTest.UnitTests
         {
             var testCollection = new List<string>();
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                ()=>Verify.That(testCollection).IsACollection().IsTheSameCollectionAs(null)
+                ()=>Verify.That(testCollection).IsACollectionThat().IsTheSameCollectionAs(null)
             );
         }
         
@@ -35,7 +35,7 @@ namespace Munq.FluentTest.UnitTests
         {
             var testCollection = new List<string>();
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testCollection).IsACollection().IsTheSameCollectionAs(new List<string>())
+                () => Verify.That(testCollection).IsACollectionThat().IsTheSameCollectionAs(new List<string>())
             );
         }
 
@@ -46,7 +46,7 @@ namespace Munq.FluentTest.UnitTests
         public void IsNotSameCollectionPassesIfDifferent()
         {
             var testCollection = new List<string>();
-            Verify.That(testCollection).IsACollection().IsNotTheSameCollectionAs(new List<string>());
+            Verify.That(testCollection).IsACollectionThat().IsNotTheSameCollectionAs(new List<string>());
         }
 
         [TestMethod]
@@ -54,7 +54,7 @@ namespace Munq.FluentTest.UnitTests
         {
             var testCollection = new List<string>();
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testCollection).IsACollection().IsNotTheSameCollectionAs(null)
+                () => Verify.That(testCollection).IsACollectionThat().IsNotTheSameCollectionAs(null)
             );
         }
 
@@ -63,7 +63,7 @@ namespace Munq.FluentTest.UnitTests
         {
             var testCollection = new List<string>();
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testCollection).IsACollection().IsNotTheSameCollectionAs(testCollection)
+                () => Verify.That(testCollection).IsACollectionThat().IsNotTheSameCollectionAs(testCollection)
             );
         }
 

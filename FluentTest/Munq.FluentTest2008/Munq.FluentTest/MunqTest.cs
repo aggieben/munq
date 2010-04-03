@@ -18,10 +18,10 @@ namespace Munq.FluentTest
             return new FluentTestObject(objectToTest);
         }
         
-        public static IFluentTestException TheExpectedException(Type typeOfExpectedException)
+        public static IFluentTestExpectedException TheExpectedException(Type typeOfExpectedException)
         {
             CheckProviderInitialized();
-            return new FluentTestException(typeOfExpectedException);
+            return new FluentTestExpectedException(typeOfExpectedException);
         }
         
         private static void CheckProviderInitialized()

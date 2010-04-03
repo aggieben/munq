@@ -18,7 +18,7 @@ namespace Munq.FluentTest.UnitTests
         public void StringStartsWithFailsIfStringToCompareIsNull()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().StartsWith(null)
+                () => Verify.That(testString).IsAStringThat().StartsWith(null)
             );
         }
 
@@ -26,13 +26,13 @@ namespace Munq.FluentTest.UnitTests
         public void StringStartsWithFailsIfDoesNotStartWithString()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().StartsWith("monkey")
+                () => Verify.That(testString).IsAStringThat().StartsWith("monkey")
             );
         }
         [TestMethod]
         public void StringStartsWithPassesIfStringStartsWithStringToCompare()
         {
-            Verify.That(testString).IsAString().StartsWith("May the");
+            Verify.That(testString).IsAStringThat().StartsWith("May the");
         }
 
 
@@ -40,7 +40,7 @@ namespace Munq.FluentTest.UnitTests
         public void StringStartsWithFailsIfStringToCompareIsEmpty()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().StartsWith(String.Empty)
+                () => Verify.That(testString).IsAStringThat().StartsWith(String.Empty)
             );
         }
         #endregion
@@ -50,7 +50,7 @@ namespace Munq.FluentTest.UnitTests
         public void StringDoesNotStartWithFailsIfStringToCompareIsNull()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().DoesNotStartWith(null)
+                () => Verify.That(testString).IsAStringThat().DoesNotStartWith(null)
             );
         }
 
@@ -58,13 +58,13 @@ namespace Munq.FluentTest.UnitTests
         public void StringDoesNotStartWithFailsIfStartsWithString()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().DoesNotStartWith("May the")
+                () => Verify.That(testString).IsAStringThat().DoesNotStartWith("May the")
             );
         }
         [TestMethod]
         public void StringDoesNotStartWithPassesIfStringDoesNotStartWithStringToCompare()
         {
-            Verify.That(testString).IsAString().DoesNotStartWith("monkey");
+            Verify.That(testString).IsAStringThat().DoesNotStartWith("monkey");
         }
 
 
@@ -72,7 +72,7 @@ namespace Munq.FluentTest.UnitTests
         public void StringDoesNotStartWithFailsIfStringToCompareIsEmpty()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAString().DoesNotStartWith(String.Empty)
+                () => Verify.That(testString).IsAStringThat().DoesNotStartWith(String.Empty)
             );
         }
         #endregion

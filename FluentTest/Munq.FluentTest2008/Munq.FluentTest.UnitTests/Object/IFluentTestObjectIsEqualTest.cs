@@ -30,7 +30,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(null).IsEqualTo(new Object())
-            );
+            ).AndHasAMessageThat().Contains("[null] is not equal to");
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(new Object()).IsEqualTo(null)
-            );
+            ).AndHasAMessageThat().Contains("is not equal to expected [null]");
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That("Test thing1").IsEqualTo("Test thing2")
-            );
+            ).AndHasAMessageThat().Contains("[Test thing1] is not equal to expected [Test thing2]");
         }
 
         /// <summary>

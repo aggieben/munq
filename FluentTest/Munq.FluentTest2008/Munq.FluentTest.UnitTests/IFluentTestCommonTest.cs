@@ -42,7 +42,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(new object()).IsNull()
-            );          
+            ).AndHasAMessageThat().Contains("The object under test was not null as expected.");          
         }
 
        /// <summary>

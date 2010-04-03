@@ -68,11 +68,11 @@ namespace Munq.FluentTest
         /// <summary>
         /// The assertion fails if the object under test is not a collection.
         /// </summary>
-        IFluentTestCollection IsACollection();
+        IFluentTestCollection IsACollectionThat();
 
         /// <summary>
         /// The assertion fails if the object under test is not a string.
         /// </summary>
-        IFluentTestString IsAString();
+        IFluentTestString IsAStringThat();
     }
 }

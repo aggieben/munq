@@ -19,7 +19,7 @@ namespace Munq.FluentTest.UnitTests
         public void IsAnInstanceOfTypePassesIfIsAnInstanceOf()
         {
             var testCollection = new List<string>();
-            Verify.That(testCollection).IsACollection().IsAnInstanceOfType(typeof(List<string>));          
+            Verify.That(testCollection).IsACollectionThat().IsAnInstanceOfType(typeof(List<string>));          
         }
 
         [TestMethod]
@@ -27,7 +27,7 @@ namespace Munq.FluentTest.UnitTests
         {
             var testCollection = new List<string>();
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testCollection).IsACollection().IsAnInstanceOfType(null)
+                () => Verify.That(testCollection).IsACollectionThat().IsAnInstanceOfType(null)
             );
         }
 
@@ -36,7 +36,7 @@ namespace Munq.FluentTest.UnitTests
         {
             var testCollection = new List<string>();
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testCollection).IsACollection().IsAnInstanceOfType(typeof(Collection<int>))
+                () => Verify.That(testCollection).IsACollectionThat().IsAnInstanceOfType(typeof(Collection<int>))
             );
         }
         #endregion
@@ -46,7 +46,7 @@ namespace Munq.FluentTest.UnitTests
         public void IsNotAnInstanceOfTypePassesIfIsNotAnInstanceOf()
         {
             var testCollection = new List<string>();
-            Verify.That(testCollection).IsACollection().IsNotAnInstanceOfType(typeof(Collection<int>));
+            Verify.That(testCollection).IsACollectionThat().IsNotAnInstanceOfType(typeof(Collection<int>));
         }
 
         [TestMethod]
@@ -54,7 +54,7 @@ namespace Munq.FluentTest.UnitTests
         {
             var testCollection = new List<string>();
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testCollection).IsACollection().IsNotAnInstanceOfType(null)
+                () => Verify.That(testCollection).IsACollectionThat().IsNotAnInstanceOfType(null)
             );
         }
 
@@ -63,7 +63,7 @@ namespace Munq.FluentTest.UnitTests
         {
             var testCollection = new List<string>();
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testCollection).IsACollection().IsNotAnInstanceOfType(typeof(List<string>))
+                () => Verify.That(testCollection).IsACollectionThat().IsNotAnInstanceOfType(typeof(List<string>))
             );
         }
         #endregion

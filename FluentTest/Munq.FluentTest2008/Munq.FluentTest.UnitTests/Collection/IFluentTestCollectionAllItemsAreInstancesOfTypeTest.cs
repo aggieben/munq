@@ -19,14 +19,14 @@ namespace Munq.FluentTest.UnitTests
         public void AllItemsAreInstancesOfTypePassedIfAllItemAreOfSpecifiedType()
         {
             var testCollection = new List<object>(new object[]{"One", "Two", "Three"});
-            Verify.That(testCollection).IsACollection().AllItemsAreInstancesOfType(typeof(string));          
+            Verify.That(testCollection).IsACollectionThat().AllItemsAreInstancesOfType(typeof(string));          
         }
         [TestMethod]
         public void AllItemsAreInstancesOfTypeFailsIfAnyItemIsNotOfSpecifiedType()
         {
             var testCollection = new List<object>(new object[] { "One", DateTime.Today, "Three" });
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testCollection).IsACollection().AllItemsAreInstancesOfType(typeof(string))
+                () => Verify.That(testCollection).IsACollectionThat().AllItemsAreInstancesOfType(typeof(string))
             );
         }
         [TestMethod]
@@ -34,7 +34,7 @@ namespace Munq.FluentTest.UnitTests
         {
             var testCollection = new List<object>(new object[] { null, null, null});
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testCollection).IsACollection().AllItemsAreInstancesOfType(null)
+                () => Verify.That(testCollection).IsACollectionThat().AllItemsAreInstancesOfType(null)
             );
         }
         #endregion

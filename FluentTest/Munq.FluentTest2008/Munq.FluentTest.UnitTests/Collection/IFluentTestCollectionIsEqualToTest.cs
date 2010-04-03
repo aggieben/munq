@@ -20,7 +20,7 @@ namespace Munq.FluentTest.UnitTests
             var testCollection = new List<object>(new object[] { "One", DateTime.Now, 1 });
             var compareCollection = new List<object>(new object[] { "One", DateTime.Now, 1 });
 
-            Verify.That(testCollection).IsACollection().IsEqualTo(compareCollection);          
+            Verify.That(testCollection).IsACollectionThat().IsEqualTo(compareCollection);          
         }
         
         [TestMethod]
@@ -29,7 +29,7 @@ namespace Munq.FluentTest.UnitTests
             var testCollection = new List<object>(new object[] { "One", DateTime.Now, 1 });
             var compareCollection = new List<object>(new object[] { "One", DateTime.Now, 2 });
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testCollection).IsACollection().IsEqualTo(compareCollection)
+                () => Verify.That(testCollection).IsACollectionThat().IsEqualTo(compareCollection)
             );
         }
 
@@ -39,7 +39,7 @@ namespace Munq.FluentTest.UnitTests
             var testCollection = new List<object>(new object[] { "One", DateTime.Now, 1 });
             var compareCollection = new List<object>(new object[] { "One", DateTime.Now, 1, "Extra" });
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testCollection).IsACollection().IsEqualTo(compareCollection)
+                () => Verify.That(testCollection).IsACollectionThat().IsEqualTo(compareCollection)
             );
         }
         [TestMethod]
@@ -48,7 +48,7 @@ namespace Munq.FluentTest.UnitTests
             var testCollection = new List<object>(new object[] { "One", DateTime.Now, 1 });
             ICollection compareCollection = null;
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testCollection).IsACollection().IsEqualTo(compareCollection)
+                () => Verify.That(testCollection).IsACollectionThat().IsEqualTo(compareCollection)
             );
         }
         #endregion
@@ -60,7 +60,7 @@ namespace Munq.FluentTest.UnitTests
             var testCollection = new List<object>(new object[] { "One", DateTime.Now, 1 });
             var compareCollection = new List<object>(new object[] { "One", DateTime.Now, 2 });
 
-            Verify.That(testCollection).IsACollection().IsNotEqualTo(compareCollection);
+            Verify.That(testCollection).IsACollectionThat().IsNotEqualTo(compareCollection);
         }
 
         [TestMethod]
@@ -69,7 +69,7 @@ namespace Munq.FluentTest.UnitTests
             var testCollection = new List<object>(new object[] { "One", DateTime.Now, 1 });
             var compareCollection = new List<object>(new object[] { "One", DateTime.Now, 1 });
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testCollection).IsACollection().IsNotEqualTo(compareCollection)
+                () => Verify.That(testCollection).IsACollectionThat().IsNotEqualTo(compareCollection)
             );
         }
 
@@ -78,7 +78,7 @@ namespace Munq.FluentTest.UnitTests
         {
             var testCollection = new List<object>(new object[] { "One", DateTime.Now, 1 });
             var compareCollection = new List<object>(new object[] { "One", DateTime.Now, 1, "Extra" });
-                Verify.That(testCollection).IsACollection().IsNotEqualTo(compareCollection);
+                Verify.That(testCollection).IsACollectionThat().IsNotEqualTo(compareCollection);
         }
         
         [TestMethod]
@@ -87,7 +87,7 @@ namespace Munq.FluentTest.UnitTests
             var testCollection = new List<object>(new object[] { "One", DateTime.Now, 1 });
             ICollection compareCollection = null;
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testCollection).IsACollection().IsNotEqualTo(compareCollection)
+                () => Verify.That(testCollection).IsACollectionThat().IsNotEqualTo(compareCollection)
             );
         }
         #endregion

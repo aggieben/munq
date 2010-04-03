@@ -12,16 +12,17 @@ namespace Munq.FluentTest {
     ///         testDictionary["missingItem"]; 
     ///         });
     /// </remarks>
-    public class FluentTestException : IFluentTestException
+    public class FluentTestExpectedException : IFluentTestExpectedException, IFluentTestThrownException
     {
         private Type ExpectedExceptionType;
+        private Exception thrownException = null;
         
-        public FluentTestException(Type typeOfException)
+        public FluentTestExpectedException(Type typeOfException)
         {
             ExpectedExceptionType = typeOfException;
         }
-        
-        public IFluentTest IsThrownWhen(Action whatToDo)
+
+        public IFluentTestThrownException IsThrownWhen(Action whatToDo)
         {
             try
             {
@@ -39,7 +40,8 @@ namespace Munq.FluentTest {
                 }
                 else
                 {
-                    return Verify.That(ex.Message); // got the expected Exception.
+                    thrownException = ex;
+                    return this; // got the expected Exception.
                 }
             }
             
@@ -47,5 +49,11 @@ namespace Munq.FluentTest {
                                                 ExpectedExceptionType.Name));
             return null;
         }
+
+        IFluentTestString IFluentTestThrownException.AndHasAMessageThat()
+        {
+            return Verify.That(thrownException.Message).IsAStringThat();
+        }
+
     }
 }

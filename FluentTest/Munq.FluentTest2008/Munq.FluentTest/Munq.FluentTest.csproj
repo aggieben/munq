@@ -47,11 +47,11 @@
     <Compile Include="Implementation\FluentTestCollection.cs" />
     <Compile Include="Implementation\FluentTestCollectionCount.cs" />
     <Compile Include="Implementation\FluentTestCommon.cs" />
-    <Compile Include="Implementation\FluentTestException.cs" />
+    <Compile Include="Implementation\FluentTestExpectedException.cs" />
     <Compile Include="Implementation\FluentTestObject.cs" />
     <Compile Include="Implementation\FluentTestString.cs" />
     <Compile Include="Interfaces\IFluentTestCollectionCount.cs" />
-    <Compile Include="Interfaces\IFluentTestException.cs" />
+    <Compile Include="Interfaces\IFluentTestExpectedException.cs" />
     <Compile Include="Interfaces\IFluentTestCollection.cs" />
     <Compile Include="Interfaces\IFluentTestString.cs" />
     <Compile Include="Interfaces\IFluentTest.cs" />
