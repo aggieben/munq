@@ -24,7 +24,7 @@ namespace Munq.FluentTest
         IFluentTest IFluentTest.IsEqualTo(object objectToCompare)
         {
             if (!_IsEqual(objectToCompare))
-                FailWithDefaultMessage(String.Format("[{0}] is not equal to expected [{1}].", 
+                FailWithDefaultMessage(String.Format("[{0}] should be equal to [{1}].", 
                                                             ObjectToTest ?? "null", 
                                                             objectToCompare ?? "null"));
             return this;
@@ -33,7 +33,9 @@ namespace Munq.FluentTest
         IFluentTest IFluentTest.IsNotEqualTo(object objectToCompare)
         {
             if (_IsEqual(objectToCompare))
-                Verify.Fail();
+                FailWithDefaultMessage(String.Format("[{0}] should not be equal to [{1}].",
+                                                            ObjectToTest ?? "null",
+                                                            objectToCompare ?? "null"));
             return this;
         }
 
