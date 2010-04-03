@@ -21,7 +21,7 @@ namespace Munq.FluentTest {
             ExpectedExceptionType = typeOfException;
         }
         
-        public void IsThrownWhen(Action whatToDo)
+        public IFluentTest IsThrownWhen(Action whatToDo)
         {
             try
             {
@@ -38,11 +38,14 @@ namespace Munq.FluentTest {
                     Verify.Fail(msg);
                 }
                 else
-                    return; // got the expected Exception.
+                {
+                    return Verify.That(ex.Message); // got the expected Exception.
+                }
             }
             
             Verify.Fail(string.Format("Did not receive expected Exception {0}", 
                                                 ExpectedExceptionType.Name));
+            return null;
         }
     }
 }

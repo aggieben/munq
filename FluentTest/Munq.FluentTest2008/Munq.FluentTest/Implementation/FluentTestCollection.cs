@@ -16,22 +16,31 @@ namespace Munq.FluentTest
             return this;
         }
 
-        IFluentTestCollection IFluentTestCollection.IsTheSameCollectionAs(ICollection objectToCompare)
+        IFluentTestCollection IFluentTestCollection.IsTheSameCollectionAs(ICollection collectionToCompare)
         {
-            if (Object.ReferenceEquals(CollectionToTest, objectToCompare))
+            if (collectionToCompare == null)
+                Verify.Fail();
+                
+            if (!Object.ReferenceEquals(CollectionToTest, collectionToCompare))
                 Verify.Fail();
             return this;
         }
 
-        IFluentTestCollection IFluentTestCollection.IsNotTheSameCollectionAs(ICollection objectToCompare)
+        IFluentTestCollection IFluentTestCollection.IsNotTheSameCollectionAs(ICollection collectionToCompare)
         {
-            if (!Object.ReferenceEquals(CollectionToTest, objectToCompare))
+            if (collectionToCompare == null)
+                Verify.Fail();
+                
+            if (Object.ReferenceEquals(CollectionToTest, collectionToCompare))
                 Verify.Fail();
             return this;
         }
 
         IFluentTestCollection IFluentTestCollection.IsAnInstanceOfType(Type type)
         {
+            if (type == null)
+                Verify.Fail();
+                
             if (!_IsAnInstanceOf(type))
                 Verify.Fail();
             return this;
@@ -39,7 +48,10 @@ namespace Munq.FluentTest
 
         IFluentTestCollection IFluentTestCollection.IsNotAnInstanceOfType(Type type)
         {
-            if (_IsNotAnInstanceOf(type))
+            if (type == null)
+                Verify.Fail();
+                
+            if (!_IsNotAnInstanceOf(type))
                 Verify.Fail();
             return this;
         }
@@ -79,15 +91,15 @@ namespace Munq.FluentTest
             return this;
         }
 
-        IFluentTestCollection IFluentTestCollection.IsEqualTo(ICollection ObjectToCompare)
+        IFluentTestCollection IFluentTestCollection.IsEqualTo(ICollection collectionToCompare)
         {
-            if (ObjectToCompare == null)
+            if (collectionToCompare == null)
                 Verify.Fail();
 
-            if (CollectionToTest.Count != ObjectToCompare.Count)
+            if (CollectionToTest.Count != collectionToCompare.Count)
                 Verify.Fail();
                 
-            var iterator = ObjectToCompare.GetEnumerator();
+            var iterator = collectionToCompare.GetEnumerator();
             
             foreach(var item in CollectionToTest)
             {
@@ -97,13 +109,15 @@ namespace Munq.FluentTest
             return this;
         }
 
-        IFluentTestCollection IFluentTestCollection.IsNotEqualTo(ICollection ObjectToCompare)
+        IFluentTestCollection IFluentTestCollection.IsNotEqualTo(ICollection collectionToCompare)
         {
-            if (ObjectToCompare == null ||
-                CollectionToTest.Count != ObjectToCompare.Count)
+            if (collectionToCompare == null)
+                Verify.Fail();
+                
+            if (CollectionToTest.Count != collectionToCompare.Count)
                 return this;
     
-            var iterator = ObjectToCompare.GetEnumerator();
+            var iterator = collectionToCompare.GetEnumerator();
 
             foreach (var item in CollectionToTest)
             {
@@ -114,66 +128,66 @@ namespace Munq.FluentTest
             return this;
         }
 
-        IFluentTestCollection IFluentTestCollection.IsEquivalentTo(ICollection ObjectToCompare)
+        IFluentTestCollection IFluentTestCollection.IsEquivalentTo(ICollection collectionToCompare)
         {
-            CollectionAssert.AreEquivalent(CollectionToTest, ObjectToCompare);
+            CollectionAssert.AreEquivalent(CollectionToTest, collectionToCompare);
             return this;
         }
 
-        IFluentTestCollection IFluentTestCollection.IsNotEquivalentTo(ICollection ObjectToCompare)
+        IFluentTestCollection IFluentTestCollection.IsNotEquivalentTo(ICollection collectionToCompare)
         {
-            CollectionAssert.AreNotEquivalent(CollectionToTest, ObjectToCompare);
+            CollectionAssert.AreNotEquivalent(CollectionToTest, collectionToCompare);
             return this;
         }
 
-        private bool _Contains(object ObjectToCompare)
+        private bool _Contains(object objectToCompare)
         {
             bool found = false;
             foreach (var item in CollectionToTest)
-                if (Object.ReferenceEquals(item, ObjectToCompare))
+                if (Object.ReferenceEquals(item, objectToCompare))
                 {
                     found = true;
                     break;
                 }
             return found;
         }
-        IFluentTestCollection IFluentTestCollection.Contains(object ObjectToCompare)
+        IFluentTestCollection IFluentTestCollection.Contains(object objectToCompare)
         {
-            if (!_Contains(ObjectToCompare))
+            if (!_Contains(objectToCompare))
                 Verify.Fail();
                 
             return this;
         }
 
-        IFluentTestCollection IFluentTestCollection.DoesNotContain(object ObjectToCompare)
+        IFluentTestCollection IFluentTestCollection.DoesNotContain(object objectToCompare)
         {
-            if (_Contains(ObjectToCompare))
+            if (_Contains(objectToCompare))
                 Verify.Fail();
 
             return this;
         }
 
-        IFluentTestCollection IFluentTestCollection.IsASubsetOf(ICollection ObjectToCompare)
+        IFluentTestCollection IFluentTestCollection.IsASubsetOf(ICollection collectionToCompare)
         {
-            CollectionAssert.IsSubsetOf(CollectionToTest, ObjectToCompare);
+            CollectionAssert.IsSubsetOf(CollectionToTest, collectionToCompare);
             return this;
         }
 
-        IFluentTestCollection IFluentTestCollection.IsNotASubsetOf(ICollection ObjectToCompare)
+        IFluentTestCollection IFluentTestCollection.IsNotASubsetOf(ICollection collectionToCompare)
         {
-            CollectionAssert.IsNotSubsetOf(CollectionToTest, ObjectToCompare);
+            CollectionAssert.IsNotSubsetOf(CollectionToTest, collectionToCompare);
             return this;
         }
 
-        IFluentTestCollection IFluentTestCollection.IsASupersetOf(ICollection ObjectToCompare)
+        IFluentTestCollection IFluentTestCollection.IsASupersetOf(ICollection collectionToCompare)
         {
-            CollectionAssert.IsSubsetOf(ObjectToCompare, CollectionToTest);
+            CollectionAssert.IsSubsetOf(collectionToCompare, CollectionToTest);
             return this;
         }
 
-        IFluentTestCollection IFluentTestCollection.IsNotASupersetOf(ICollection ObjectToCompare)
+        IFluentTestCollection IFluentTestCollection.IsNotASupersetOf(ICollection collectionToCompare)
         {
-            CollectionAssert.IsNotSubsetOf(ObjectToCompare, CollectionToTest);
+            CollectionAssert.IsNotSubsetOf(collectionToCompare, CollectionToTest);
             return this;
         }
         

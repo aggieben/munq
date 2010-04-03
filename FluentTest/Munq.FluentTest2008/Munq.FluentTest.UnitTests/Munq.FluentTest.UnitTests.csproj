@@ -42,6 +42,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collection\IFluentTestCollectionIsEqualToTest.cs" />
+    <Compile Include="Collection\IFluentTestCollectionAllItemsAreUniqueTest.cs" />
+    <Compile Include="Collection\IFluentTestCollectionAllItemsNotNullTest.cs" />
+    <Compile Include="Collection\IFluentTestCollectionAllItemsAreInstancesOfTypeTest.cs" />
+    <Compile Include="Collection\IFluentTestCollectionIsNotNullTest.cs" />
+    <Compile Include="Collection\IFluentTestCollectionIsAnInstanceOfTypeTest.cs" />
+    <Compile Include="Collection\IFluentTestCollectionIsTheSameCollectionAsTest.cs" />
     <Compile Include="IFluentTestCommonTest.cs" />
     <Compile Include="Object\IFluentTestObjectIsEqualTest.cs" />
     <Compile Include="Object\IFluentTestObjectIsInstanceOfTest.cs" />
@@ -62,9 +69,6 @@
       <Project>{0CBAA95E-04D3-4F47-A4D7-9C4389231172}</Project>
       <Name>Munq.FluentTest</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Collection\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

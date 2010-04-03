@@ -35,13 +35,13 @@ namespace Munq.FluentTest
         /// The assertion fails if the collection is not the nosame collection as the specified collection.
         /// </summary>
         /// <param name="objToCompare">The object to compare.</param>
-        IFluentTestCollection IsTheSameCollectionAs(ICollection objToCompare);
+        IFluentTestCollection IsTheSameCollectionAs(ICollection collectionToCompare);
 
         /// <summary>
         /// The assertion fails if the collection is the same collection as the specified collection.
         /// </summary>
         /// <param name="objToCompare">The object to compare.</param>
-        IFluentTestCollection IsNotTheSameCollectionAs(ICollection objToCompare);
+        IFluentTestCollection IsNotTheSameCollectionAs(ICollection collectionToCompare);
 
         /// <summary>
         /// The assertion fails if any of the objects in the collection are not instance of,
@@ -63,62 +63,62 @@ namespace Munq.FluentTest
         /// <summary>
         /// The assertion fails if the collections are not equal.
         /// </summary>
-        /// <param name="ObjectToCompare">The object to compare.</param>
-        IFluentTestCollection IsEqualTo(ICollection ObjectToCompare);
+        /// <param name="collectionToCompare">The object to compare.</param>
+        IFluentTestCollection IsEqualTo(ICollection collectionToCompare);
 
         /// <summary>
         /// The assertion fails if the collections are equal.
         /// </summary>
-        /// <param name="ObjectToCompare">The object to compare.</param>
-        IFluentTestCollection IsNotEqualTo(ICollection ObjectToCompare);
+        /// <param name="collectionToCompare">The object to compare.</param>
+        IFluentTestCollection IsNotEqualTo(ICollection collectionToCompare);
 
         /// <summary>
         /// The assertion fails if the collections are not eqivalent
         /// </summary>
-        /// <param name="ObjectToCompare">The object to compare.</param>
-        IFluentTestCollection IsEquivalentTo(ICollection ObjectToCompare);
+        /// <param name="collectionToCompare">The object to compare.</param>
+        IFluentTestCollection IsEquivalentTo(ICollection collectionToCompare);
 
         /// <summary>
         /// The assertion fails if the collections are eqivalent
         /// </summary>
-        /// <param name="ObjectToCompare">The object to compare.</param>
-        IFluentTestCollection IsNotEquivalentTo(ICollection ObjectToCompare);
+        /// <param name="collectionToCompare">The object to compare.</param>
+        IFluentTestCollection IsNotEquivalentTo(ICollection collectionToCompare);
 
         /// <summary>
         /// The assertion fails if  the collection does not contain the specified object.
         /// </summary>
-        /// <param name="ObjectToCompare">The object to compare.</param>
-        IFluentTestCollection Contains(object ObjectToCompare);
+        /// <param name="collectionToCompare">The object to compare.</param>
+        IFluentTestCollection Contains(object objectToCompare);
 
         /// <summary>
         /// The assertion fails if  the collection does not contain the specified object.
         /// </summary>
-        /// <param name="ObjectToCompare">The object to compare.</param>
-        IFluentTestCollection DoesNotContain(object ObjectToCompare);
+        /// <param name="collectionToCompare">The object to compare.</param>
+        IFluentTestCollection DoesNotContain(object objectToCompare);
 
         /// <summary>
         /// The assertion fails if the type of the collection is  a subset of the specified collection.
         /// </summary>
-        /// <param name="ObjectToCompare">The object to compare.</param>
-        IFluentTestCollection IsNotASubsetOf(ICollection ObjectToCompare);
+        /// <param name="collectionToCompare">The object to compare.</param>
+        IFluentTestCollection IsNotASubsetOf(ICollection collectionToCompare);
 
         /// <summary>
         /// The assertion fails if the type of the collection is not a subset of the specified collection.
         /// </summary>
-        /// <param name="ObjectToCompare">The object to compare.</param>
-        IFluentTestCollection IsASubsetOf(ICollection ObjectToCompare);
+        /// <param name="collectionToCompare">The object to compare.</param>
+        IFluentTestCollection IsASubsetOf(ICollection collectionToCompare);
 
         /// <summary>
         /// The assertion fails if the type of the collection is a superset of the specified collection.
         /// </summary>
-        /// <param name="ObjectToCompare">The object to compare.</param>
-        IFluentTestCollection IsNotASupersetOf(ICollection ObjectToCompare);
+        /// <param name="collectionToCompare">The object to compare.</param>
+        IFluentTestCollection IsNotASupersetOf(ICollection collectionToCompare);
 
         /// <summary>
         /// The assertion fails if the type of the collection is not a superset of the specified collection.
         /// </summary>
-        /// <param name="ObjectToCompare">The object to compare.</param>
-        IFluentTestCollection IsASupersetOf(ICollection ObjectToCompare);
+        /// <param name="collectionToCompare">The object to compare.</param>
+        IFluentTestCollection IsASupersetOf(ICollection collectionToCompare);
         
         /// <summary>
         /// Returns an interface to validate the number of items in the collection.
