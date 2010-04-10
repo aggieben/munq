@@ -1,4 +1,8 @@
-﻿using System;
+﻿#region Copyright Notice
+// Copyright 2010 by Matthew Dennis
+#endregion
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

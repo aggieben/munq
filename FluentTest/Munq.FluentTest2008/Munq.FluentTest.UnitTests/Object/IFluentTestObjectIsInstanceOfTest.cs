@@ -1,6 +1,11 @@
-﻿using System;
+﻿#region Copyright Notice
+// Copyright 2010 by Matthew Dennis
+#endregion
+
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Munq.FluentTest;
+using System.Text.RegularExpressions;
 
 namespace Munq.FluentTest.UnitTests
 {  
@@ -11,10 +16,6 @@ namespace Munq.FluentTest.UnitTests
     [TestClass()]
     public class IFluentTestObjectIsInstanceOfTest
     {
-        private class MyTestClass
-        {
-        }
-
         #region IsAnInstanceOf
         /// <summary>
         ///A test for IsAnInstanceOfType
@@ -24,7 +25,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(null).IsAnInstanceOfType(typeof(Object))
-            );
+            ).AndHasAMessageThat().Contains("[null] should be an instance of [Object]");
         }
 
         /// <summary>
@@ -35,7 +36,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(new MyTestClass()).IsAnInstanceOfType(typeof(string))
-            );
+            ).AndHasAMessageThat().Contains("[My Test Class instance] should be an instance of [String]");
         }
         /// <summary>
         ///A test for IsAnInstanceOfType
@@ -58,7 +59,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(null).IsNotAnInstanceOfType(null)
-            );
+            ).AndHasAMessageThat().Contains("[null] should not be an instance of [null]");
         }
 
         /// <summary>
@@ -78,7 +79,8 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(new MyTestClass()).IsNotAnInstanceOfType(typeof(MyTestClass))
-            );
+            ).AndHasAMessageThat()
+            .Contains("[My Test Class instance] should not be an instance of [MyTestClass]");
         }
         #endregion
     }

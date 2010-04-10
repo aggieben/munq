@@ -1,4 +1,7 @@
-﻿
+﻿#region Copyright Notice
+// Copyright 2010 by Matthew Dennis
+#endregion
+
 namespace Munq.FluentTest
 {
     public partial class FluentTestObject : IFluentTestCommon
@@ -32,14 +35,8 @@ namespace Munq.FluentTest
         public void IsNull()
         {
             if(ObjectToTest != null)
-                FailWithDefaultMessage("The object under test was not null as expected.");
+                FailWithDefaultMessage("should be null");
         }
         #endregion
-        
-        private void FailWithDefaultMessage(string msg)
-        {
-            ErrorMessage = ErrorMessage ?? msg;  
-            Fail();
-        }
     }
 }

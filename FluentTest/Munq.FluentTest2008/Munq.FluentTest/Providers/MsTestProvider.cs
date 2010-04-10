@@ -1,4 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿#region Copyright Notice
+// Copyright 2010 by Matthew Dennis
+#endregion
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
 namespace Munq.FluentTest.MsTest

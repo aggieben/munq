@@ -1,3 +1,7 @@
+#region Copyright Notice
+// Copyright 2010 by Matthew Dennis
+#endregion
+
 using System;
 using System.Collections;
 

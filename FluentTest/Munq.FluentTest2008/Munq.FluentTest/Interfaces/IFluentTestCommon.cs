@@ -1,3 +1,6 @@
+#region Copyright Notice
+// Copyright 2010 by Matthew Dennis
+#endregion
 
 namespace Munq.FluentTest
 {

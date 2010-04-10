@@ -1,5 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿#region Copyright Notice
+// Copyright 2010 by Matthew Dennis
+#endregion
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Munq.FluentTest;
+using System;
 
 namespace Munq.FluentTest.UnitTests
 {  
@@ -22,11 +27,17 @@ namespace Munq.FluentTest.UnitTests
         }
         
         [TestMethod]
+        public void ContainsPassesIfStringStringToCompareIsEmpty()
+        {
+            Verify.That(StringUnderTest).IsAStringThat().Contains(String.Empty);
+        }
+
+        [TestMethod]
         public void ContainsFailsIfStringUnderTestDoesNotContainStringToCompare()
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(StringUnderTest).IsAStringThat().Contains("Zebra")
-            );
+            ).AndHasAMessageThat().Contains("[A Test String with Jump in it.] should contain [Zebra]");
         }
         
         [TestMethod]
@@ -34,7 +45,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(StringUnderTest).IsAStringThat().Contains(null)
-            );
+            ).AndHasAMessageThat().Contains("[A Test String with Jump in it.] can't be compared to [null]");
         }
 
          #endregion
@@ -45,7 +56,15 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(StringUnderTest).IsAStringThat().DoesNotContain("Jump")
-            );
+            ).AndHasAMessageThat().Contains("[A Test String with Jump in it.] should not contain [Jump]");
+        }
+
+        [TestMethod]
+        public void DoesNotContainFailsIfStringToCompareIsEmpty()
+        {
+            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
+                () => Verify.That(StringUnderTest).IsAStringThat().DoesNotContain(String.Empty)
+            ).AndHasAMessageThat().Contains("[A Test String with Jump in it.] should not contain []");
         }
 
         [TestMethod]
@@ -59,7 +78,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(StringUnderTest).IsAStringThat().DoesNotContain(null)
-            );
+            ).AndHasAMessageThat().Contains("[A Test String with Jump in it.] can't be compared to [null]");
         }
         #endregion
     }

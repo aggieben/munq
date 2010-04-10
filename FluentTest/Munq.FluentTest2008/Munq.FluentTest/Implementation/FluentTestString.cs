@@ -1,6 +1,9 @@
-﻿using System.Text.RegularExpressions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿#region Copyright Notice
+// Copyright 2010 by Matthew Dennis
+#endregion
+
 using System;
+using System.Text.RegularExpressions;
 
 namespace Munq.FluentTest
 {
@@ -9,30 +12,46 @@ namespace Munq.FluentTest
         private string StringToTest { get { return ObjectToTest as string; } }
         private StringComparison ComparisonMode = StringComparison.CurrentCulture;
 
+        private void CheckStringToCompareNotNull(string stringToCompare)
+        {
+           if(stringToCompare == null)
+                FailWithDefaultMessage("can't be compared to [null]"); 
+        }
+
         #region IFluentStringTest methods
         IFluentTestString IFluentTestString.WithFailureMessage(string msg)
         {
             ErrorMessage = msg;
             return this;
         }
-        
+
         public IFluentTestString UsingStringComparison(StringComparison comparisonMode)
         {
             ComparisonMode = comparisonMode;
             return this;
         }
 
-        private static void CheckStringToCompareNotNull(string stringToCompare)
+        IFluentTestString IFluentTestString.IsEqualTo(string stringToCompare)
         {
-           if(string.IsNullOrEmpty(stringToCompare))
-            Verify.Fail();
+            CheckStringToCompareNotNull(stringToCompare);
+            if (!StringToTest.Equals(stringToCompare, ComparisonMode))
+                FailWithObjectToCompareDefaultMessage("should be equal to", stringToCompare);
+            return this;
+        }
+
+        IFluentTestString IFluentTestString.IsNotEqualTo(string stringToCompare)
+        {
+            CheckStringToCompareNotNull(stringToCompare);
+            if (StringToTest.Equals(stringToCompare, ComparisonMode))
+                FailWithObjectToCompareDefaultMessage("should not be equal to", stringToCompare);
+            return this;
         }
         
         IFluentTestString IFluentTestString.Contains(string stringToCompare)
         {
             CheckStringToCompareNotNull(stringToCompare);
             if (!StringToTest.Contains(stringToCompare))
-                Verify.Fail();
+                FailWithObjectToCompareDefaultMessage("should contain", stringToCompare);
             return this;
         }
 
@@ -40,25 +59,27 @@ namespace Munq.FluentTest
         {
             CheckStringToCompareNotNull(stringToCompare);
             if (StringToTest.Contains(stringToCompare))
-                Verify.Fail();
+                FailWithObjectToCompareDefaultMessage("should not contain", stringToCompare);
             return this;
         }
 
         IFluentTestString IFluentTestString.DoesNotMatch(Regex regex)
         {
             if (regex == null)
-                Verify.Fail();
+                FailWithDefaultMessage("can't be compared to [null]");
+                
             if (regex.IsMatch(StringToTest))
-                Verify.Fail();
+                FailWithObjectToCompareDefaultMessage("should not match", regex);
             return this;
         }
-
+ 
         IFluentTestString IFluentTestString.Matches(Regex regex)
         {
             if (regex == null)
-                Verify.Fail();
+                FailWithDefaultMessage("can't be compared to [null]");
+                
             if (!regex.IsMatch(StringToTest))
-                Verify.Fail();
+                FailWithObjectToCompareDefaultMessage("should match", regex);
             return this;
         }
 
@@ -66,7 +87,7 @@ namespace Munq.FluentTest
         {
             CheckStringToCompareNotNull(stringToCompare);
             if (!StringToTest.StartsWith(stringToCompare, ComparisonMode))
-                Verify.Fail();
+                FailWithObjectToCompareDefaultMessage("should start with", stringToCompare);
             return this;
         }
 
@@ -74,7 +95,7 @@ namespace Munq.FluentTest
         {
             CheckStringToCompareNotNull(stringToCompare);
             if (StringToTest.StartsWith(stringToCompare, ComparisonMode))
-                Verify.Fail();
+                FailWithObjectToCompareDefaultMessage("should not start with", stringToCompare);
             return this;
         }
         
@@ -82,7 +103,7 @@ namespace Munq.FluentTest
         {
             CheckStringToCompareNotNull(stringToCompare);
             if (!StringToTest.EndsWith(stringToCompare, ComparisonMode))
-                Verify.Fail();
+                FailWithObjectToCompareDefaultMessage("should end with", stringToCompare);
             return this;
         }
 
@@ -90,41 +111,21 @@ namespace Munq.FluentTest
         {
             CheckStringToCompareNotNull(stringToCompare);
             if (StringToTest.EndsWith(stringToCompare, ComparisonMode))
-                Verify.Fail();
+                FailWithObjectToCompareDefaultMessage("should not end with", stringToCompare);
             return this;
         }
 
         IFluentTestString IFluentTestString.IsEmpty()
         {
             if (StringToTest != string.Empty)
-                Verify.Fail();
+                FailWithDefaultMessage("should be empty");
             return this;
         }
 
         IFluentTestString IFluentTestString.IsNotEmpty()
         {
             if (StringToTest == string.Empty)
-                Verify.Fail();
-            return this;
-        }
-        #endregion
-
-        #region IFluentStringTest Members
-
-
-        IFluentTestString IFluentTestString.IsEqualTo(string stringToCompare)
-        {
-            CheckStringToCompareNotNull(stringToCompare);
-            if (!StringToTest.Equals(stringToCompare, ComparisonMode))
-                Verify.Fail();
-             return this;
-        }
-
-        IFluentTestString IFluentTestString.IsNotEqualTo(string stringToCompare)
-        {
-            CheckStringToCompareNotNull(stringToCompare);
-            if (StringToTest.Equals(stringToCompare, ComparisonMode))
-                Verify.Fail();
+                FailWithDefaultMessage("should not be empty");
             return this;
         }
 

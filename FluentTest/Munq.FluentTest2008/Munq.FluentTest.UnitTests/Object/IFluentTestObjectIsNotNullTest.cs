@@ -1,4 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿#region Copyright Notice
+// Copyright 2010 by Matthew Dennis
+#endregion
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Munq.FluentTest;
 
 namespace Munq.FluentTest.UnitTests
@@ -10,10 +14,6 @@ namespace Munq.FluentTest.UnitTests
     [TestClass()]
     public class IFluentTestObjectIsNotNullTest
     {
-        private class MyTestClass
-        {
-        }
-
         #region IsNotNull
         /// <summary>
         ///A test for IsNotNull
@@ -23,7 +23,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(null).IsNotNull()
-            );
+            ).AndHasAMessageThat().Contains("[null] should not be null");
         }
 
         ///<summary>

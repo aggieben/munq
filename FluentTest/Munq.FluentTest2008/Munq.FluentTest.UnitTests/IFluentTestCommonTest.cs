@@ -1,4 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿#region Copyright Notice
+// Copyright 2010 by Matthew Dennis
+#endregion
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Munq.FluentTest;
 using System;
 
@@ -42,7 +46,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(new object()).IsNull()
-            ).AndHasAMessageThat().Contains("The object under test was not null as expected.");          
+            ).AndHasAMessageThat().Contains("should be null");          
         }
 
        /// <summary>

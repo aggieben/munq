@@ -1,4 +1,8 @@
-﻿using System;
+﻿#region Copyright Notice
+// Copyright 2010 by Matthew Dennis
+#endregion
+
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Munq.FluentTest;
 
@@ -19,7 +23,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testString).IsAStringThat().IsEmpty()
-            );
+            ).AndHasAMessageThat().Contains("[May the Force be with you.] should be empty");
         }
         
         [TestMethod]
@@ -35,7 +39,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(String.Empty).IsAStringThat().IsNotEmpty()
-            );
+            ).AndHasAMessageThat().Contains("[] should not be empty");
         }
 
         [TestMethod]

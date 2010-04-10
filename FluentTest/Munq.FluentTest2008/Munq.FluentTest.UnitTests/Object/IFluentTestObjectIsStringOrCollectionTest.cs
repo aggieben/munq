@@ -1,4 +1,8 @@
-﻿using Munq.FluentTest;
+﻿#region Copyright Notice
+// Copyright 2010 by Matthew Dennis
+#endregion
+
+using Munq.FluentTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -25,7 +29,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(null).IsACollectionThat()
-            );
+            ).AndHasAMessageThat().Contains("[null] is not a collection");
         }
         
         /// <summary>
@@ -36,7 +40,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(new object()).IsACollectionThat()
-            );
+            ).AndHasAMessageThat().Contains("Object] is not a collection");
         }
 
         [TestMethod()]
@@ -57,7 +61,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(null).IsAStringThat()
-            );
+            ).AndHasAMessageThat().Contains("[null] is not a string");
         }
 
         ///<summary>
@@ -68,7 +72,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(new DateTime()).IsAStringThat()
-            );
+            ).AndHasAMessageThat().Contains("] is not a string");
         }
 
         ///<summary>

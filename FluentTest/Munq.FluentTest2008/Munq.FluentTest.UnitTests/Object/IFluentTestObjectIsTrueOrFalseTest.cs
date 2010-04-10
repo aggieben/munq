@@ -1,4 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿#region Copyright Notice
+// Copyright 2010 by Matthew Dennis
+#endregion
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Munq.FluentTest;
 
 namespace Munq.FluentTest.UnitTests
@@ -19,7 +23,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(null).IsTrue()
-            );
+            ).AndHasAMessageThat().Contains("[null] should be true");
         }
 
         /// <summary>
@@ -30,7 +34,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(false).IsTrue()
-            );           
+            ).AndHasAMessageThat().Contains("[False] should be true");           
         }
 
         /// <summary>
@@ -41,7 +45,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That("A string").IsTrue()
-            );
+            ).AndHasAMessageThat().Contains("[A string] should be true");
         }
 
         /// <summary>
@@ -64,7 +68,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(null).IsFalse()
-            );
+            ).AndHasAMessageThat().Contains("[null] should be false");
         }
 
         /// <summary>
@@ -75,7 +79,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(true).IsFalse()
-            );
+            ).AndHasAMessageThat().Contains("[True] should be false");
         }
 
         /// <summary>
@@ -86,7 +90,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That("A string").IsFalse()
-            );
+            ).AndHasAMessageThat().Contains("[A string] should be false");
         }
 
         /// <summary>

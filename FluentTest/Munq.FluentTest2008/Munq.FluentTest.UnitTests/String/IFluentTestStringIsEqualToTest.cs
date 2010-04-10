@@ -1,4 +1,8 @@
-﻿using System;
+﻿#region Copyright Notice
+// Copyright 2010 by Matthew Dennis
+#endregion
+
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Munq.FluentTest;
 
@@ -19,7 +23,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testString).IsAStringThat().IsEqualTo(null)
-            );
+            ).AndHasAMessageThat().Contains("[May the Force be with you.] can't be compared to [null]");
         }
 
         [TestMethod]
@@ -27,7 +31,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testString).IsAStringThat().IsEqualTo("monkey")
-            );
+            ).AndHasAMessageThat().Contains("[May the Force be with you.] should be equal to [monkey]");
         }
         
         [TestMethod]
@@ -41,7 +45,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testString).IsAStringThat().IsEqualTo(String.Empty)
-            );
+            ).AndHasAMessageThat().Contains("[May the Force be with you.] should be equal to []");
         }
         #endregion
 
@@ -51,7 +55,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testString).IsAStringThat().IsNotEqualTo(null)
-            );
+            ).AndHasAMessageThat().Contains("[May the Force be with you.] can't be compared to [null]");
         }
 
         [TestMethod]
@@ -59,7 +63,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testString).IsAStringThat().IsNotEqualTo(testString)
-            );
+            ).AndHasAMessageThat().Contains("[May the Force be with you.] should not be equal to [May the Force be with you.]");
         }
         
         [TestMethod]
@@ -69,11 +73,9 @@ namespace Munq.FluentTest.UnitTests
         }
 
         [TestMethod]
-        public void StringIsNotEqualToFailsIfStringToCompareIsEmpty()
+        public void StringIsNotEqualToPassesIfStringToCompareIsEmpty()
         {
-            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAStringThat().IsNotEqualTo(String.Empty)
-            );
+            Verify.That(testString).IsAStringThat().IsNotEqualTo(String.Empty);
         }
        #endregion
     }

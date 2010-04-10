@@ -48,6 +48,7 @@
     <Compile Include="Implementation\FluentTestCollectionCount.cs" />
     <Compile Include="Implementation\FluentTestCommon.cs" />
     <Compile Include="Implementation\FluentTestExpectedException.cs" />
+    <Compile Include="Implementation\FluentTestFailMessage.cs" />
     <Compile Include="Implementation\FluentTestObject.cs" />
     <Compile Include="Implementation\FluentTestString.cs" />
     <Compile Include="Interfaces\IFluentTestCollectionCount.cs" />

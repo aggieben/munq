@@ -1,4 +1,8 @@
-﻿using System;
+﻿#region Copyright Notice
+// Copyright 2010 by Matthew Dennis
+#endregion
+
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Munq.FluentTest;
 
@@ -19,7 +23,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testString).IsAStringThat().StartsWith(null)
-            );
+            ).AndHasAMessageThat().Contains("[May the Force be with you.] can't be compared to [null]");
         }
 
         [TestMethod]
@@ -27,7 +31,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testString).IsAStringThat().StartsWith("monkey")
-            );
+            ).AndHasAMessageThat().Contains("[May the Force be with you.] should start with [monkey]");
         }
         [TestMethod]
         public void StringStartsWithPassesIfStringStartsWithStringToCompare()
@@ -37,11 +41,9 @@ namespace Munq.FluentTest.UnitTests
 
 
         [TestMethod]
-        public void StringStartsWithFailsIfStringToCompareIsEmpty()
+        public void StringStartsWithPassesIfStringToCompareIsEmpty()
         {
-            Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
-                () => Verify.That(testString).IsAStringThat().StartsWith(String.Empty)
-            );
+            Verify.That(testString).IsAStringThat().StartsWith(String.Empty);
         }
         #endregion
 
@@ -51,7 +53,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testString).IsAStringThat().DoesNotStartWith(null)
-            );
+            ).AndHasAMessageThat().Contains("[May the Force be with you.] can't be compared to [null]");
         }
 
         [TestMethod]
@@ -59,7 +61,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testString).IsAStringThat().DoesNotStartWith("May the")
-            );
+            ).AndHasAMessageThat().Contains("[May the Force be with you.] should not start with [May the]");
         }
         [TestMethod]
         public void StringDoesNotStartWithPassesIfStringDoesNotStartWithStringToCompare()
@@ -73,7 +75,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testString).IsAStringThat().DoesNotStartWith(String.Empty)
-            );
+            ).AndHasAMessageThat().Contains("[May the Force be with you.] should not start with []");
         }
         #endregion
 

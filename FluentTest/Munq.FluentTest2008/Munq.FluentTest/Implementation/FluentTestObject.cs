@@ -1,4 +1,8 @@
-﻿using System;
+﻿#region Copyright Notice
+// Copyright 2010 by Matthew Dennis
+#endregion
+
+using System;
 using System.Collections;
 
 namespace Munq.FluentTest
@@ -24,32 +28,28 @@ namespace Munq.FluentTest
         IFluentTest IFluentTest.IsEqualTo(object objectToCompare)
         {
             if (!_IsEqual(objectToCompare))
-                FailWithDefaultMessage(String.Format("[{0}] should be equal to [{1}].", 
-                                                            ObjectToTest ?? "null", 
-                                                            objectToCompare ?? "null"));
+                FailWithObjectToCompareDefaultMessage("should be equal to", objectToCompare);
             return this;
         }
 
         IFluentTest IFluentTest.IsNotEqualTo(object objectToCompare)
         {
             if (_IsEqual(objectToCompare))
-                FailWithDefaultMessage(String.Format("[{0}] should not be equal to [{1}].",
-                                                            ObjectToTest ?? "null",
-                                                            objectToCompare ?? "null"));
+                FailWithObjectToCompareDefaultMessage("should not be equal to", objectToCompare);
             return this;
         }
 
         IFluentTest IFluentTest.IsTheSameObjectAs(object objectToCompare)
         {
             if (!Object.ReferenceEquals(ObjectToTest, objectToCompare))
-                Verify.Fail();
+                FailWithObjectToCompareDefaultMessage("should be the same object as", objectToCompare);
             return this;
         }
 
         IFluentTest IFluentTest.IsNotTheSameObjectAs(object objectToCompare)
         {
             if (Object.ReferenceEquals(ObjectToTest, objectToCompare))
-                Verify.Fail();
+                FailWithObjectToCompareDefaultMessage("should not be the same object as", objectToCompare);
             return this;
         }
 
@@ -68,7 +68,7 @@ namespace Munq.FluentTest
         IFluentTest IFluentTest.IsTrue()
         {
             if (!_IsTrue())
-                Verify.Fail();
+                FailWithDefaultMessage("should be true");
             return this;
         }
 
@@ -87,7 +87,7 @@ namespace Munq.FluentTest
         IFluentTest IFluentTest.IsFalse()
         {
             if (!_IsFalse())
-                Verify.Fail();
+                FailWithDefaultMessage("should be false");
             return this;
         }
 
@@ -96,11 +96,11 @@ namespace Munq.FluentTest
             return ObjectToTest != null &&
                     type.IsAssignableFrom(ObjectToTest.GetType());
         }
-        
+
         IFluentTest IFluentTest.IsAnInstanceOfType(Type type)
         {
             if (!_IsAnInstanceOf(type))
-                Verify.Fail();
+                FailWithTypeDefaultMessage("should be an instance of", type);
             return this;
         }
 
@@ -113,21 +113,21 @@ namespace Munq.FluentTest
         IFluentTest IFluentTest.IsNotAnInstanceOfType(Type type)
         {
             if (!_IsNotAnInstanceOf(type))
-                Verify.Fail();
+                FailWithTypeDefaultMessage("should not be an instance of", type);
             return this;
         }
 
         IFluentTest IFluentTest.IsNotNull()
         {
             if (ObjectToTest == null)
-                Verify.Fail();
+                FailWithDefaultMessage("should not be null");
             return this;
         }
 
         IFluentTestCollection IFluentTest.IsACollectionThat()
         {
             if (!_IsAnInstanceOf(typeof(ICollection)))
-                Verify.Fail();
+                FailWithDefaultMessage("is not a collection");
 
             return this;
         }
@@ -135,7 +135,7 @@ namespace Munq.FluentTest
         IFluentTestString IFluentTest.IsAStringThat()
         {
             if (!_IsAnInstanceOf(typeof(string)))
-                Verify.Fail();
+                FailWithDefaultMessage("is not a string");
 
             return this;
         }
