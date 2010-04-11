@@ -76,8 +76,8 @@ namespace Munq.Test
          {
              var result = iocContainer.Register<IFoo>(c => new Foo1());
 
-             Assert.IsInstanceOfType(result, typeof(IRegistration));
-             Assert.IsNull(result.Name);
+             Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
+             Verify.That(result.Name).IsNull();
          }
 
          /// <summary>
@@ -88,9 +88,8 @@ namespace Munq.Test
          {
              var result = iocContainer.Register<IFoo>("Bob", c => new Foo1());
 
-             Assert.IsInstanceOfType(result, typeof(IRegistration));
-             Assert.IsNotNull(result.Name);
-             Assert.AreEqual("Bob", result.Name);
+             Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
+             Verify.That(result.Name).IsAStringThat().IsEqualTo("Bob");
          }
 
          /// <summary>
@@ -101,8 +100,8 @@ namespace Munq.Test
          {
              var result = iocContainer.Register(typeof(IFoo), c => new Foo1());
 
-             Assert.IsInstanceOfType(result, typeof(IRegistration));
-             Assert.IsNull(result.Name);
+             Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
+             Verify.That(result.Name).IsNull();
          }
 
          /// <summary>
@@ -113,9 +112,8 @@ namespace Munq.Test
          {
              var result = iocContainer.Register("Bob", typeof(IFoo), c => new Foo1());
 
-             Assert.IsInstanceOfType(result, typeof(IRegistration));
-             Assert.IsNotNull(result.Name);
-             Assert.AreEqual("Bob", result.Name);
+             Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
+             Verify.That(result.Name).IsAStringThat().IsEqualTo("Bob");
          }
 
         /// <summary>
@@ -130,7 +128,7 @@ namespace Munq.Test
 
              var result = iocContainer.Resolve<IFoo>("Bob");
 
-             Assert.IsInstanceOfType(result, typeof(Foo2));
+             Verify.That(result).IsAnInstanceOfType(typeof(Foo2));
          }
 
          #endregion
@@ -146,8 +144,8 @@ namespace Munq.Test
 
              var result = iocContainer.RegisterInstance<IFoo>(fooInstance);
 
-             Assert.IsInstanceOfType(result, typeof(IRegistration));
-             Assert.IsNull(result.Name);
+             Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
+             Verify.That(result.Name).IsNull();
          }
 
          /// <summary>
@@ -160,9 +158,8 @@ namespace Munq.Test
 
              var result = iocContainer.RegisterInstance("Bob", fooInstance);
 
-             Assert.IsInstanceOfType(result, typeof(IRegistration));
-             Assert.IsNotNull(result.Name);
-             Assert.AreEqual("Bob", result.Name);
+             Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
+             Verify.That(result.Name).IsAStringThat().IsEqualTo("Bob");
          }
 
          /// <summary>
@@ -174,8 +171,8 @@ namespace Munq.Test
              var fooInstance = new Foo1();
 
              var result = iocContainer.RegisterInstance(typeof(IFoo), fooInstance);
-             Assert.IsInstanceOfType(result, typeof(IRegistration));
-             Assert.IsNull(result.Name);
+             Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
+             Verify.That(result.Name).IsNull();
          }
 
          /// <summary>
@@ -187,9 +184,9 @@ namespace Munq.Test
              var fooInstance = new Foo1();
 
              var result = iocContainer.RegisterInstance("Bob", typeof(IFoo), fooInstance);
-             Assert.IsInstanceOfType(result, typeof(IRegistration));
-             Assert.IsNotNull(result.Name);
-             Assert.AreEqual("Bob", result.Name);
+
+             Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
+             Verify.That(result.Name).IsAStringThat().IsEqualTo("Bob");
          }
          #endregion
 
@@ -197,7 +194,6 @@ namespace Munq.Test
         /// Verifies that Registrations can be removed.
         /// </summary>
          [TestMethod]
-         [ExpectedException(typeof(KeyNotFoundException))]
          public void CanRemoveRegistration()
          {
              var reg = iocContainer.Register<IFoo>(c => new Foo1());
@@ -207,7 +203,11 @@ namespace Munq.Test
              Verify.That(reg).IsTheSameObjectAs(result);
 
              iocContainer.Remove(reg);
-             result = iocContainer.GetRegistration<IFoo>();
+             
+             Verify.TheExpectedException(typeof(KeyNotFoundException)).IsThrownWhen(
+                () => result = iocContainer.GetRegistration<IFoo>()
+             );
+             
          }
 
          #region Resolve Tests
@@ -275,10 +275,11 @@ namespace Munq.Test
          /// Verifies that the Attempting To Resolve A Nonexisting Entry Throws.
          /// </summary>
          [TestMethod]
-         [ExpectedException(typeof(KeyNotFoundException))]
          public void AttemptingToResolveANonexistingEntryThrows()
          {
-             var result = iocContainer.Resolve<IFoo>("Bob");
+             Verify.TheExpectedException(typeof(KeyNotFoundException)).IsThrownWhen(
+                () => iocContainer.Resolve<IFoo>("Bob")
+             );
 
         }
          #endregion
@@ -415,41 +416,44 @@ namespace Munq.Test
          /// Verifies that the Attempting Generic Get Registration For A Nonexisting Entry Throws.
          /// </summary>
          [TestMethod]
-         [ExpectedException(typeof(KeyNotFoundException))]
          public void AttemptingNamedGenericGetRegistrationForANonexistingEntryThrows()
          {
-             var result = iocContainer.GetRegistration<IFoo>("Bob");
-
+            Verify.TheExpectedException(typeof(KeyNotFoundException)).IsThrownWhen(
+                () => iocContainer.GetRegistration<IFoo>("Bob")
+             );
          }
 
          /// <summary>
          /// Verifies that the Attempting NonGeneric Get Registration For A Nonexisting Entry Throws.
          /// </summary>
          [TestMethod]
-         [ExpectedException(typeof(KeyNotFoundException))]
          public void AttemptingNonGenericNamedGetRegistrationForANonexistingEntryThrows()
          {
-             var result = iocContainer.GetRegistration("Bob", typeof(IFoo));
-
+             Verify.TheExpectedException(typeof(KeyNotFoundException)).IsThrownWhen(
+                 () => iocContainer.GetRegistration("Bob", typeof(IFoo))
+              );
          }
+         
          /// <summary>
          /// Verifies that the Attempting Generic Get Registration For A Nonexisting Entry Throws.
          /// </summary>
          [TestMethod]
-         [ExpectedException(typeof(KeyNotFoundException))]
          public void AttemptingNamelessGenericGetRegistrationForANonexistingEntryThrows()
          {
-             var result = iocContainer.GetRegistration<IFoo>();
+             Verify.TheExpectedException(typeof(KeyNotFoundException)).IsThrownWhen(
+                 () => iocContainer.GetRegistration<IFoo>()
+              );
          }
 
          /// <summary>
          /// Verifies that the Attempting NonGeneric Get Registration For A Nonexisting Entry Throws.
          /// </summary>
          [TestMethod]
-         [ExpectedException(typeof(KeyNotFoundException))]
          public void AttemptingNonGenericNamelessGetRegistrationForANonexistingEntryThrows()
          {
-             var result = iocContainer.GetRegistration(typeof(IFoo));
+             Verify.TheExpectedException(typeof(KeyNotFoundException)).IsThrownWhen(
+                 () => iocContainer.GetRegistration(typeof(IFoo))
+              );
          }
 
         /// <summary>
@@ -465,12 +469,10 @@ namespace Munq.Test
 
              var result      = iocContainer.GetRegistrations<IFoo>();
 
-             Verify.That(result).IsACollection()
-                        .IsNotNull()
+             Verify.That(result).IsACollectionThat()
                         .IsAnInstanceOfType(typeof(List<IRegistration>))
-                        .CountIsEqualTo(3)
+                        .Count().IsEqualTo(3)
                         .AllItemsAreInstancesOfType(typeof(IRegistration))
-                        .AllItemsAreNotNull()
                         .Contains(namelessFoo)
                         .Contains(bobFoo)
                         .Contains(billFoo)
@@ -490,12 +492,10 @@ namespace Munq.Test
 
              var result      = iocContainer.GetRegistrations(typeof(IFoo));
 
-             Verify.That(result).IsACollection()
-                        .IsNotNull()
+             Verify.That(result).IsACollectionThat()
                         .IsAnInstanceOfType(typeof(List<IRegistration>))
-                        .CountIsEqualTo(3)
+                        .Count().IsEqualTo(3)
                         .AllItemsAreInstancesOfType(typeof(IRegistration))
-                        .AllItemsAreNotNull()
                         .Contains(namelessFoo)
                         .Contains(bobFoo)
                         .Contains(billFoo)
@@ -515,10 +515,9 @@ namespace Munq.Test
 
              var result      = iocContainer.GetRegistrations<IBar>();
 
-             Verify.That(result).IsACollection()
-                        .IsNotNull()
+             Verify.That(result).IsACollectionThat()
                         .IsAnInstanceOfType(typeof(List<IRegistration>))
-                        .CountIsEqualTo(0);
+                        .Count().IsEqualTo(0);
          }
         #endregion
 
@@ -594,12 +593,10 @@ namespace Munq.Test
                  var result2 = container.Resolve<IFoo>("Foo2");
 
                  Verify.That(result1)
-                            .IsNotNull()
                             .IsAnInstanceOfType(typeof(IFoo))
                             .IsAnInstanceOfType(typeof(Foo1));
 
                  Verify.That(result2)
-                            .IsNotNull()
                             .IsAnInstanceOfType(typeof(IFoo))
                             .IsAnInstanceOfType(typeof(Foo2))
                             .IsNotTheSameObjectAs(result1);
@@ -621,12 +618,10 @@ namespace Munq.Test
                  var result2 = container.Resolve<IFoo>("Foo2");
 
                  Verify.That(result1)
-                            .IsNotNull()
                             .IsAnInstanceOfType(typeof(IFoo))
                             .IsAnInstanceOfType(typeof(Foo1));
 
                  Verify.That(result2)
-                            .IsNotNull()
                             .IsAnInstanceOfType(typeof(IFoo))
                             .IsAnInstanceOfType(typeof(Foo2))
                             .IsNotTheSameObjectAs(result1);

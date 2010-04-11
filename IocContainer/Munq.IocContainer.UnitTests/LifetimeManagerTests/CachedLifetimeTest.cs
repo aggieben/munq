@@ -100,11 +100,9 @@ namespace Munq.Test
 
             var result3 = iocContainer.Resolve<IFoo>();
 
-            Verify.That(result1).IsNotNull();
-            Verify.That(result2).IsNotNull();
-            Verify.That(result3).IsNotNull()
+            Verify.That(result1).IsNotNull()
                         .IsTheSameObjectAs(result2)
-                        .IsTheSameObjectAs(result1);
+                        .IsTheSameObjectAs(result3);
         }
 
         /// <summary>
@@ -126,11 +124,10 @@ namespace Munq.Test
 
             var result3 = iocContainer.Resolve<IFoo>();
 
-            Verify.That(result3).IsNotNull();
-            Verify.That(result2).IsNotNull();
             Verify.That(result1).IsNotNull()
                         .IsTheSameObjectAs(result2)
                         .IsNotTheSameObjectAs(result3);
+            Verify.That(result3).IsNotNull();
         }
 
         /// <summary>
@@ -153,11 +150,10 @@ namespace Munq.Test
 
             var result3 = iocContainer.Resolve<IFoo>();
 
-            Verify.That(result3).IsNotNull();
-            Verify.That(result2).IsNotNull();
             Verify.That(result1).IsNotNull()
                         .IsTheSameObjectAs(result2)
                         .IsNotTheSameObjectAs(result3);
+            Verify.That(result3).IsNotNull();
         }
  
         /// <summary>
@@ -180,11 +176,10 @@ namespace Munq.Test
 
             var result3 = iocContainer.Resolve<IFoo>();
 
-            Verify.That(result3).IsNotNull();
-            Verify.That(result2).IsNotNull();
             Verify.That(result1).IsNotNull()
                         .IsTheSameObjectAs(result2)
                         .IsNotTheSameObjectAs(result3);
+            Verify.That(result3).IsNotNull();
         }
 
         bool itemRemoved;
@@ -262,7 +257,6 @@ namespace Munq.Test
             var result3 = iocContainer.Resolve<IFoo>();
 
             Verify.That(result3).IsNotNull();
-            Verify.That(result2).IsNotNull();
             Verify.That(result1).IsNotNull()
                         .IsTheSameObjectAs(result2)
                         .IsNotTheSameObjectAs(result3);
