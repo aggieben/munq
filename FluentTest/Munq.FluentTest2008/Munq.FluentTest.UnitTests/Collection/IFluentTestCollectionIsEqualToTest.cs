@@ -34,7 +34,7 @@ namespace Munq.FluentTest.UnitTests
             var compareCollection = new List<object>(new object[] { "One", DateTime.Now, 2 });
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testCollection).IsACollectionThat().IsEqualTo(compareCollection)
-            );
+            ).AndHasAMessageThat().Contains("] should be equal to [");
         }
 
         [TestMethod]
@@ -44,8 +44,9 @@ namespace Munq.FluentTest.UnitTests
             var compareCollection = new List<object>(new object[] { "One", DateTime.Now, 1, "Extra" });
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testCollection).IsACollectionThat().IsEqualTo(compareCollection)
-            );
+            ).AndHasAMessageThat().Contains("should be the same length as");
         }
+        
         [TestMethod]
         public void IsEqualToFailsIfCollectionToCompareIsNull()
         {
@@ -53,7 +54,7 @@ namespace Munq.FluentTest.UnitTests
             ICollection compareCollection = null;
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testCollection).IsACollectionThat().IsEqualTo(compareCollection)
-            );
+            ).AndHasAMessageThat().Contains("] can not be compared to [null]");
         }
         #endregion
 
@@ -74,7 +75,7 @@ namespace Munq.FluentTest.UnitTests
             var compareCollection = new List<object>(new object[] { "One", DateTime.Now, 1 });
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testCollection).IsACollectionThat().IsNotEqualTo(compareCollection)
-            );
+            ).AndHasAMessageThat().Contains("] should not be equal to [");
         }
 
         [TestMethod]
@@ -92,7 +93,7 @@ namespace Munq.FluentTest.UnitTests
             ICollection compareCollection = null;
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testCollection).IsACollectionThat().IsNotEqualTo(compareCollection)
-            );
+            ).AndHasAMessageThat().Contains("] can not be compared to [null]");
         }
         #endregion
     }

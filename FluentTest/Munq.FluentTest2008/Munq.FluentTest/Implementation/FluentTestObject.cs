@@ -93,27 +93,29 @@ namespace Munq.FluentTest
 
         private bool _IsAnInstanceOf(Type type)
         {
-            return ObjectToTest != null &&
-                    type.IsAssignableFrom(ObjectToTest.GetType());
+            return  (ObjectToTest == null && type == null) ||
+                    (ObjectToTest != null && type != null &&
+                    type.IsAssignableFrom(ObjectToTest.GetType()));
         }
 
         IFluentTest IFluentTest.IsAnInstanceOfType(Type type)
         {
             if (!_IsAnInstanceOf(type))
-                FailWithTypeDefaultMessage("should be an instance of", type);
+                FailWithTypeDefaultMessage("should be an instance of type", type);
             return this;
         }
 
         private bool _IsNotAnInstanceOf(Type type)
         {
-            return ObjectToTest != null &&
-                    !type.IsAssignableFrom(ObjectToTest.GetType());
+            return  !(ObjectToTest == null && type == null) &&
+                    (ObjectToTest != null && type != null &&
+                    !type.IsAssignableFrom(ObjectToTest.GetType()));
         }
         
         IFluentTest IFluentTest.IsNotAnInstanceOfType(Type type)
         {
             if (!_IsNotAnInstanceOf(type))
-                FailWithTypeDefaultMessage("should not be an instance of", type);
+                FailWithTypeDefaultMessage("should not be an instance of type", type);
             return this;
         }
 

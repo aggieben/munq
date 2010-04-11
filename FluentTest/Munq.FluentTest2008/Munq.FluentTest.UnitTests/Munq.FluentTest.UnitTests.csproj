@@ -48,7 +48,6 @@
     <Compile Include="Collection\IFluentTestCollectionAllItemsAreUniqueTest.cs" />
     <Compile Include="Collection\IFluentTestCollectionAllItemsNotNullTest.cs" />
     <Compile Include="Collection\IFluentTestCollectionAllItemsAreInstancesOfTypeTest.cs" />
-    <Compile Include="Collection\IFluentTestCollectionIsNotNullTest.cs" />
     <Compile Include="Collection\IFluentTestCollectionIsAnInstanceOfTypeTest.cs" />
     <Compile Include="Collection\IFluentTestCollectionIsTheSameCollectionAsTest.cs" />
     <Compile Include="IFluentTestCommonTest.cs" />

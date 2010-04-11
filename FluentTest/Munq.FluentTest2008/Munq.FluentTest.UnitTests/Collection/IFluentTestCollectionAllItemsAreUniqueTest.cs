@@ -31,7 +31,7 @@ namespace Munq.FluentTest.UnitTests
             var testCollection = new List<object>(new object[] { "One", "Three", "Three" });
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testCollection).IsACollectionThat().AllItemsAreUnique()
-            );
+            ).AndHasAMessageThat().Contains("all items should be unique");
         }
         #endregion
     }

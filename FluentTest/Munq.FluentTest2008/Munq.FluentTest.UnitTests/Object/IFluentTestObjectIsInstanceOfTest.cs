@@ -25,7 +25,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(null).IsAnInstanceOfType(typeof(Object))
-            ).AndHasAMessageThat().Contains("[null] should be an instance of [Object]");
+            ).AndHasAMessageThat().Contains("[null] should be an instance of type [Object]");
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(new MyTestClass()).IsAnInstanceOfType(typeof(string))
-            ).AndHasAMessageThat().Contains("[My Test Class instance] should be an instance of [String]");
+            ).AndHasAMessageThat().Contains("[My Test Class instance] should be an instance of type [String]");
         }
         /// <summary>
         ///A test for IsAnInstanceOfType
@@ -59,7 +59,7 @@ namespace Munq.FluentTest.UnitTests
         {
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(null).IsNotAnInstanceOfType(null)
-            ).AndHasAMessageThat().Contains("[null] should not be an instance of [null]");
+            ).AndHasAMessageThat().Contains("[null] should not be an instance of type [null]");
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace Munq.FluentTest.UnitTests
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(new MyTestClass()).IsNotAnInstanceOfType(typeof(MyTestClass))
             ).AndHasAMessageThat()
-            .Contains("[My Test Class instance] should not be an instance of [MyTestClass]");
+            .Contains("[My Test Class instance] should not be an instance of type [MyTestClass]");
         }
         #endregion
     }

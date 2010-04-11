@@ -31,7 +31,7 @@ namespace Munq.FluentTest.UnitTests
             var testCollection = new List<string>();
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 ()=>Verify.That(testCollection).IsACollectionThat().IsTheSameCollectionAs(null)
-            );
+            ).AndHasAMessageThat().Contains("] can not be compared to [null]");
         }
         
         [TestMethod]
@@ -40,7 +40,7 @@ namespace Munq.FluentTest.UnitTests
             var testCollection = new List<string>();
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testCollection).IsACollectionThat().IsTheSameCollectionAs(new List<string>())
-            );
+            ).AndHasAMessageThat().Contains("] should be the same collection as");
         }
 
         #endregion
@@ -59,7 +59,7 @@ namespace Munq.FluentTest.UnitTests
             var testCollection = new List<string>();
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testCollection).IsACollectionThat().IsNotTheSameCollectionAs(null)
-            );
+            ).AndHasAMessageThat().Contains("] can not be compared to [null]");
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@ namespace Munq.FluentTest.UnitTests
             var testCollection = new List<string>();
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testCollection).IsACollectionThat().IsNotTheSameCollectionAs(testCollection)
-            );
+            ).AndHasAMessageThat().Contains("] should not be the same collection as");
         }
 
         #endregion

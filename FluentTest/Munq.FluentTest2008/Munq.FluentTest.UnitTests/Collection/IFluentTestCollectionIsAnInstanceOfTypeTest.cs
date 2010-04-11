@@ -32,7 +32,7 @@ namespace Munq.FluentTest.UnitTests
             var testCollection = new List<string>();
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testCollection).IsACollectionThat().IsAnInstanceOfType(null)
-            );
+            ).AndHasAMessageThat().Contains("can not be compared to a type of [null]");
         }
 
         [TestMethod]
@@ -41,7 +41,7 @@ namespace Munq.FluentTest.UnitTests
             var testCollection = new List<string>();
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testCollection).IsACollectionThat().IsAnInstanceOfType(typeof(Collection<int>))
-            );
+            ).AndHasAMessageThat().Contains("] should be of type [");
         }
         #endregion
 
@@ -59,7 +59,7 @@ namespace Munq.FluentTest.UnitTests
             var testCollection = new List<string>();
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testCollection).IsACollectionThat().IsNotAnInstanceOfType(null)
-            );
+            ).AndHasAMessageThat().Contains("can not be compared to a type of [null]");
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@ namespace Munq.FluentTest.UnitTests
             var testCollection = new List<string>();
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testCollection).IsACollectionThat().IsNotAnInstanceOfType(typeof(List<string>))
-            );
+            ).AndHasAMessageThat().Contains("] should not be of type [");
         }
         #endregion
     }

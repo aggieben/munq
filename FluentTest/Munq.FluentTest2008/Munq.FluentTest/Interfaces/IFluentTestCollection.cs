@@ -19,11 +19,6 @@ namespace Munq.FluentTest
         IFluentTestCollection WithFailureMessage(string msg);
 
         /// <summary>
-        /// The assertion fails if the collection is null.
-        /// </summary>
-        IFluentTestCollection IsNotNull();
-
-        /// <summary>
         /// The assertion fails if the type of the collection is not the specified type.
         /// </summary>
         /// <param name="type">The Type to compare against.</param>

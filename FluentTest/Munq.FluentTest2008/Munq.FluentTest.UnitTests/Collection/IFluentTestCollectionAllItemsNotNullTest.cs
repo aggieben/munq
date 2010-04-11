@@ -32,7 +32,7 @@ namespace Munq.FluentTest.UnitTests
             var testCollection = new List<object>(new object[] { "One", null, "Three" });
             Verify.TheExpectedException(Verify.FailExceptionType).IsThrownWhen(
                 () => Verify.That(testCollection).IsACollectionThat().AllItemsAreNotNull()
-            );
+            ).AndHasAMessageThat().Contains("should not be null");
         }
         #endregion
     }
