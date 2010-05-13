@@ -1,21 +1,21 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.IocContainer.UnitTests", "Munq.IocContainer.UnitTests\Munq.IocContainer.UnitTests.csproj", "{17AF53D1-D6C9-453B-ABD5-27DF99830014}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{275E98ED-5A80-43CC-8F28-F6A390F075AC}"
 	ProjectSection(SolutionItems) = preProject
 		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
 		Munq.IocContainer.vsmdi = Munq.IocContainer.vsmdi
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.Interfaces", "Munq.Interfaces\Munq.Interfaces.csproj", "{10E86993-F4FD-4650-BB3C-4B26FDD53C5D}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{FD5D2B0E-6E71-4357-87AB-D3CBABF2FE6F}"
 	ProjectSection(SolutionItems) = preProject
 		..\lib\Munq.FluentTest.dll = ..\lib\Munq.FluentTest.dll
 		..\lib\MvcFakes.dll = ..\lib\MvcFakes.dll
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.IocContainer.UnitTests", "Munq.IocContainer.UnitTests\Munq.IocContainer.UnitTests.csproj", "{17AF53D1-D6C9-453B-ABD5-27DF99830014}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.Interfaces", "Munq.Interfaces\Munq.Interfaces.csproj", "{10E86993-F4FD-4650-BB3C-4B26FDD53C5D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.IocContainer", "Munq.IocContainer\Munq.IocContainer.csproj", "{3A5BC8F1-5817-4B0E-A82B-D92FFC5BE440}"
 EndProject

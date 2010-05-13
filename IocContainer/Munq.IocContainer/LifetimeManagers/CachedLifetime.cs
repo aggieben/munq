@@ -26,8 +26,8 @@ namespace Munq.LifetimeManagers
             object instance = cache[creator.Key];
             if (instance == null)
             {
-                instance = creator.CreateInstance(ContainerCaching.InstanceNotCachedInContainer
-                    );
+                instance = creator.CreateInstance(ContainerCaching.InstanceNotCachedInContainer);
+                
                 cache.Insert(creator.Key, instance, _dependencies, _absoluteExpiration,
                                 _slidingExpiration, _priority, _onRemoveCallback);
             }
