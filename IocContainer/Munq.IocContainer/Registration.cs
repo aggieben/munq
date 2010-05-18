@@ -58,6 +58,7 @@ namespace Munq
     {
         internal ILifetimeManager			 LifetimeManager;
         internal Func<IIocContainer, object> Factory;
+        internal Func<object>                LazyFactory;
         private string                       _key;
         private Type                         _type;
 
@@ -67,12 +68,17 @@ namespace Munq
 
         public Registration(IIocContainer container, string name, Type type, Func<IIocContainer, object> factory)
         {
-            LifetimeManager  = null;
+            LifetimeManager = null;
             Container       = container;
             Factory			= factory;
             Name            = name;
-            _type = type;
+            _type           = type;
             _key            = "[" + (name ?? "null") + "]:"+ type.Name;
+
+            if (name == null)
+                LazyFactory = () => container.Resolve(_type);
+            else
+                LazyFactory = () => container.Resolve(Name, _type);
         }
         public string Key { 
             get 

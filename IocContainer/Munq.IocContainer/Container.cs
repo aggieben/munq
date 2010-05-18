@@ -68,10 +68,14 @@ namespace Munq
 
         #region RegisterInstance Members
 		public IRegistration RegisterInstance<TType>(TType instance) where TType : class
-        { return Register<TType>(c => instance); }
+        { 
+            return Register<TType>(c => instance); 
+        }
 
         public IRegistration RegisterInstance<TType>(string name, TType instance) where TType : class
-        { return Register<TType>(name, c => instance); }
+        { 
+            return Register<TType>(name, c => instance); 
+        }
         
         public IRegistration RegisterInstance(Type type, object instance)
         {
@@ -104,35 +108,33 @@ namespace Munq
         /// <typeparam name="TType">The type to resolve</typeparam>
         /// <returns>An instance of the type.  Throws a KeyNoFoundException if not registered.</returns>
         public TType Resolve<TType>() where TType : class
-        { return Resolve(typeof(TType)) as TType; }
+        { 
+            return Resolve(typeof(TType)) as TType; 
+        }
 
         public TType Resolve<TType>(string name) where TType : class
-        { return Resolve(name, typeof(TType)) as TType; }
+        { 
+            return Resolve(name, typeof(TType)) as TType; 
+        }
 
         public object Resolve(Type type)
         {
             var entry = typeRegistry[new UnNamedRegistrationKey(type)] as Registration;
 
             if (entry != null)
-            {
                 return entry.GetInstance();
-            }
             else
-            { 
-                throw new KeyNotFoundException(); 
-            }
+                throw new KeyNotFoundException();
         }
 
         public object Resolve(string name, Type type)
         {
             var entry = typeRegistry[new NamedRegistrationKey(name, type)] as Registration;
 
-            try
-            {
-                // optimization for default case
+            if (entry != null)
                 return entry.GetInstance();
-            }
-            catch { throw new KeyNotFoundException(); }
+            else
+                throw new KeyNotFoundException();
         }        
         #endregion
         
@@ -149,17 +151,27 @@ namespace Munq
 
         public Func<TType> LazyResolve<TType>(string name) where TType : class
         {
-            return () => Resolve(name, typeof(TType)) as TType;
+            return () => Resolve(name, typeof(TType))  as TType;
         }
 
         public Func<Object> LazyResolve(Type type)
         {
-            return () => Resolve(type);
+            var entry = typeRegistry[new UnNamedRegistrationKey(type)] as Registration;
+
+            if (entry != null)
+                return entry.LazyFactory;
+            else
+                throw new KeyNotFoundException();
         }
 
         public Func<Object> LazyResolve(string name, Type type)
         {
-            return () => Resolve(name, type);
+            var entry = typeRegistry[new NamedRegistrationKey(name, type)] as Registration;
+
+            if (entry != null)
+                return entry.LazyFactory;
+            else
+                throw new KeyNotFoundException();
         }       
         #endregion
 
@@ -170,10 +182,14 @@ namespace Munq
         /// <typeparam name="TType">The type to get the Registration for</typeparam>
         /// <returns>An Registration for the type.  Throws a KeyNoFoundException if not registered.</returns>
         public IRegistration GetRegistration<TType>() where TType : class
-        { return GetRegistration(typeof(TType)); }
+        { 
+            return GetRegistration(typeof(TType)); 
+        }
 
         public IRegistration GetRegistration<TType>(string name) where TType : class
-        { return GetRegistration(name, typeof(TType)); }
+        { 
+            return GetRegistration(name, typeof(TType)); 
+        }
 
         public IRegistration GetRegistration(Type type)
         {
