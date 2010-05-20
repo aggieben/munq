@@ -146,12 +146,32 @@ namespace Munq
         // resource, or logic may not need to resolve it at all.
         public Func<TType> LazyResolve<TType>() where TType : class
         {
-            return () => Resolve(typeof(TType)) as TType;
+            Func<TType> lazyMethod;
+           try
+            {
+                lazyMethod = Resolve<Func<TType>>();
+            }
+            catch(KeyNotFoundException)
+            {
+                lazyMethod = () => this.Resolve<TType>();
+                RegisterInstance<Func<TType>>(lazyMethod);
+            }
+            return lazyMethod;
         }
 
         public Func<TType> LazyResolve<TType>(string name) where TType : class
         {
-            return () => Resolve(name, typeof(TType))  as TType;
+            Func<TType> lazyMethod;
+            try
+            {
+                lazyMethod = Resolve<Func<TType>>(name);
+            }
+            catch(KeyNotFoundException)
+            {
+                lazyMethod = () => this.Resolve<TType>(name);
+                RegisterInstance<Func<TType>>(lazyMethod);
+            }
+            return lazyMethod;
         }
 
         public Func<Object> LazyResolve(Type type)
