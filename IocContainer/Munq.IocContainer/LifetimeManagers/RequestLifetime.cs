@@ -1,6 +1,5 @@
 ﻿using System.Web;
 
-
 namespace Munq.LifetimeManagers
 {
     public class RequestLifetime : ILifetimeManager

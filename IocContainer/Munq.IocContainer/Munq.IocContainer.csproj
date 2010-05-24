@@ -78,6 +78,7 @@
     <Compile Include="LifetimeManagers\ContainerLifetime.cs" />
     <Compile Include="LifetimeManagers\RequestLifetime.cs" />
     <Compile Include="LifetimeManagers\SessionLifetime.cs" />
+    <Compile Include="LifetimeManagers\ThreadLocalStorageLifetime.cs" />
     <Compile Include="MVC\MunqControllerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registration.cs" />
