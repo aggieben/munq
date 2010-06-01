@@ -69,22 +69,22 @@ namespace Munq
         #region RegisterInstance Members
 		public IRegistration RegisterInstance<TType>(TType instance) where TType : class
         { 
-            return Register<TType>(c => instance); 
+            return Register<TType>(c => instance).WithLifetimeManager(null); 
         }
 
         public IRegistration RegisterInstance<TType>(string name, TType instance) where TType : class
-        { 
-            return Register<TType>(name, c => instance); 
+        {
+            return Register<TType>(name, c => instance).WithLifetimeManager(null); 
         }
         
         public IRegistration RegisterInstance(Type type, object instance)
         {
-			return Register(type, c => instance);
+            return Register(type, c => instance).WithLifetimeManager(null);
         }
 
 		public IRegistration RegisterInstance(string name, Type type, object instance)
 		{
-			return Register(name, type, c => instance);
+            return Register(name, type, c => instance).WithLifetimeManager(null);
 		}
 	    #endregion
 
