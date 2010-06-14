@@ -224,8 +224,9 @@ namespace Munq.Test
         [TestMethod()]
         public void IsDependentOnTest()
         {
+            var executionDirectory = Environment.CurrentDirectory;
            // create a file for the cached item to be dependent on
-            var filePath = "c:\\temp\\DependencyFile.txt";
+            var filePath = executionDirectory+"\\DependencyFile.txt";
 
             if (File.Exists(filePath))
                 File.Delete(filePath);
@@ -255,6 +256,10 @@ namespace Munq.Test
             Thread.Sleep(500);
 
             var result3 = iocContainer.Resolve<IFoo>();
+
+            // cleanup
+            if (File.Exists(filePath))
+                File.Delete(filePath);
 
             Verify.That(result3).IsNotNull();
             Verify.That(result1).IsNotNull()
