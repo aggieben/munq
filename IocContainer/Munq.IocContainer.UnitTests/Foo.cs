@@ -41,4 +41,22 @@ namespace Munq.Test
     public class Bar2 : IBar
     {
     }
+
+    public interface IFooBar
+    {
+        IFoo foo { get; }
+        IBar bar { get; }
+    }
+
+    public class FooBar : IFooBar
+    {
+        public IFoo foo { get; private set; }
+        public IBar bar { get; private set; }
+
+        public FooBar(IFoo f, IBar b)
+        {
+            foo = f;
+            bar = b;
+        }
+    }
 }

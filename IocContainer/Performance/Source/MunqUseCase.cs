@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using Domain;
 using System.Reflection;
-using Munq.DI;
-using Munq.DI.LifetimeManagers;
+using Munq;
+using Munq.LifetimeManagers;
 
 namespace Performance
 {
 	[System.ComponentModel.Description("Munq")]
 	public class MunqUseCase : UseCase
 	{
-		Container container;
-		ILifetimeManager lifetime = new ContainerLifetime();
+		IIocContainer container;
+		//ILifetimeManager lifetime = new ContainerLifetime();
+		ILifetimeManager lifetime = null; // new AlwaysNewLifetime();
 
 		public MunqUseCase()
 		{

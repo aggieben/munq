@@ -629,6 +629,82 @@ namespace Munq.Test
 
          }
 
+         [TestMethod]
+         public void UnnamedTypeRegistrationReturnsRegistration()
+         {
+             using (var container = new Container())
+             {
+                 var result = container.Register<IFoo, Foo1>();
+                 Verify.That(result).IsNotNull().IsAnInstanceOfType(typeof(IRegistration));
+             }
+         }
+         [TestMethod]
+         public void UnnamedTypeRegistrationResolvesToCorrectType()
+         {
+             using (var container = new Container())
+             {
+                 container.Register<IFoo, Foo1>();
+                 var result = container.Resolve<IFoo>();
+
+                 Verify.That(result).IsNotNull().IsAnInstanceOfType(typeof(Foo1));
+             }
+         }
+
+         [TestMethod]
+         public void UnnamedTypeWithParametersRegistrationResolvesToCorrectType()
+         {
+             using (var container = new Container())
+             {
+                 container.Register<IFoo, Foo1>();
+                 container.Register<IBar, Bar1>();
+                 container.Register<IFooBar, FooBar>();
+
+                 IFooBar result = container.Resolve<IFooBar>();
+
+                 Verify.That(result).IsNotNull().IsAnInstanceOfType(typeof(FooBar));
+                 Verify.That(result.foo).IsNotNull().IsAnInstanceOfType(typeof(Foo1));
+                 Verify.That(result.bar).IsNotNull().IsAnInstanceOfType(typeof(Bar1));
+             }
+         }
+
+         [TestMethod]
+         public void NnamedTypeRegistrationReturnsRegistration()
+         {
+             using (var container = new Container())
+             {
+                 var result = container.Register<IFoo, Foo1>("bob");
+                 Verify.That(result).IsNotNull().IsAnInstanceOfType(typeof(IRegistration));
+             }
+         }
+         [TestMethod]
+         public void NamedTypeRegistrationResolvesToCorrectType()
+         {
+             using (var container = new Container())
+             {
+                 container.Register<IFoo, Foo1>("bob");
+                 var result = container.Resolve<IFoo>("bob");
+
+                 Verify.That(result).IsNotNull().IsAnInstanceOfType(typeof(Foo1));
+             }
+         }
+
+         [TestMethod]
+         public void NamedTypeWithParametersRegistrationResolvesToCorrectType()
+         {
+             using (var container = new Container())
+             {
+                 container.Register<IFoo, Foo1>();
+                 container.Register<IBar, Bar1>();
+                 container.Register<IFooBar, FooBar>("bob");
+
+                 IFooBar result = container.Resolve<IFooBar>("bob");
+
+                 Verify.That(result).IsNotNull().IsAnInstanceOfType(typeof(FooBar));
+                 Verify.That(result.foo).IsNotNull().IsAnInstanceOfType(typeof(Foo1));
+                 Verify.That(result.bar).IsNotNull().IsAnInstanceOfType(typeof(Bar1));
+             }
+         }
+
          #endregion
 
     }

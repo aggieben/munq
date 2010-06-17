@@ -8,13 +8,16 @@ namespace Performance
 	class Program
 	{
 		const long DefaultIterations = 1000;
+		static long baseTicks = 0;
+
 		//static readonly List<long> BatchIterations = new List<long> { 10000 };
 		static readonly List<long> BatchIterations = new List<long> { 1000, 5000, 20000, 100000, 250000, 1000000, 5000000 };
 		static readonly List<UseCaseInfo> useCases = new List<UseCaseInfo>
 		{
 			new PlainUseCase(),
 			new MunqUseCase(),
-			new FunqUseCase(), 
+			new MunqTypeUseCase(),
+			//new FunqUseCase(), 
 			new UnityUseCase(),
 			new AutofacUseCase(), 
 			new StructureMapUseCase(),
@@ -67,7 +70,7 @@ namespace Performance
 				// warmup
 				uc.UseCase.Run();
 				GC.Collect();
-				Console.WriteLine("{0,16}: {1}", uc.Name, Measure(uc.UseCase.Run, iterations));
+				Console.WriteLine("{0,16}: {1,16:N2}", uc.Name, Measure(uc.UseCase.Run, iterations));
 			});
 		}
 
@@ -88,8 +91,10 @@ namespace Performance
 			}
 
 			stopwatch.Stop();
+			if (baseTicks == 0)
+				baseTicks = stopwatch.ElapsedTicks;
 
-			return stopwatch.ElapsedTicks/(decimal)iterations;
+			return stopwatch.ElapsedTicks / (decimal)baseTicks;
 		}
 	}
 }

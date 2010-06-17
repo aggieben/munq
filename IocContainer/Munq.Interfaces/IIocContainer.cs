@@ -16,6 +16,10 @@ namespace Munq
         IRegistration RegisterInstance<TType>(string name, TType instance) where TType : class;
         IRegistration RegisterInstance<TType>(TType instance) where TType : class;
 
+        //Register Type Implementation
+        IRegistration Register<TType, TImpl>() where TType: class where TImpl : class;
+        IRegistration Register<TType, TImpl>(string name) where TType: class where TImpl : class;
+
         // Remove Registration
         void Remove(IRegistration ireg);
 

@@ -138,11 +138,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutofacUseCase.cs" />
+    <Compile Include="Copy of MunqUseCase.cs" />
     <Compile Include="MunqUseCase.cs" />
     <Compile Include="HiroUseCase.cs" />
     <Compile Include="MachineUseCase.cs" />
     <Compile Include="Ninject2UseCase.cs" />
-    <Compile Include="FunqHierarchyUseCase.cs" />
     <Compile Include="Domain\Authenticator.cs" />
     <Compile Include="Domain\Database.cs" />
     <Compile Include="Domain\ErrorHandler.cs" />
