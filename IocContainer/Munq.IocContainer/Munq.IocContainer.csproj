@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="Configuration\ConfigurationLoader.cs" />
     <Compile Include="Container.cs" />
+    <Compile Include="CreateInstanceDelegateFactory.cs" />
     <Compile Include="IRegistrationKey.cs" />
     <Compile Include="LifetimeManagers\AlwaysNewLifetime.cs" />
     <Compile Include="LifetimeManagers\CachedLifetime.cs" />
