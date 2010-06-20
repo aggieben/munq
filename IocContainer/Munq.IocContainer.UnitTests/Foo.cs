@@ -59,4 +59,13 @@ namespace Munq.Test
             bar = b;
         }
     }
+
+    public interface INoConstructor
+    {
+    }
+
+    public class NoConstructor : INoConstructor
+    {
+        private NoConstructor() { }
+    }
 }
