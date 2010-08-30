@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Munq.Search.Documents.FieldSources
 {
-	public class StringSource: IFieldSource
+    public class StringSource: IFieldSource
 	{
 		List<string> _source = new List<string>();
 
@@ -19,9 +19,10 @@ namespace Munq.Search.Documents.FieldSources
 			_source.AddRange(values);
 		}
 
-		public IEnumerable<string> Tokens 
+		public IEnumerable<Token> GetTokenIterator()
 		{
-			get { return _source; }
+			foreach (var str in _source)
+				yield return new Token { Value = str };
 		}
 	}
 }

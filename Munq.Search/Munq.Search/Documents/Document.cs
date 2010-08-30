@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Munq.Search.Documents
 {
-	public class Document 
+	public class Document : IBoostable 
 	{
 		private List<IField> fields = new List<IField>();
 

@@ -48,6 +48,8 @@
     <Compile Include="Documents\Field.cs" />
     <Compile Include="Documents\FieldOptions.cs" />
     <Compile Include="Documents\FieldSources\StringSource.cs" />
+    <Compile Include="Documents\Token.cs" />
+    <Compile Include="Documents\IBoostable.cs" />
     <Compile Include="Documents\IField.cs" />
     <Compile Include="Documents\IFieldSource.cs" />
     <Compile Include="Documents\IndexOptions.cs" />

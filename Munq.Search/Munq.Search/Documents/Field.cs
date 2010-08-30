@@ -9,14 +9,12 @@ namespace Munq.Search.Documents
 	[Serializable]
 	public class Field : IField
 	{
-		private FieldOptions _fieldInfo;
-		private IFieldSource _source;
-
 		public Field(String name, FieldOptions fieldInfo, IFieldSource source)
 		{
 			Name = name;
-			_fieldInfo = fieldInfo;
-			_source = source;
+			FieldInfo = fieldInfo;
+			Source = source;
+			Boost = 1.0f;
 		}
 
 		public string Name				{ get; private set; }

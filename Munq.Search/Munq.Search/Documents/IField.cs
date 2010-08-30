@@ -7,10 +7,9 @@ namespace Munq.Search.Documents
 {
 	// The document class contains the indexed and stored information for arbitrary fields.
 	// The document is added to an Index so that it can be included in searches.
-	public interface IField
+	public interface IField : IBoostable
 	{
-		string Name			{ get; }
-		FieldOptions FieldInfo { get; }
-		float Boost			{ get; set;}
+		string Name				{ get; }
+		FieldOptions FieldInfo	{ get; }
 	}
 }
