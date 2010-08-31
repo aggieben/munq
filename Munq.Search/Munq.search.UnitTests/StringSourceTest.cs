@@ -8,12 +8,12 @@ using System.Linq;
 
 namespace Munq.Search.UnitTests
 {
-    
-    
-    /// <summary>
-    ///This is a test class for StringSourceTest and is intended
-    ///to contain all StringSourceTest Unit Tests
-    ///</summary>
+	
+	
+	/// <summary>
+	///This is a test class for StringSourceTest and is intended
+	///to contain all StringSourceTest Unit Tests
+	///</summary>
 	[TestClass()]
 	public class StringSourceTest
 	{
@@ -72,18 +72,22 @@ namespace Munq.Search.UnitTests
 		///A test for StringSource Constructor
 		///</summary>
 		[TestMethod()]
-		public void StringSourceConstructorTest()
+		public void StringSourceWithThreeStringsHasThreeTokens()
 		{
 			string[] values = new string[]{"One", "Two", "Three"}; // TODO: Initialize to an appropriate value
 			StringSource target = new StringSource(values);
 
-			var tokens = target.GetTokenIterator().ToList();
+			var tokens = target.Tokens.ToList();
 
 			Verify.That(tokens).IsACollectionThat().Count().IsEqualTo(3);
 
 			int i = 0;
 			foreach (var token in tokens)
-				Verify.That(token.Value).IsAStringThat().IsEqualTo(values[i++]);
+			{
+				Verify.That(token.Value).IsAStringThat().IsEqualTo(values[i]);
+				Verify.That(token.Offset).IsEqualTo(i);
+				i++;
+			}
 
 		}
 
@@ -91,30 +95,34 @@ namespace Munq.Search.UnitTests
 		///A test for StringSource Constructor
 		///</summary>
 		[TestMethod()]
-		public void StringSourceConstructorTest1()
+		public void StringSourceWithSingleStringHasOneToken()
 		{
 			string value = "Test"; // TODO: Initialize to an appropriate value
 			StringSource target = new StringSource(value);
 
-			var tokens = target.GetTokenIterator().ToList();
+			var tokens = target.Tokens.ToList();
 
 			Verify.That(tokens).IsACollectionThat().Count().IsEqualTo(1);
-			Verify.That(tokens.First().Value).IsAStringThat().IsEqualTo(value);
+
+			Token token = tokens.First();
+			Verify.That(token.Value).IsAStringThat().IsEqualTo(value);
+			Verify.That(token.Offset).IsEqualTo(0);
 		}
 
 		/// <summary>
 		///A test for GetTokenIterator
 		///</summary>
 		[TestMethod()]
-		public void GetTokenIteratorTest()
+		public void StringSourceWithNoStringsHasNoTokens()
 		{
 			IEnumerable<string> values = null; // TODO: Initialize to an appropriate value
 			StringSource target = new StringSource(values); // TODO: Initialize to an appropriate value
-			IEnumerable<Token> expected = null; // TODO: Initialize to an appropriate value
-			IEnumerable<Token> actual;
-			actual = target.GetTokenIterator();
-			Assert.AreEqual(expected, actual);
-			Assert.Inconclusive("Verify the correctness of this test method.");
+
+			var result = target.Tokens;
+			Verify.That(result).IsNotNull()
+							   .IsACollectionThat()
+							   .IsAnInstanceOfType(typeof(IEnumerable<Token>))
+							   .Count().IsEqualTo(0);
 		}
 	}
 }

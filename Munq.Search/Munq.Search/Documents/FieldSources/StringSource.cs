@@ -7,22 +7,26 @@ namespace Munq.Search.Documents.FieldSources
 {
     public class StringSource: IFieldSource
 	{
-		List<string> _source = new List<string>();
+		List<Token> _tokens = new List<Token>();
 
 		public StringSource(string value)
 		{
-			_source.Add(value);
+			_tokens.Add(new Token { Offset = 0, Value = value });
 		}
 
 		public StringSource(IEnumerable<string> values)
 		{
-			_source.AddRange(values);
+			if(values != null)
+			{
+				int i = 0;
+				foreach (var value in values)
+					_tokens.Add(new Token { Offset = i++, Value = value });
+			}
 		}
 
-		public IEnumerable<Token> GetTokenIterator()
+		public IEnumerable<Token> Tokens
 		{
-			foreach (var str in _source)
-				yield return new Token { Value = str };
+			get { return _tokens; }
 		}
 	}
 }

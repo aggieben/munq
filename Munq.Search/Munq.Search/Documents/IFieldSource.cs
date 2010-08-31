@@ -5,6 +5,6 @@ namespace Munq.Search.Documents
 {
 	public interface IFieldSource
 	{
-		IEnumerable<Token> GetTokenIterator();
+		IEnumerable<Token> Tokens { get; }
 	}
 }
