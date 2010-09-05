@@ -69,7 +69,7 @@ namespace Munq.Search.UnitTests.Documents
 		{
 			var doc = new Document();
 			var fi = new FieldOptions(StoreOptions.STORED, IndexOptions.Analyzed, TermVectorOptions.STORED);
-			var field = new Field("Test",fi, new StringSource("Test Field Source"));
+			var field = new Field("Test",fi, new FieldSource<string>("Test Field Source"));
 			doc.Add(field);
 			Verify.That(doc.Count).IsEqualTo(1);
 		}
@@ -79,8 +79,8 @@ namespace Munq.Search.UnitTests.Documents
 		{
 			var doc = new Document();
 			var fi = new FieldOptions(StoreOptions.STORED, IndexOptions.Analyzed, TermVectorOptions.STORED);
-			var field1 = new Field("Test", fi, new StringSource("Test Field Source1"));
-			var field2 = new Field("Test", fi, new StringSource("Test Field Source2"));
+			var field1 = new Field("Test", fi, new FieldSource<string>("Test Field Source1"));
+			var field2 = new Field("Test", fi, new FieldSource<string>("Test Field Source2"));
 			doc.Add(field1);
 			doc.Add(field2);
 
@@ -94,7 +94,7 @@ namespace Munq.Search.UnitTests.Documents
 			var doc = new Document();
 			var result1 = doc.FindByName("No Found");
 			var fi = new FieldOptions(StoreOptions.STORED, IndexOptions.Analyzed, TermVectorOptions.STORED);
-			var field1 = new Field("Test", fi, new StringSource("Test Field Source"));
+			var field1 = new Field("Test", fi, new FieldSource<string>("Test Field Source"));
 			doc.Add(field1);
 			var result2 = doc.FindByName("No Found");
 
@@ -107,10 +107,10 @@ namespace Munq.Search.UnitTests.Documents
 		{
 			var doc = new Document();
 			var fi = new FieldOptions(StoreOptions.STORED, IndexOptions.Analyzed, TermVectorOptions.STORED);
-			var dummyField = new Field("Dummy", fi, new StringSource("Dummy Field"));
+			var dummyField = new Field("Dummy", fi, new FieldSource<string>("Dummy Field"));
 
-			var field1 = new Field("Test", fi, new StringSource("Test Field Source1"));
-			var field2 = new Field("Test", fi, new StringSource("Test Field Source2"));
+			var field1 = new Field("Test", fi, new FieldSource<string>("Test Field Source1"));
+			var field2 = new Field("Test", fi, new FieldSource<string>("Test Field Source2"));
 
 			doc.Add(dummyField);
 			doc.Add(field1);
@@ -127,7 +127,7 @@ namespace Munq.Search.UnitTests.Documents
 			var doc = new Document();
 			var result1 = doc.FindAllByName("Not Found");
 			var fi = new FieldOptions(StoreOptions.STORED, IndexOptions.Analyzed, TermVectorOptions.STORED);
-			var field1 = new Field("Test", fi, new StringSource("Test Field Source1"));
+			var field1 = new Field("Test", fi, new FieldSource<string>("Test Field Source1"));
 			doc.Add(field1);
 			var result2 = doc.FindAllByName("Not Found");
 

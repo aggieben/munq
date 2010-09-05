@@ -11,11 +11,11 @@ namespace Munq.Search.UnitTests
 	
 	
 	/// <summary>
-	///This is a test class for StringSourceTest and is intended
-	///to contain all StringSourceTest Unit Tests
+	///This is a test class for FieldSource<string>Test and is intended
+	///to contain all FieldSource<string>Test Unit Tests
 	///</summary>
 	[TestClass()]
-	public class StringSourceTest
+	public class StringFieldSourceTest
 	{
 
 
@@ -69,13 +69,13 @@ namespace Munq.Search.UnitTests
 
 
 		/// <summary>
-		///A test for StringSource Constructor
+		///A test for FieldSource<string> Constructor
 		///</summary>
 		[TestMethod()]
-		public void StringSourceWithThreeStringsHasThreeTokens()
+		public void FieldSourceWithThreeStringsHasThreeTokens()
 		{
 			string[] values = new string[]{"One", "Two", "Three"}; // TODO: Initialize to an appropriate value
-			StringSource target = new StringSource(values);
+			FieldSource<string> target = new FieldSource<string>(values);
 
 			var tokens = target.Tokens.ToList();
 
@@ -85,20 +85,19 @@ namespace Munq.Search.UnitTests
 			foreach (var token in tokens)
 			{
 				Verify.That(token.Value).IsAStringThat().IsEqualTo(values[i]);
-				Verify.That(token.Offset).IsEqualTo(i);
+				Verify.That(token.Offset).IsEqualTo(0);
 				i++;
 			}
-
 		}
 
 		/// <summary>
-		///A test for StringSource Constructor
+		///A test for FieldSource<string> Constructor
 		///</summary>
 		[TestMethod()]
-		public void StringSourceWithSingleStringHasOneToken()
+		public void FieldSourceWithSingleStringHasOneToken()
 		{
 			string value = "Test"; // TODO: Initialize to an appropriate value
-			StringSource target = new StringSource(value);
+			FieldSource<string> target = new FieldSource<string>(value);
 
 			var tokens = target.Tokens.ToList();
 
@@ -113,10 +112,10 @@ namespace Munq.Search.UnitTests
 		///A test for GetTokenIterator
 		///</summary>
 		[TestMethod()]
-		public void StringSourceWithNoStringsHasNoTokens()
+		public void FieldSourceWithNoStringsHasNoTokens()
 		{
 			IEnumerable<string> values = null; // TODO: Initialize to an appropriate value
-			StringSource target = new StringSource(values); // TODO: Initialize to an appropriate value
+			FieldSource<string> target = new FieldSource<string>(values); // TODO: Initialize to an appropriate value
 
 			var result = target.Tokens;
 			Verify.That(result).IsNotNull()

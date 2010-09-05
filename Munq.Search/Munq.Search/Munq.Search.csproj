@@ -47,7 +47,10 @@
     <Compile Include="Documents\Document.cs" />
     <Compile Include="Documents\Field.cs" />
     <Compile Include="Documents\FieldOptions.cs" />
-    <Compile Include="Documents\FieldSources\StringSource.cs" />
+    <Compile Include="Documents\FieldSources\FieldSource.cs" />
+    <Compile Include="Documents\FieldTypes\DateValue.cs" />
+    <Compile Include="Documents\FieldTypes\IFieldValue.cs" />
+    <Compile Include="Documents\FieldTypes\TimeValue.cs" />
     <Compile Include="Documents\Token.cs" />
     <Compile Include="Documents\IBoostable.cs" />
     <Compile Include="Documents\IField.cs" />
@@ -55,16 +58,21 @@
     <Compile Include="Documents\IndexOptions.cs" />
     <Compile Include="Documents\StoreOptions.cs" />
     <Compile Include="Documents\TermVectorOptions.cs" />
+    <Compile Include="Index\FieldIndex.cs" />
+    <Compile Include="Index\TermIndex.cs" />
+    <Compile Include="Index\TermIndexEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Analysis\" />
-    <Folder Include="Index\" />
     <Folder Include="Messages\" />
     <Folder Include="QueryParser\" />
     <Folder Include="Search\" />
     <Folder Include="Store\" />
     <Folder Include="Util\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Index\Index.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
