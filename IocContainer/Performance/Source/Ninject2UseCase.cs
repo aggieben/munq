@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Ninject;
 using Ninject.Modules;
 using Domain;
@@ -25,7 +22,7 @@ namespace Performance
 			webApp.Execute();
 		}
 
-		class SampleModule : Module
+		class SampleModule : NinjectModule
 		{
 			public override void Load()
 			{

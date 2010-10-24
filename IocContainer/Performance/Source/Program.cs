@@ -21,7 +21,7 @@ namespace Performance
 			new UnityUseCase(),
 			new AutofacUseCase(), 
 			new StructureMapUseCase(),
-			new NinjectUseCase(), 
+			//new NinjectUseCase(), 
 			new Ninject2UseCase(), 
 			new WindsorUseCase(), 
 			//new MachineUseCase(),

@@ -16,48 +16,28 @@ namespace Performance
 		{
 			container = new Container();
 			container.Configure(
-				x => x.ForRequestedType<IWebService>()
-					.TheDefault.Is.ConstructedBy(
-					c => new WebService(
-						c.GetInstance<IAuthenticator>(),
-						c.GetInstance<IStockQuote>())
-					));
+				x => x.For<IWebService>()
+					  .Use<WebService>());
 
 			container.Configure(
-				x => x.ForRequestedType<IAuthenticator>()
-					.TheDefault.Is.ConstructedBy(
-					c => new Authenticator(
-						c.GetInstance<ILogger>(), 
-						c.GetInstance<IErrorHandler>(), 
-						c.GetInstance<IDatabase>())
-					));
+				x => x.For<IAuthenticator>()
+					.Use<Authenticator>());
 
 			container.Configure(
-				x => x.ForRequestedType<IStockQuote>()
-					.TheDefault.Is.ConstructedBy(
-					c => new StockQuote(
-						c.GetInstance<ILogger>(),
-						c.GetInstance<IErrorHandler>(),
-						c.GetInstance<IDatabase>())
-					));
+				x => x.For<IStockQuote>()
+					.Use<StockQuote>());
 
 			container.Configure(
-				x => x.ForRequestedType<IDatabase>()
-					.TheDefault.Is.ConstructedBy(
-					c => new Database(
-						c.GetInstance<ILogger>(), 
-						c.GetInstance<IErrorHandler>())
-					));
+				x => x.For<IDatabase>()
+					.Use<Database>());
 
 			container.Configure(
-				x => x.ForRequestedType<IErrorHandler>()
-					.TheDefault.Is.ConstructedBy(
-					c => new ErrorHandler(c.GetInstance<ILogger>())
-					));
+				x => x.For<IErrorHandler>()
+					.Use<ErrorHandler>());
 
 			container.Configure(
-				x => x.ForRequestedType<ILogger>()
-					.TheDefault.IsThis(new Logger()));
+				x => x.For<ILogger>()
+					.Use(c => new Logger()));
 		}
 
 		public override void Run()
