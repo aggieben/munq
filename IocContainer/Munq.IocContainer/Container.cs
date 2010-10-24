@@ -1,11 +1,6 @@
-﻿//#define UsesRefelection
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Linq.Expressions;
-
 
 namespace Munq
 {
@@ -310,58 +305,11 @@ namespace Munq
             return Register<TType>(name, GetFactoryMethod<TType, TImpl>());
         }
 
-#if UsesRefelection
-        private class TypeConstructor
-        {
-            public System.Reflection.ConstructorInfo constructor;
-            public Type[] parameterTypes;
-        }
-
-        private static Func<IIocContainer, TType> GetFactoryMethod<TType, TImpl>()
-            where TType : class
-            where TImpl : class, TType
-        {
-            TypeConstructor info = GetConstructorInfo<TImpl>();
-            return (IIocContainer c) => InvokeConstructor<TImpl>(c, info) as TType; 
-        }
-
-
-        private static TType InvokeConstructor<TType>(IIocContainer c, TypeConstructor tc)
-            where TType : class
-        {
-            int numParameters = tc.parameterTypes.Length;
-            object[] parameters = new object[numParameters];
-            for (int i = 0; i < (numParameters); i++)
-            {
-                parameters[i] = c.Resolve(tc.parameterTypes[i]);
-            }
-            return tc.constructor.Invoke(parameters) as TType;
-        }
-
-        private static TypeConstructor GetConstructorInfo<TImpl>() where TImpl : class
-        {
-            var implType = typeof(TImpl);
-            var constructors = implType.GetConstructors();
-            var constructor = constructors
-                                .OrderBy(c => c.GetParameters().Length)
-                                .LastOrDefault();
-            if (constructor == null)
-                throw new ArgumentException("TImpl does not have a public constructor.");
-
-            var types = constructor.GetParameters().Select(p => p.ParameterType).ToArray();
-
-            var info = new TypeConstructor { constructor = constructor, parameterTypes = types };
-            return info;
-        }
-#else
         private static Func<IIocContainer, TType> GetFactoryMethod<TType, TImpl>()
             where TType : class
             where TImpl : class, TType
         {
             return CreateInstanceDelegateFactory<TType, TImpl>.Create(); 
-        }
-
-#endif
- 
+        } 
     }
 }

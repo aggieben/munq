@@ -1,7 +1,4 @@
-﻿using Munq.LifetimeManagers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using Munq;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Munq.FluentTest;
 
 namespace Munq.Test

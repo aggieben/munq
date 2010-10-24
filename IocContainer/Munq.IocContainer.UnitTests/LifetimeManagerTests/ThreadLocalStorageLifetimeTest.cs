@@ -1,11 +1,7 @@
-﻿using Munq.LifetimeManagers;
+﻿using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using Munq;
-using System.Web;
-using MvcFakes;
 using Munq.FluentTest;
-using System.Threading.Tasks;
+using Munq.LifetimeManagers;
 
 namespace Munq.Test
 {      

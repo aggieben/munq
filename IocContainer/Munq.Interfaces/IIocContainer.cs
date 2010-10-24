@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 namespace Munq
 {
     public interface IIocContainer : IDisposable

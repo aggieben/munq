@@ -1,11 +1,10 @@
-﻿using Munq.LifetimeManagers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Web.Caching;
-using Munq;
-using System.Threading;
+﻿using System;
 using System.IO;
+using System.Threading;
+using System.Web.Caching;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Munq.FluentTest;
+using Munq.LifetimeManagers;
 
 namespace Munq.Test
 { 

@@ -1,5 +1,4 @@
-﻿
-namespace Munq
+﻿namespace Munq
 {
     public interface ILifetimeManager
     {

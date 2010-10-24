@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace Munq
 {
     public interface IInstanceCreator
@@ -7,8 +8,9 @@ namespace Munq
         object CreateInstance(ContainerCaching containerCache);
     }
     
-public enum ContainerCaching
+	public enum ContainerCaching
     {
         InstanceCachedInContainer,
         InstanceNotCachedInContainer
-    }}
+    }
+}

@@ -1,5 +1,4 @@
-﻿
-namespace Munq.LifetimeManagers
+﻿namespace Munq.LifetimeManagers
 {
     public class AlwaysNewLifetime : ILifetimeManager 
     {

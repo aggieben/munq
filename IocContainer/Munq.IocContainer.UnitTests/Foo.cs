@@ -1,5 +1,4 @@
-﻿
-namespace Munq.Test
+﻿namespace Munq.Test
 {
     public interface IFoo
     {

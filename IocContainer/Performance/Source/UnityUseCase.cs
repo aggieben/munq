@@ -1,10 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Threading;
+using Domain;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.StaticFactory;
-using Domain;
-using System.ComponentModel;
-using System.Threading;
-using System.Diagnostics;
 
 namespace Performance
 {

@@ -8,4 +8,4 @@ namespace Munq
 		bool Equals(object obj);
 		int GetHashCode();
 	}
-	}
+}
