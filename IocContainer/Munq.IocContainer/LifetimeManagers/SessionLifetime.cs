@@ -5,6 +5,7 @@ namespace Munq.LifetimeManagers
     public class SessionLifetime : ILifetimeManager
     {
         private HttpSessionStateBase testSession;
+		private object _lock = new object();
 
         /// <summary>
         /// Gets the Session.
@@ -32,8 +33,15 @@ namespace Munq.LifetimeManagers
             object instance = Session[creator.Key];
             if (instance == null)
             {
-                instance = creator.CreateInstance(ContainerCaching.InstanceNotCachedInContainer);
-                Session[creator.Key] = instance;
+				lock (_lock)
+				{
+					instance = Session[creator.Key];
+					if (instance == null)
+					{
+						instance = creator.CreateInstance(ContainerCaching.InstanceNotCachedInContainer);
+						Session[creator.Key] = instance;
+					}
+                }
             }
 
             return instance;
