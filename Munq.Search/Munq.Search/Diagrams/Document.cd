@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Munq.Search.Documents.Document">
+    <Position X="1.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAKABAAAAAAAAAAAAAAAAAQAQAAAAAAAAAAAAAACgAA=</HashCode>
+      <FileName>Documents\Document.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Fields" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Munq.Search.Documents.Field">
+    <Position X="3.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAQAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Documents\Field.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Source" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Munq.Search.Documents.FieldTypes.DateValue" Collapsed="true">
+    <Position X="1.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEBAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Documents\FieldTypes\DateValue.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Munq.Search.Documents.FieldTypes.TimeValue">
+    <Position X="3" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAEAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Documents\FieldTypes\TimeValue.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Munq.Search.Documents.FieldSources.FieldSource">
+    <Position X="6" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Documents\FieldSources\FieldSource.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Munq.Search.Documents.FieldSources.FieldSource&lt;T&gt;">
+    <Position X="6" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Documents\FieldSources\FieldSource.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Munq.Search.Documents.Token">
+    <Position X="7.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAgAA=</HashCode>
+      <FileName>Documents\Token.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Munq.Search.Documents.FieldOptions">
+    <Position X="8.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAACAIgAAAgAAAgAAAAAEARBAABAAA=</HashCode>
+      <FileName>Documents\FieldOptions.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_index" />
+      <Field Name="_store" />
+      <Field Name="_termVector" />
+    </ShowAsAssociation>
+  </Class>
+  <Interface Name="Munq.Search.Documents.IField">
+    <Position X="3.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Documents\IField.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="FieldOptions" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="Munq.Search.Documents.FieldTypes.IFieldValue" Collapsed="true">
+    <Position X="2" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Documents\FieldTypes\IFieldValue.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Munq.Search.Documents.IFieldSource" Collapsed="true">
+    <Position X="6" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Documents\IFieldSource.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Munq.Search.Documents.IBoostable" Collapsed="true">
+    <Position X="1" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Documents\IBoostable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Munq.Search.Documents.IndexOptions">
+    <Position X="11.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgQAACAAQACABAAAACAAAAAAgAAA=</HashCode>
+      <FileName>Documents\IndexOptions.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Munq.Search.Documents.StoreOptions">
+    <Position X="11.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAABAQAAAAAAAAAAAAACAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Documents\StoreOptions.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Munq.Search.Documents.TermVectorOptions">
+    <Position X="13.5" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAABAAAYCgAAAAAAAAAAACAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Documents\TermVectorOptions.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

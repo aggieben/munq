@@ -10,7 +10,7 @@ namespace Munq.Search.Index
 		private IDictionary<string, TermIndex> _fields;
 		public FieldIndex()
 		{
-			_fields = new SortedDictionary<string, TermIndex>(StringComparer.CurrentCultureIgnoreCase);
+			_fields = new SortedDictionary<string, TermIndex>(StringComparer.CurrentCultureIgnoreCase).;
 		}
 
 		public void AddDocFieldTermCount(string fieldName, string term, uint docID, uint count)
