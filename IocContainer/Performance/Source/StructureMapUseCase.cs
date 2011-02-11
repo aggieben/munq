@@ -7,9 +7,9 @@ namespace Performance
 	[System.ComponentModel.Description("StructureMap")]
 	public class StructureMapUseCase : UseCase
 	{
-		Container container;
+		static Container container;
 
-		public StructureMapUseCase()
+		static StructureMapUseCase()
 		{
 			container = new Container();
 			container.Configure(

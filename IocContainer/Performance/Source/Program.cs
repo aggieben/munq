@@ -6,7 +6,7 @@ namespace Performance
 {
 	class Program
 	{
-		const long DefaultIterations = 1000;
+		const long DefaultIterations = 10000;
 		static long baseTicks = 0;
 
 		//static readonly List<long> BatchIterations = new List<long> { 10000 };

@@ -11,9 +11,9 @@ namespace Performance
 	[Description("Unity")]
 	public class UnityUseCase : UseCase
 	{
-		UnityContainer container;
+		static UnityContainer container;
 
-		public UnityUseCase()
+		static UnityUseCase()
 		{
 			container = new UnityContainer();
 

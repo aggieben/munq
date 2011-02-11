@@ -8,11 +8,11 @@ namespace Performance
 	[System.ComponentModel.Description("MunqType")]
 	public class MunqTypeUseCase : UseCase
 	{
-		IIocContainer container;
-		ILifetimeManager containerlifetime = new ContainerLifetime();
-		ILifetimeManager lifetime = null; // new AlwaysNewLifetime();
+		static IIocContainer container;
+		static ILifetimeManager containerlifetime = new ContainerLifetime();
+		static ILifetimeManager lifetime = null; // new AlwaysNewLifetime();
 
-		public MunqTypeUseCase()
+		static MunqTypeUseCase()
 		{
 			container = new Container().UsesDefaultLifetimeManagerOf(lifetime);
 

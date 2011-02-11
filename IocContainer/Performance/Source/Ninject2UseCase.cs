@@ -9,9 +9,9 @@ namespace Performance
 	[Description("Ninject2")]
 	public class Ninject2UseCase : UseCase
 	{
-		IKernel kernel;
+		static IKernel kernel;
 
-		public Ninject2UseCase()
+		static Ninject2UseCase()
 		{
 			kernel = new Ninject.StandardKernel(new SampleModule());
 		}

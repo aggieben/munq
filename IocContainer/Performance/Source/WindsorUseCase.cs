@@ -9,9 +9,9 @@ namespace Performance
 	[System.ComponentModel.Description("Windsor")]
 	public class WindsorUseCase : UseCase
 	{
-		private readonly IWindsorContainer container;
+		static readonly IWindsorContainer container;
 
-		public WindsorUseCase()
+		static WindsorUseCase()
 		{
 			container = new WindsorContainer();
 
@@ -31,7 +31,7 @@ namespace Performance
 			webApp.Execute();
 		}
 
-		public void Register<T, R>() where T:class where R:T 
+		static void Register<T, R>() where T:class where R:T 
 		{
 			var registration = Component.For<T>().ImplementedBy<R>().LifeStyle.Is(LifestyleType.Transient);
 ;

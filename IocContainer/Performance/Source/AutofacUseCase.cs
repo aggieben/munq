@@ -7,9 +7,9 @@ namespace Performance
 	[System.ComponentModel.Description("Autofac")]
 	public class AutofacUseCase : UseCase
 	{
-		IContainer container;
+		static IContainer container;
 
-		public AutofacUseCase()
+		static AutofacUseCase()
 		{
 			var builder = new ContainerBuilder();
 			builder.Register<IWebService>(
