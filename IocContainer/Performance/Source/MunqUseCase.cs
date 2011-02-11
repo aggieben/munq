@@ -8,12 +8,12 @@ namespace Performance
 	public class MunqUseCase : UseCase
 	{
 		static IIocContainer container;
-		//static ILifetimeManager lifetime = new ContainerLifetime();
+		static ILifetimeManager singleton = new Munq.LifetimeManagers.ContainerLifetime();
 		static ILifetimeManager lifetime = null; // new AlwaysNewLifetime();
 
 		static MunqUseCase()
 		{
-			container = new Container().UsesDefaultLifetimeManagerOf(lifetime);
+			container = new Container();
 
 			container.Register<IWebService>(
 				c => new WebService(
@@ -40,7 +40,8 @@ namespace Performance
 			container.Register<IErrorHandler>(
 				c => new ErrorHandler(c.Resolve<ILogger>()));
 
-			container.RegisterInstance<ILogger>(new Logger());
+			container.RegisterInstance<ILogger>(new Logger())
+					.WithLifetimeManager(singleton);
 		}
 
 		public override void Run()

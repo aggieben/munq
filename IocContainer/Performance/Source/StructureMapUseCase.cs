@@ -18,7 +18,7 @@ namespace Performance
 
 			container.Configure(
 				x => x.For<IAuthenticator>()
-					.Use<Authenticator>());
+						.Use<Authenticator>());
 
 			container.Configure(
 				x => x.For<IStockQuote>()
@@ -33,7 +33,7 @@ namespace Performance
 					.Use<ErrorHandler>());
 
 			container.Configure(
-				x => x.For<ILogger>()
+				x => x.For<ILogger>().Singleton()
 					.Use(c => new Logger()));
 		}
 

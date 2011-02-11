@@ -21,21 +21,18 @@ namespace Performance
 				c => new Authenticator(
 					c.Resolve<ILogger>(),
 					c.Resolve<IErrorHandler>(),
-					c.Resolve<IDatabase>()))
-				.SingleInstance();
+					c.Resolve<IDatabase>()));
 
 			builder.Register<IStockQuote>(
 				c => new StockQuote(
 					c.Resolve<ILogger>(),
 					c.Resolve<IErrorHandler>(),
-					c.Resolve<IDatabase>()))
-				.SingleInstance();
+					c.Resolve<IDatabase>()));
 
 			builder.Register<IDatabase>(
 				c => new Database(
 					c.Resolve<ILogger>(),
-					c.Resolve<IErrorHandler>()))
-				.SingleInstance();
+					c.Resolve<IErrorHandler>()));
 
 			builder.Register<IErrorHandler>(
 				c => new ErrorHandler(c.Resolve<ILogger>()));

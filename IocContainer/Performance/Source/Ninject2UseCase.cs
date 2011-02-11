@@ -56,7 +56,8 @@ namespace Performance
 					c => new ErrorHandler(c.Kernel.Get<ILogger>()))
 					.InTransientScope();
 
-				Bind<ILogger>().ToConstant(new Logger());
+				Bind<ILogger>().ToConstant(new Logger())
+					.InSingletonScope();
 			}
 		}
 	}
