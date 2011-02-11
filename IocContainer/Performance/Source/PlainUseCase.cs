@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace Performance
 {
-	[Description("No DI")]
+	[Description("No IOC Container")]
 	public class PlainUseCase : UseCase
 	{
 		public override void Run()
@@ -13,7 +13,7 @@ namespace Performance
 
 			var app = new WebService(
 				new Authenticator(
-					new Logger(),
+					logger,
 					new ErrorHandler(
 						logger
 					),
@@ -25,12 +25,12 @@ namespace Performance
 					)
 				),
 				new StockQuote(
-					new Logger(),
+					logger,
 					new ErrorHandler(
 						logger
 					),
 					new Database(
-						new Logger(),
+						logger,
 						new ErrorHandler(
 							logger
 						)

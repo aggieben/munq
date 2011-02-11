@@ -5,14 +5,14 @@ using Munq.LifetimeManagers;
 
 namespace Performance
 {
-	[System.ComponentModel.Description("MunqType")]
-	public class MunqTypeUseCase : UseCase
+	[System.ComponentModel.Description("MunqGeneric")]
+	public class MunqGenericUseCase : UseCase
 	{
 		static IIocContainer container;
 		static ILifetimeManager singleton = new ContainerLifetime();
 		static ILifetimeManager lifetime = null; // new AlwaysNewLifetime();
 
-		static MunqTypeUseCase()
+		static MunqGenericUseCase()
 		{
 			container = new Container();
 

@@ -15,7 +15,7 @@ namespace Performance
 		{
 			new PlainUseCase(),
 			new MunqUseCase(),
-			new MunqTypeUseCase(),
+			new MunqGenericUseCase(),
 			//new FunqUseCase(), 
 			new UnityUseCase(),
 			new AutofacUseCase(), 
