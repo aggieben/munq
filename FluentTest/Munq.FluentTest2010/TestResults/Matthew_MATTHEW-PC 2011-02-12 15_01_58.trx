@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="6daa69dd-fa66-447c-902a-65a268ed3bea" name="Matthew@MATTHEW-PC 2011-02-12 15:01:58" runUser="Matthew-PC\Matthew" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local Test Run" id="6d34a913-6ccc-4024-a704-366400d58fc2">
+    <Description>This is a default test run configuration for a local test run.</Description>
+    <Deployment userDeploymentRoot="C:\codeplex\Munq\FluentTest\Munq.FluentTest2010\TestResults" useDefaultDeploymentRoot="false" runDeploymentRoot="Matthew_MATTHEW-PC 2011-02-12 15_01_58">
+      <DeploymentItem filename="C:\codeplex\Munq\FluentTest\Munq.FluentTest2010\Munq.FluentTest\bin\Debug\Munq.FluentTest.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2011-02-12T15:01:58.2432111-05:00" queuing="2011-02-12T15:01:58.3592178-05:00" start="2011-02-12T15:01:58.3752187-05:00" finish="2011-02-12T15:01:58.8272445-05:00" />
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="IsEqualToPassesIfEqual" storage="c:\codeplex\munq\fluenttest\munq.fluenttest2010\munq.fluenttest.unittests\bin\debug\munq.fluenttest.unittests.dll" id="86068341-bdc9-d0f7-84ed-14179f58a418">
+      <Execution id="5a87863c-f702-4a7c-bace-11f34f536db1" />
+      <TestMethod codeBase="C:/codeplex/Munq/FluentTest/Munq.FluentTest2010/Munq.FluentTest.UnitTests/bin/Debug/Munq.FluentTest.UnitTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Munq.FluentTest.UnitTests.IFluentTestCollectionIsEqualToTest, Munq.FluentTest.UnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="IsEqualToPassesIfEqual" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="86068341-bdc9-d0f7-84ed-14179f58a418" executionId="5a87863c-f702-4a7c-bace-11f34f536db1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="5a87863c-f702-4a7c-bace-11f34f536db1" testId="86068341-bdc9-d0f7-84ed-14179f58a418" testName="IsEqualToPassesIfEqual" computerName="MATTHEW-PC" duration="00:00:00.0245199" startTime="2011-02-12T15:01:58.3902195-05:00" endTime="2011-02-12T15:01:58.8022431-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5a87863c-f702-4a7c-bace-11f34f536db1">
+    </UnitTestResult>
+  </Results>
+</TestRun>
