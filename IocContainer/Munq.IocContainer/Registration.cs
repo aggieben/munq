@@ -17,7 +17,7 @@ namespace Munq
 		public override bool Equals(object obj)
 		{
 			var r = obj as UnNamedRegistrationKey;
-			return (r != null) && (InstanceType == r.InstanceType);
+			return (r != null) && Object.ReferenceEquals(InstanceType, r.InstanceType);
 		}
 
 		public override int GetHashCode()
@@ -44,7 +44,7 @@ namespace Munq
 		{
 			var r = obj as NamedRegistrationKey;
 			return (r != null) &&
-				(InstanceType == r.InstanceType) &&
+				Object.ReferenceEquals(InstanceType, r.InstanceType) &&
 				String.Compare(Name, r.Name, true) == 0; // ignore case
 		}
 
@@ -54,20 +54,20 @@ namespace Munq
 		}
 	}
 
-	internal class Registration : IRegistration, IInstanceCreator
+	internal class Registration : IRegistration
 	{
 		internal ILifetimeManager LifetimeManager;
-		internal Func<IIocContainer, object> Factory;
+		internal Func<IDependencyResolver, object> Factory;
 		internal Func<object> LazyFactory;
 		private string _key;
 		private Type _type;
 
 		public object Instance;
-		IIocContainer Container;
+		IDependencyResolver Container;
 		object _lock = new object();
 
 
-		public Registration(IIocContainer container, string name, Type type, Func<IIocContainer, object> factory)
+		public Registration(IDependencyResolver container, string name, Type type, Func<IDependencyResolver, object> factory)
 		{
 			LifetimeManager = null;
 			Container = container;
@@ -105,20 +105,20 @@ namespace Munq
 			return this;
 		}
 
-		public object CreateInstance(ContainerCaching containerCache)
+		public object GetCachedInstance()
 		{
-			if (containerCache == ContainerCaching.InstanceCachedInContainer)
-			{
-				if (Instance == null)
-					lock (_lock)
-					{
-						if (Instance == null)
-							Instance = Factory(Container);
-					}
-				return Instance;
-			}
-			else
-				return Factory(Container);
+			if (Instance == null)
+				lock (_lock)
+				{
+					if (Instance == null)
+						Instance = Factory(Container);
+				}
+			return Instance;
+		}
+
+		public object CreateInstance()
+		{
+			return Factory(Container);
 		}
 
 		public object GetInstance()

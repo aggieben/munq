@@ -20,7 +20,7 @@ namespace Munq.LifetimeManagers
 		/// </summary>
 		/// <param name="creator">The creator (registration) to create a new instance.</param>
 		/// <returns>The instance.</returns>
-		public object GetInstance(IInstanceCreator creator)
+		public object GetInstance(IRegistration creator)
 		{
 			Cache cache = HttpRuntime.Cache;
 
@@ -32,7 +32,7 @@ namespace Munq.LifetimeManagers
 					instance = cache[creator.Key];
 					if (instance == null)
 					{
-						instance = creator.CreateInstance(ContainerCaching.InstanceNotCachedInContainer);
+						instance = creator.CreateInstance();
 
 						cache.Insert(creator.Key, instance, _dependencies, _absoluteExpiration,
 										_slidingExpiration, _priority, _onRemoveCallback);

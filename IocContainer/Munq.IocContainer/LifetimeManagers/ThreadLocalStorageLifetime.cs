@@ -17,7 +17,7 @@ namespace Munq.LifetimeManagers
         /// </summary>
         /// <param name="creator">The IInstanceCreate to use to get the Key and create new if required.</param>
         /// <returns>The instance.</returns>
-        public object GetInstance(IInstanceCreator creator)
+        public object GetInstance(IRegistration creator)
         {
             object instance = null;
 
@@ -27,7 +27,7 @@ namespace Munq.LifetimeManagers
  
             if (!localStorage.TryGetValue(creator.Key, out instance))
             {
-                instance = creator.CreateInstance(ContainerCaching.InstanceNotCachedInContainer);
+                instance = creator.CreateInstance();
                 localStorage[creator.Key] = instance;
             }
 

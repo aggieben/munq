@@ -107,6 +107,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutofacUseCase.cs" />
+    <Compile Include="AutofacSingletoncUseCase.cs" />
+    <Compile Include="Ninject2SingletonUseCase.cs" />
+    <Compile Include="PlainSingletonUseCase.cs" />
+    <Compile Include="StructureMapSingletonUseCase.cs" />
+    <Compile Include="MunqSingletonUseCase.cs" />
     <Compile Include="MunqTypeUseCase.cs" />
     <Compile Include="MunqUseCase.cs" />
     <Compile Include="Ninject2UseCase.cs" />
@@ -127,9 +132,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StructureMapUseCase.cs" />
     <Compile Include="UnityUseCase.cs" />
+    <Compile Include="UnityUseCase1.cs" />
     <Compile Include="UseCase.cs" />
     <Compile Include="UseCaseInfo.cs" />
     <Compile Include="WindsorUseCase.cs" />
+    <Compile Include="WindsorSingletonUseCase.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

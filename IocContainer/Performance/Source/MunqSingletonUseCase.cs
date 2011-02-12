@@ -4,14 +4,14 @@ using Munq;
 
 namespace Performance
 {
-	[System.ComponentModel.Description("Munq")]
-	public class MunqUseCase : UseCase
+	[System.ComponentModel.Description("MunqSingleton")]
+	public class MunqSingletonUseCase : UseCase
 	{
 		static IIocContainer container;
 		static ILifetimeManager singleton;
 		static ILifetimeManager lifetime = null; // new AlwaysNewLifetime();
 
-		static MunqUseCase()
+		static MunqSingletonUseCase()
 		{
 			container = new Container();
 			singleton = new Munq.LifetimeManagers.ContainerLifetime();
@@ -25,21 +25,25 @@ namespace Performance
 				c => new Authenticator(
 					c.Resolve<ILogger>(),
 					c.Resolve<IErrorHandler>(),
-					c.Resolve<IDatabase>()));
+					c.Resolve<IDatabase>()))
+					.WithLifetimeManager(singleton);
 
 			container.Register<IStockQuote>(
 				c => new StockQuote(
 					c.Resolve<ILogger>(),
 					c.Resolve<IErrorHandler>(),
-					c.Resolve<IDatabase>()));
+					c.Resolve<IDatabase>()))
+					.WithLifetimeManager(singleton);
 
 			container.Register<IDatabase>(
 				c => new Database(
 					c.Resolve<ILogger>(),
-					c.Resolve<IErrorHandler>()));
+					c.Resolve<IErrorHandler>()))
+					.WithLifetimeManager(singleton);
 
 			container.Register<IErrorHandler>(
-				c => new ErrorHandler(c.Resolve<ILogger>()));
+				c => new ErrorHandler(c.Resolve<ILogger>()))
+					.WithLifetimeManager(singleton);
 
 			container.RegisterInstance<ILogger>(new Logger())
 					.WithLifetimeManager(singleton);

@@ -74,7 +74,6 @@
     <Compile Include="IIocContainer.cs" />
     <Compile Include="ILifetimeManager.cs" />
     <Compile Include="IMunqConfig.cs" />
-    <Compile Include="IInstanceCreator.cs" />
     <Compile Include="IRegistration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

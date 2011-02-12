@@ -2,7 +2,7 @@
 {
     public interface ILifetimeManager
     {
-        object GetInstance(IInstanceCreator creator);
+        object GetInstance(IRegistration creator);
         void InvalidateInstanceCache(IRegistration registration);
     }
 }

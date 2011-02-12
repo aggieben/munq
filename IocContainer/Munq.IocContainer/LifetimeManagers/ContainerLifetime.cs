@@ -9,9 +9,9 @@
         /// </summary>
         /// <param name="creator">The creator (registration) to create a new instance.</param>
         /// <returns>The instance.</returns>
-        public object GetInstance(IInstanceCreator creator)
+        public object GetInstance(IRegistration creator)
         {
-            return creator.CreateInstance(ContainerCaching.InstanceCachedInContainer);
+            return (creator as Registration).GetCachedInstance();
         }
 
         /// <summary>

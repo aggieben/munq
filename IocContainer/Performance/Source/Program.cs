@@ -16,15 +16,19 @@ namespace Performance
 			new PlainUseCase(),
 			new MunqUseCase(),
 			new MunqGenericUseCase(),
-			//new FunqUseCase(), 
 			new UnityUseCase(),
 			new AutofacUseCase(), 
 			new StructureMapUseCase(),
-			//new NinjectUseCase(), 
 			new Ninject2UseCase(), 
 			new WindsorUseCase(), 
-			//new MachineUseCase(),
-		};
+			new PlainSingletonUseCase(),
+			new MunqSingletonUseCase(),
+			new UnitySingletonUseCase(),
+			new AutofacSingletoncUseCase(),
+			new StructureMapSingletonUseCase(),
+			new Ninject2SingletonUseCase(),
+			new WindsorSingletonUseCase(),
+	};
 
 		static void Main(string[] args)
 		{
@@ -63,13 +67,15 @@ namespace Performance
 				iterations = long.Parse(args[0]);
 
 			Console.WriteLine("Running {0} iterations for each use case.", iterations);
+			Console.WriteLine("{0,30}: {1,12} - {2,12} - {3,12}", "Test", "Ticks", "mSec", "Normalized");
 
 			useCases.ForEach(uc =>
 			{
 				// warmup
 				uc.UseCase.Run();
 				GC.Collect();
-				Console.WriteLine("{0,16}: {1,16:N2}", uc.Name, Measure(uc.UseCase.Run, iterations));
+				var ticks = Measure(uc.UseCase.Run, iterations);
+				Console.WriteLine("{0,30}: {1,12:N0} - {2,12:N2} - {3,12:N2}", uc.Name, ticks, ticks*1000 / Stopwatch.Frequency, ticks / baseTicks);
 			});
 		}
 
@@ -93,7 +99,7 @@ namespace Performance
 			if (baseTicks == 0)
 				baseTicks = stopwatch.ElapsedTicks;
 
-			return stopwatch.ElapsedTicks / (decimal)baseTicks;
+			return stopwatch.ElapsedTicks ;
 		}
 	}
 }

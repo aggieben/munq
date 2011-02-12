@@ -28,7 +28,7 @@ namespace Munq.LifetimeManagers
         /// </summary>
         /// <param name="creator">The creator (registration) to create a new instance.</param>
         /// <returns>The instance.</returns>
-        public object GetInstance(IInstanceCreator creator)
+        public object GetInstance(IRegistration creator)
         {
             object instance = Session[creator.Key];
             if (instance == null)
@@ -38,7 +38,7 @@ namespace Munq.LifetimeManagers
 					instance = Session[creator.Key];
 					if (instance == null)
 					{
-						instance = creator.CreateInstance(ContainerCaching.InstanceNotCachedInContainer);
+						instance = creator.CreateInstance();
 						Session[creator.Key] = instance;
 					}
                 }
