@@ -10,7 +10,6 @@ namespace Performance
 	{
 		static Container container;
 		static ILifetimeManager singleton = new ContainerLifetime();
-		static ILifetimeManager lifetime = null; // new AlwaysNewLifetime();
 
 		static MunqGenericUseCase()
 		{
