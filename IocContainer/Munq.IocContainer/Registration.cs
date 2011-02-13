@@ -58,7 +58,6 @@ namespace Munq
 	{
 		internal ILifetimeManager LifetimeManager;
 		internal Func<IDependencyResolver, object> Factory;
-		internal Func<object> LazyFactory;
 		private string _key;
 		private Type _type;
 
@@ -75,12 +74,8 @@ namespace Munq
 			Name = name;
 			_type = type;
 			_key = "[" + (name ?? "null") + "]:" + type.Name;
-
-			if (name == null)
-				LazyFactory = () => container.Resolve(_type);
-			else
-				LazyFactory = () => container.Resolve(Name, _type);
 		}
+
 		public string Key
 		{
 			get
@@ -132,6 +127,8 @@ namespace Munq
 		{
 			if (LifetimeManager != null)
 				LifetimeManager.InvalidateInstanceCache(this);
+			else
+				Instance = null;
 		}
 	}
 }

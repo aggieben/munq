@@ -6,6 +6,9 @@ namespace Munq
 
 	public interface IDependecyRegistrar
 	{
+		//Lifetime Manager
+		ILifetimeManager DefaultLifetimeManager { get; set; }
+
 		//Register
 		IRegistration Register(string name, Type type, Func<IDependencyResolver, object> func);
 		IRegistration Register(Type type, Func<IDependencyResolver, object> func);
@@ -34,8 +37,8 @@ namespace Munq
         IRegistration GetRegistration<TType>(string name) where TType : class;
 
         //Get Registrations
-        List<IRegistration> GetRegistrations(Type type);
-        List<IRegistration> GetRegistrations<TType>() where TType : class;
+        IEnumerable<IRegistration> GetRegistrations(Type type);
+        IEnumerable<IRegistration> GetRegistrations<TType>() where TType : class;
 	}
 
 	public interface IDependencyResolver
@@ -59,12 +62,6 @@ namespace Munq
 
 	public interface IContainerFluent
 	{
-		//Lifetime Manager
-		ILifetimeManager LifeTimeManager { get; }
-		IIocContainer UsesDefaultLifetimeManagerOf(ILifetimeManager lifetimeManager);
+		IContainerFluent UsesDefaultLifetimeManagerOf(ILifetimeManager lifetimeManager);
 	}
-
-	public interface IIocContainer : IContainerFluent, IDependecyRegistrar, IDependencyResolver, IDisposable
-    {
-    }
 }

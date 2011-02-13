@@ -8,7 +8,7 @@ namespace Performance
 	[System.ComponentModel.Description("MunqGeneric")]
 	public class MunqGenericUseCase : UseCase
 	{
-		static IIocContainer container;
+		static Container container;
 		static ILifetimeManager singleton = new ContainerLifetime();
 		static ILifetimeManager lifetime = null; // new AlwaysNewLifetime();
 
@@ -16,7 +16,7 @@ namespace Performance
 		{
 			container = new Container();
 
-			container.Register<IWebService, WebService>();
+			//container.Register<IWebService, WebService>();
 			container.Register<IAuthenticator, Authenticator>();
 			container.Register<IStockQuote, StockQuote>();
 			container.Register<IDatabase, Database>();
@@ -26,7 +26,7 @@ namespace Performance
 
 		public override void Run()
 		{
-			var webApp = container.Resolve<IWebService>();
+			var webApp = container.Resolve<WebService>();
 			webApp.Execute();
 		}
 	}

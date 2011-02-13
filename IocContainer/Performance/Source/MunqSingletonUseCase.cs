@@ -7,7 +7,7 @@ namespace Performance
 	[System.ComponentModel.Description("MunqSingleton")]
 	public class MunqSingletonUseCase : UseCase
 	{
-		static IIocContainer container;
+		static Container container;
 		static ILifetimeManager singleton;
 		static ILifetimeManager lifetime = null; // new AlwaysNewLifetime();
 

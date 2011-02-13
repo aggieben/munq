@@ -2,41 +2,41 @@ using System;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 
 namespace Munq
 {
 	internal class TypeRegistry : IDisposable
 	{
 		// Track whether Dispose has been called.
+		private const int INITIAL_SIZE = 257; // a prime number greater than the initial size
+		private object _lock = new object();
 		private bool disposed;
-		private Dictionary<IRegistrationKey, Registration> typeRegistry = 
-												new Dictionary<IRegistrationKey, Registration>();
+		private readonly IDictionary<IRegistrationKey, Registration> typeRegistrations =
+			new ConcurrentDictionary<IRegistrationKey, Registration>(Environment.ProcessorCount * 2,
+																		INITIAL_SIZE);
 
 		public void Add(Registration reg)
 		{
-			typeRegistry[MakeKey(reg.Name, reg.ResolvesTo)] = reg;
+			IRegistrationKey key = MakeKey(reg.Name, reg.ResolvesTo);
+			typeRegistrations[key] = reg;
 		}
 
 		public Registration Get(string name, Type type)
 		{
-			var entry = (typeRegistry[MakeKey(name, type)]);
-			if (entry == null)
-				throw new KeyNotFoundException();
-			return entry;
+			IRegistrationKey key = MakeKey(name, type);
+			return typeRegistrations[key];
 		}
 
-		public IQueryable<Registration> All(Type type)
+		public IEnumerable<Registration> All(Type type)
 		{
-			return typeRegistry.Values
-					.AsQueryable()
-					.Cast<Registration>()
-					.Where(reg => reg.ResolvesTo == type);
+			return typeRegistrations.Values.Where(reg => reg.ResolvesTo == type);
 		}
 
 		public void Remove(IRegistration ireg)
 		{
-			typeRegistry.Remove(MakeKey(ireg.Name, ireg.ResolvesTo));
-
+			IRegistrationKey key = MakeKey(ireg.Name, ireg.ResolvesTo);
+			typeRegistrations.Remove(key);
 			ireg.InvalidateInstanceCache();
 		}
 
@@ -64,7 +64,7 @@ namespace Munq
 				// If disposing equals true, dispose all ContainerLifetime instances
 				if (disposing)
 				{
-					foreach (Registration reg in typeRegistry.Values)
+					foreach (Registration reg in typeRegistrations.Values)
 					{
 						var instance = reg.Instance as IDisposable;
 						if (instance != null)
@@ -72,6 +72,7 @@ namespace Munq
 							instance.Dispose();
 							reg.Instance = null;
 						}
+						reg.InvalidateInstanceCache();
 					}
 				}
 			}

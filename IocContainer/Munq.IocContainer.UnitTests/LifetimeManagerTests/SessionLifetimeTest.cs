@@ -41,7 +41,7 @@ namespace Munq.Test
         //{
         //}
 
-        IIocContainer iocContainer;
+        Container iocContainer;
         // Use TestInitialize to run code before running each test 
         [TestInitialize()]
         public void MyTestInitialize()
@@ -54,10 +54,6 @@ namespace Munq.Test
         public void MyTestCleanup()
         {
             // remove the registrations, and cache values
-
-            var regs = iocContainer.GetRegistrations<IFoo>();
-            regs.ForEach(reg => iocContainer.Remove(reg));
-
             iocContainer.Dispose();
         }
         #endregion
@@ -71,7 +67,7 @@ namespace Munq.Test
             var lifetime = new RequestLifetime();
             iocContainer.UsesDefaultLifetimeManagerOf(lifetime);
 
-            Verify.That(iocContainer.LifeTimeManager).IsTheSameObjectAs(lifetime);
+            Verify.That(iocContainer.DefaultLifetimeManager).IsTheSameObjectAs(lifetime);
         }
 
         /// <summary>

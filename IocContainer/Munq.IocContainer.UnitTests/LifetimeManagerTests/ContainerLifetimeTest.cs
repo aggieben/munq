@@ -50,7 +50,7 @@ namespace Munq.Test
         //public void MyTestInitialize()
         //{
         //}
-        IIocContainer iocContainer;
+        Container iocContainer;
         // Use TestInitialize to run code before running each test 
         [TestInitialize()]
         public void MyTestInitialize()
@@ -76,7 +76,7 @@ namespace Munq.Test
             var lifetime = new ContainerLifetime();
             iocContainer.UsesDefaultLifetimeManagerOf(lifetime);
 
-            Verify.That(iocContainer.LifeTimeManager).IsTheSameObjectAs(lifetime);
+            Verify.That(iocContainer.DefaultLifetimeManager).IsTheSameObjectAs(lifetime);
         }
 
         /// <summary>

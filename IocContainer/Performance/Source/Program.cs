@@ -47,13 +47,14 @@ namespace Performance
 			Console.WriteLine();
 			BatchIterations.ForEach(iterations =>
 			{
+				baseTicks = 0;
 				Console.Write("{0};", iterations);
 				useCases.ForEach(uc =>
 				{
 					// warmup
 					uc.UseCase.Run();
 					GC.Collect();
-					Console.Write("{0};", Measure(uc.UseCase.Run, iterations));
+					Console.Write("{0:N2};", Measure(uc.UseCase.Run, iterations)/baseTicks);
 				});
 				Console.WriteLine();
 			});
@@ -68,7 +69,7 @@ namespace Performance
 
 			Console.WriteLine("Running {0} iterations for each use case.", iterations);
 			Console.WriteLine("{0,30}: {1,12} - {2,12} - {3,12}", "Test", "Ticks", "mSec", "Normalized");
-
+			baseTicks = 0;
 			useCases.ForEach(uc =>
 			{
 				// warmup

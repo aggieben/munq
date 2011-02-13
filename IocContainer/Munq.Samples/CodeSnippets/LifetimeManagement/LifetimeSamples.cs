@@ -13,7 +13,7 @@ namespace Munq.Samples.CodeSnippets.LifetimeManagement
         void SettingTheDefaultContainerLifetime()
         {
             // create the container.  Only done once in Application_Start
-            IIocContainer iocContainer = new Container();
+            Container iocContainer = new Container();
 
             // create a lifetime manager to use as default
             ILifetimeManager lifetimeManager = new LifetimeManagers.RequestLifetime();
@@ -26,7 +26,7 @@ namespace Munq.Samples.CodeSnippets.LifetimeManagement
         void SettingTheLifetimeManagerForARegistration()
         {
             // create the container.  Only done once in Application_Start
-            IIocContainer iocContainer = new Container();
+            Container iocContainer = new Container();
 
             // create a Container lifetime manager to use for 'singelton' services
             // only one instance will be created and reused for each resolve request.

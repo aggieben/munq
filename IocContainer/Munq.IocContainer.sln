@@ -23,11 +23,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.Samples", "Munq.Sample
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Performance", "Performance\Source\Performance.csproj", "{F4F213FC-29C7-4D5F-80D1-422F2567EFDA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.Mvc3Samples", "Munq,Mvc3Samples\Munq.Mvc3Samples.csproj", "{FDBEDC58-CE34-414C-B391-B08D61242A6C}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 6
+		SccNumberOfProjects = 7
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs10.codeplex.com/
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs10
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = Munq.Interfaces\\Munq.Interfaces.csproj
 		SccProjectName1 = Munq.Interfaces
@@ -44,6 +46,9 @@ Global
 		SccProjectUniqueName5 = Performance\\Source\\Performance.csproj
 		SccProjectName5 = Performance/Source
 		SccLocalPath5 = Performance\\Source
+		SccProjectUniqueName6 = Munq,Mvc3Samples\\Munq.Mvc3Samples.csproj
+		SccProjectName6 = Munq,Mvc3Samples
+		SccLocalPath6 = Munq,Mvc3Samples
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Munq.IocContainer.vsmdi
@@ -73,6 +78,10 @@ Global
 		{F4F213FC-29C7-4D5F-80D1-422F2567EFDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4F213FC-29C7-4D5F-80D1-422F2567EFDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4F213FC-29C7-4D5F-80D1-422F2567EFDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDBEDC58-CE34-414C-B391-B08D61242A6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDBEDC58-CE34-414C-B391-B08D61242A6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDBEDC58-CE34-414C-B391-B08D61242A6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDBEDC58-CE34-414C-B391-B08D61242A6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

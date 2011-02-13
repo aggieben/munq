@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Munq.FluentTest;
 
@@ -37,7 +38,7 @@ namespace Munq.Test
         // public static void MyClassCleanup() { }
         //
 
-        IIocContainer iocContainer;
+        Container iocContainer;
         // Use TestInitialize to run code before running each test 
         [TestInitialize()]
         public void MyTestInitialize()
@@ -469,7 +470,7 @@ namespace Munq.Test
 
             var result = iocContainer.GetRegistrations<IFoo>();
 
-            Verify.That(result).IsACollectionThat()
+            Verify.That(result.ToList()).IsACollectionThat()
                        .IsAnInstanceOfType(typeof(List<IRegistration>))
                        .Count().IsEqualTo(3)
                        .AllItemsAreInstancesOfType(typeof(IRegistration))
@@ -492,7 +493,7 @@ namespace Munq.Test
 
             var result = iocContainer.GetRegistrations(typeof(IFoo));
 
-            Verify.That(result).IsACollectionThat()
+            Verify.That(result.ToList()).IsACollectionThat()
                        .IsAnInstanceOfType(typeof(List<IRegistration>))
                        .Count().IsEqualTo(3)
                        .AllItemsAreInstancesOfType(typeof(IRegistration))
@@ -515,7 +516,7 @@ namespace Munq.Test
 
             var result = iocContainer.GetRegistrations<IBar>();
 
-            Verify.That(result).IsACollectionThat()
+            Verify.That(result.ToList()).IsACollectionThat()
                        .IsAnInstanceOfType(typeof(List<IRegistration>))
                        .Count().IsEqualTo(0);
         }
@@ -536,7 +537,7 @@ namespace Munq.Test
             var foo1 = iocContainer.Resolve<IFoo>();
             var foo2 = iocContainer.Resolve<IFoo>();
 
-            Verify.That(iocContainer.LifeTimeManager).IsTheSameObjectAs(aLifetimeManager);
+            Verify.That(iocContainer.DefaultLifetimeManager).IsTheSameObjectAs(aLifetimeManager);
             Verify.That(foo1).IsTheSameObjectAs(foo2);
         }
         #endregion

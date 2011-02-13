@@ -44,7 +44,7 @@ namespace Munq.Test
         //{
         //}
         //
-        IIocContainer iocContainer;
+        Container iocContainer;
         // Use TestInitialize to run code before running each test 
         [TestInitialize()]
         public void MyTestInitialize()
@@ -66,7 +66,7 @@ namespace Munq.Test
         [TestMethod()]
         public void DefaultLifetimeMangerIsNull()
         {
-            Assert.IsNull(iocContainer.LifeTimeManager);
+            Assert.IsNull(iocContainer.DefaultLifetimeManager);
         }
 
         /// <summary>
