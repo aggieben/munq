@@ -28,6 +28,7 @@ namespace Performance
 			new StructureMapSingletonUseCase(),
 			new Ninject2SingletonUseCase(),
 			new WindsorSingletonUseCase(),
+			new HiroUseCase()
 	};
 
 		static void Main(string[] args)

@@ -9,57 +9,33 @@ namespace Munq
     public class CreateInstanceDelegateFactory
        
     {
-		public static System.Func<IDependencyResolver, TType> Create<TType, TImpl>()
-			where TType : class
-			where TImpl : class, TType
-		{
-			ConstructorInfo constructor = GetConstructorInfo(typeof(TImpl));
-			ParameterInfo[] parameters = constructor.GetParameters();
-
-			ParameterExpression container = Expression.Parameter(typeof(IDependencyResolver), "container");
-
-			List<Expression> arguments = new List<Expression>();
-			// create the arguments for the constructor
-			foreach (var paramInfo in parameters)
-			{
-
-				var p = Expression.Call(container, "Resolve", new Type[] { paramInfo.ParameterType },
-				  new Expression[] { });
-				arguments.Add(p);
-			}
-
-			NewExpression exp = Expression.New(constructor, arguments);
-
-			var finalExp = Expression.Lambda<System.Func<IDependencyResolver, TType>>(
-											exp,
-											new ParameterExpression[] { container }
-										);
-			return finalExp.Compile();
-		}
-
 		public static System.Func<IDependencyResolver, object> Create(Type tImpl)
 		{
-			ConstructorInfo constructor = GetConstructorInfo(tImpl);
-			ParameterInfo[] parameters = constructor.GetParameters();
-
 			ParameterExpression container = Expression.Parameter(typeof(IDependencyResolver), "container");
-
-			List<Expression> arguments = new List<Expression>();
-			// create the arguments for the constructor
-			foreach (var paramInfo in parameters)
-			{
-
-				var p = Expression.Call(container, "Resolve", new Type[] { paramInfo.ParameterType },
-				  new Expression[] { });
-				arguments.Add(p);
-			}
-
-			NewExpression exp = Expression.New(constructor, arguments);
-
+			NewExpression exp = BuildExpression(tImpl, container);
 			return Expression.Lambda<System.Func<IDependencyResolver, object>>(
 					exp,
 					new ParameterExpression[] { container }
 				).Compile();
+		}
+
+		private static NewExpression BuildExpression(Type type, ParameterExpression container)
+		{
+			ConstructorInfo constructor = GetConstructorInfo(type);
+			ParameterInfo[] parameters = constructor.GetParameters();
+
+			// create the arguments for the constructor	
+			List<Expression> arguments = new List<Expression>();
+
+			foreach (var paramInfo in parameters)
+			{
+				var p = Expression.Call(container, "Resolve", new Type[] { paramInfo.ParameterType },
+				  new Expression[] { });
+				arguments.Add(p);
+			}
+
+			// create the new MyClass( ... ) call
+			return Expression.New(constructor, arguments);
 		}
 
 		private static ConstructorInfo GetConstructorInfo(Type implType)
@@ -69,7 +45,7 @@ namespace Munq
                                 .OrderBy(c => c.GetParameters().Length)
                                 .LastOrDefault();
             if (constructor == null)
-                throw new ArgumentException("TImpl does not have a public constructor.");
+                throw new ArgumentException("The requested class does not have a public constructor.");
 
             return constructor;
         }

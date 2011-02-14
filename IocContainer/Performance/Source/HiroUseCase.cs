@@ -15,9 +15,9 @@ namespace Performance
 	[Description("Hiro")]
 	public class HiroUseCase : UseCase
 	{
-		IMicroContainer container;
+		static IMicroContainer container;
 
-		public HiroUseCase()
+		static HiroUseCase()
 		{
 			var map = new DependencyMap();
 			map.AddService(typeof(IWebService), typeof(WebService));

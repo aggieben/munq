@@ -49,19 +49,19 @@ namespace Munq
 			where TType : class
 			where TImpl : class, TType
 		{
-			return Register<TType>(CreateInstanceDelegateFactory.Create<TType, TImpl>());
+			return Register(typeof(TType), typeof(TImpl));
 		}
 
 		public IRegistration Register<TType, TImpl>(string name)
 			where TType : class
 			where TImpl : class, TType
 		{
-			return Register<TType>(name, CreateInstanceDelegateFactory.Create<TType, TImpl>());
+			return Register(name, typeof(TType), typeof(TImpl));
 		}
 
 		public IRegistration Register(Type tType, Type tImpl)
 		{
-			return Register(tType, CreateInstanceDelegateFactory.Create(tImpl));
+			return Register(null, tType, tImpl);
 		}
 
 		public IRegistration Register(string name, Type tType, Type tImpl)

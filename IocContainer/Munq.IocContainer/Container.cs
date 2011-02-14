@@ -6,7 +6,7 @@ namespace Munq
 {
 	public partial class Container : IContainerFluent, IDisposable
 	{
-		private TypeRegistry typeRegistry = new TypeRegistry();
+		private readonly TypeRegistry typeRegistry = new TypeRegistry();
 
 		// Track whether Dispose has been called.
 		private bool disposed;
@@ -62,13 +62,7 @@ namespace Munq
 
 		public IEnumerable<TType> ResolveAll<TType>() where TType : class
 		{
-			var registrations = typeRegistry.All(typeof(TType));
-			var instances = new List<TType>();
-			foreach (var reg in registrations)
-			{
-				instances.Add(reg.GetInstance() as TType);
-			}
-			return instances;
+			return ResolveAll(typeof(TType)).Cast<TType>();
 		}
 		#endregion
 

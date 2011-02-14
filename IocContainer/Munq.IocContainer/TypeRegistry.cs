@@ -10,7 +10,7 @@ namespace Munq
 	{
 		// Track whether Dispose has been called.
 		private const int INITIAL_SIZE = 257; // a prime number greater than the initial size
-		private object _lock = new object();
+		private readonly object _lock = new object();
 		private bool disposed;
 		private readonly IDictionary<IRegistrationKey, Registration> typeRegistrations =
 			new ConcurrentDictionary<IRegistrationKey, Registration>(Environment.ProcessorCount * 2,
