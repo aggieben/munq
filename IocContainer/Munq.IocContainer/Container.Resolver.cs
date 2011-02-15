@@ -63,7 +63,6 @@ namespace Munq
 		// resource, or logic may not need to resolve it at all.
 		public Func<TType> LazyResolve<TType>() where TType : class
 		{
-			//return LazyResolve<TType>(null);
 			return LazyResolve<TType>(null);
 		}
 

@@ -39,7 +39,7 @@ namespace Munq.LifetimeManagers
 					instance = Context.Items[creator.Key];
 					if (instance == null)
 					{
-						instance = creator.CreateInstance();
+						instance                   = creator.CreateInstance();
 						Context.Items[creator.Key] = instance;
 					}
 				}

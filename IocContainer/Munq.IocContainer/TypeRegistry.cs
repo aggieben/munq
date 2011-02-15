@@ -18,7 +18,7 @@ namespace Munq
 
 		public void Add(Registration reg)
 		{
-			IRegistrationKey key = MakeKey(reg.Name, reg.ResolvesTo);
+			IRegistrationKey key   = MakeKey(reg.Name, reg.ResolvesTo);
 			typeRegistrations[key] = reg;
 		}
 

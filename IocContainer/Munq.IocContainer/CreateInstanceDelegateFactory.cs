@@ -12,7 +12,7 @@ namespace Munq
 		public static System.Func<IDependencyResolver, object> Create(Type tImpl)
 		{
 			ParameterExpression container = Expression.Parameter(typeof(IDependencyResolver), "container");
-			NewExpression exp = BuildExpression(tImpl, container);
+			NewExpression exp             = BuildExpression(tImpl, container);
 			return Expression.Lambda<System.Func<IDependencyResolver, object>>(
 					exp,
 					new ParameterExpression[] { container }
@@ -22,7 +22,7 @@ namespace Munq
 		private static NewExpression BuildExpression(Type type, ParameterExpression container)
 		{
 			ConstructorInfo constructor = GetConstructorInfo(type);
-			ParameterInfo[] parameters = constructor.GetParameters();
+			ParameterInfo[] parameters  = constructor.GetParameters();
 
 			// create the arguments for the constructor	
 			List<Expression> arguments = new List<Expression>();
@@ -41,10 +41,10 @@ namespace Munq
 		private static ConstructorInfo GetConstructorInfo(Type implType)
         {
             var constructors = implType.GetConstructors();
-            var constructor = constructors
-                                .OrderBy(c => c.GetParameters().Length)
-                                .LastOrDefault();
-            if (constructor == null)
+            var constructor  = constructors
+							   .OrderBy(c => c.GetParameters().Length)
+							   .LastOrDefault();
+			if (constructor == null)
                 throw new ArgumentException("The requested class does not have a public constructor.");
 
             return constructor;

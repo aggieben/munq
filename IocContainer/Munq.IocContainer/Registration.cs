@@ -69,11 +69,11 @@ namespace Munq
 		public Registration(IDependencyResolver container, string name, Type type, Func<IDependencyResolver, object> factory)
 		{
 			LifetimeManager = null;
-			Container = container;
-			Factory = factory;
-			Name = name;
-			_type = type;
-			_key = "[" + (name ?? "null") + "]:" + type.Name;
+			Container       = container;
+			Factory         = factory;
+			Name            = name;
+			_type           = type;
+			_key            = "[" + (name ?? "null") + "]:" + type.Name;
 		}
 
 		public string Key

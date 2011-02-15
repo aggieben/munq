@@ -6,6 +6,6 @@ namespace Munq
 	{
 	    Type GetInstanceType();
 		bool Equals(object obj);
-		int GetHashCode();
+		int  GetHashCode();
 	}
 }

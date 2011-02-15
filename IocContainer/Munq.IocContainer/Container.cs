@@ -52,7 +52,7 @@ namespace Munq
 		public IEnumerable<object> ResolveAll(Type type)
 		{
 			var registrations = typeRegistry.All(type);
-			var instances = new List<object>();
+			var instances     = new List<object>();
 			foreach (var reg in registrations)
 			{
 				instances.Add(reg.GetInstance());

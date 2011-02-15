@@ -27,7 +27,7 @@ namespace Munq.LifetimeManagers
  
             if (!localStorage.TryGetValue(creator.Key, out instance))
             {
-                instance = creator.CreateInstance();
+                instance                  = creator.CreateInstance();
                 localStorage[creator.Key] = instance;
             }
 

@@ -74,7 +74,7 @@ namespace Munq.LifetimeManagers
 		public CachedLifetime ExpiresOn(DateTime absoluteExpiration)
 		{
 			if (absoluteExpiration != Cache.NoAbsoluteExpiration)
-				_slidingExpiration = Cache.NoSlidingExpiration;
+				_slidingExpiration =  Cache.NoSlidingExpiration;
 
 			_absoluteExpiration = absoluteExpiration;
 			return this;
@@ -87,7 +87,7 @@ namespace Munq.LifetimeManagers
 		/// <returns>The CachedLifetime (allows chaining).</returns>
 		public CachedLifetime ExpiresAfterNotAccessedFor(TimeSpan slidingExpiration)
 		{
-			if (slidingExpiration != Cache.NoSlidingExpiration)
+			if (slidingExpiration  != Cache.NoSlidingExpiration)
 				_absoluteExpiration = Cache.NoAbsoluteExpiration;
 
 			_slidingExpiration = slidingExpiration;
