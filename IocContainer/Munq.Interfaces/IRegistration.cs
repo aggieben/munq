@@ -7,8 +7,9 @@ namespace Munq
         string Name         { get; }
         string Key          { get; }
         Type   ResolvesTo   { get; }
+
         IRegistration WithLifetimeManager(ILifetimeManager manager);
-        void InvalidateInstanceCache();
-		object CreateInstance();
+        void          InvalidateInstanceCache();
+		object        CreateInstance();
     }
 }
