@@ -74,16 +74,16 @@
       <HintPath>..\..\packages\Castle.Windsor.2.5.1\lib\NET40\Castle.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="Hiro">
-      <HintPath>..\..\..\..\..\Users\Matthew\Downloads\Performance\Performance\Lib\Hiro.dll</HintPath>
+      <HintPath>..\..\packages\Hiro\Hiro.dll</HintPath>
     </Reference>
     <Reference Include="Hiro.ActivationPoints">
-      <HintPath>..\..\..\..\..\Users\Matthew\Downloads\Performance\Performance\Lib\Hiro.ActivationPoints.dll</HintPath>
+      <HintPath>..\..\packages\Hiro\Hiro.ActivationPoints.dll</HintPath>
     </Reference>
     <Reference Include="Hiro.Containers">
-      <HintPath>..\..\..\..\..\Users\Matthew\Downloads\Performance\Performance\Lib\Hiro.Containers.dll</HintPath>
+      <HintPath>..\..\packages\Hiro\Hiro.Containers.dll</HintPath>
     </Reference>
     <Reference Include="LinFu.Core">
-      <HintPath>..\..\..\..\..\Users\Matthew\Downloads\Performance\Performance\Lib\LinFu.Core.dll</HintPath>
+      <HintPath>..\..\packages\Hiro\LinFu.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\packages\Unity.2.0\lib\20\Microsoft.Practices.ServiceLocation.dll</HintPath>
