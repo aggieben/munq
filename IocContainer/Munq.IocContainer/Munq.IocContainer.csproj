@@ -74,7 +74,9 @@
     <Compile Include="Configuration\ConfigurationLoader.cs" />
     <Compile Include="Container.cs" />
     <Compile Include="CreateInstanceDelegateFactory.cs" />
+    <Compile Include="IContainerFluent.cs" />
     <Compile Include="IDependecyRegistrar.cs" />
+    <Compile Include="IDependencyResolver.cs" />
     <Compile Include="ILifetimeManager.cs" />
     <Compile Include="IMunqConfig.cs" />
     <Compile Include="IRegistration.cs" />
