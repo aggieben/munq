@@ -74,6 +74,10 @@
     <Compile Include="Configuration\ConfigurationLoader.cs" />
     <Compile Include="Container.cs" />
     <Compile Include="CreateInstanceDelegateFactory.cs" />
+    <Compile Include="IIocContainer.cs" />
+    <Compile Include="ILifetimeManager.cs" />
+    <Compile Include="IMunqConfig.cs" />
+    <Compile Include="IRegistration.cs" />
     <Compile Include="IRegistrationKey.cs" />
     <Compile Include="LifetimeManagers\AlwaysNewLifetime.cs" />
     <Compile Include="LifetimeManagers\CachedLifetime.cs" />
@@ -84,12 +88,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registration.cs" />
     <Compile Include="TypeRegistry.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Munq.Interfaces\Munq.Interfaces.csproj">
-      <Project>{10E86993-F4FD-4650-BB3C-4B26FDD53C5D}</Project>
-      <Name>Munq.Interfaces</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />

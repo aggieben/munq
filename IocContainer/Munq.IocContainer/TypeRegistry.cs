@@ -28,6 +28,12 @@ namespace Munq
 			return typeRegistrations[key];
 		}
 
+		public bool ContainsKey(string name, Type type)
+		{
+			IRegistrationKey key = MakeKey(name, type);
+			return typeRegistrations.Keys.Contains(key);
+		}
+
 		public IEnumerable<Registration> All(Type type)
 		{
 			return typeRegistrations.Values.Where(reg => reg.ResolvesTo == type);

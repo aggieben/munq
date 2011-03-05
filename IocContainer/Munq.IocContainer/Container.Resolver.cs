@@ -55,6 +55,32 @@ namespace Munq
 		}
 		#endregion
 
+		#region Resolve Members
+		/// <summary>
+		/// Returns an instance of a registered type
+		/// </summary>
+		/// <typeparam name="TType">The type to resolve</typeparam>
+		/// <returns>An instance of the type.  Throws a KeyNoFoundException if not registered.</returns>
+		public bool CanResolve<TType>() where TType : class
+		{
+			return CanResolve(null, typeof(TType));
+		}
+
+		public bool CanResolve<TType>(string name) where TType : class
+		{
+			return CanResolve(name, typeof(TType));
+		}
+
+		public bool CanResolve(Type type)
+		{
+			return CanResolve(null, type);
+		}
+
+		public bool CanResolve(string name, Type type)
+		{
+			return typeRegistry.ContainsKey(name, type);
+		}
+		#endregion
 		#region LazyResolve Members
 		//--------------------------------------------------------
 		// Lazy Resolve methods returns a delegate that, when called
