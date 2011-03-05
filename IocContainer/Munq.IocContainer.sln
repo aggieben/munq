@@ -15,8 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{FD5D2B0E-6E7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.IocContainer.UnitTests", "Munq.IocContainer.UnitTests\Munq.IocContainer.UnitTests.csproj", "{17AF53D1-D6C9-453B-ABD5-27DF99830014}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.Interfaces", "Munq.Interfaces\Munq.Interfaces.csproj", "{10E86993-F4FD-4650-BB3C-4B26FDD53C5D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.IocContainer", "Munq.IocContainer\Munq.IocContainer.csproj", "{3A5BC8F1-5817-4B0E-A82B-D92FFC5BE440}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.Samples", "Munq.Samples\Munq.Samples.csproj", "{49BBD670-6686-40DC-B408-4F01B3CB224C}"
@@ -72,10 +70,6 @@ Global
 		{17AF53D1-D6C9-453B-ABD5-27DF99830014}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17AF53D1-D6C9-453B-ABD5-27DF99830014}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17AF53D1-D6C9-453B-ABD5-27DF99830014}.Release|Any CPU.Build.0 = Release|Any CPU
-		{10E86993-F4FD-4650-BB3C-4B26FDD53C5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{10E86993-F4FD-4650-BB3C-4B26FDD53C5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{10E86993-F4FD-4650-BB3C-4B26FDD53C5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{10E86993-F4FD-4650-BB3C-4B26FDD53C5D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3A5BC8F1-5817-4B0E-A82B-D92FFC5BE440}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3A5BC8F1-5817-4B0E-A82B-D92FFC5BE440}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A5BC8F1-5817-4B0E-A82B-D92FFC5BE440}.Release|Any CPU.ActiveCfg = Release|Any CPU

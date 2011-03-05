@@ -115,10 +115,6 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Munq.Interfaces\Munq.Interfaces.csproj">
-      <Project>{10E86993-F4FD-4650-BB3C-4B26FDD53C5D}</Project>
-      <Name>Munq.Interfaces</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Munq.IocContainer\Munq.IocContainer.csproj">
       <Project>{3A5BC8F1-5817-4B0E-A82B-D92FFC5BE440}</Project>
       <Name>Munq.IocContainer</Name>
