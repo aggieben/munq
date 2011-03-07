@@ -9,9 +9,9 @@ namespace Munq.MVC
 {
     public class MunqControllerFactory : IControllerFactory
     {
-        public Container IOC { get; private set; }
+        public IocContainer IOC { get; private set; }
 
-        public MunqControllerFactory(Container container)
+        public MunqControllerFactory(IocContainer container)
         {
             IOC = container;
         }

@@ -38,12 +38,12 @@ namespace Munq.Test
         // public static void MyClassCleanup() { }
         //
 
-        Container iocContainer;
+        IocContainer iocContainer;
         // Use TestInitialize to run code before running each test 
         [TestInitialize()]
         public void MyTestInitialize()
         {
-            iocContainer = new Munq.Container();
+            iocContainer = new Munq.IocContainer();
         }
 
         // Use TestCleanup to run code after each test has run
@@ -61,7 +61,7 @@ namespace Munq.Test
         [TestMethod]
         public void CanCreateContainer()
         {
-            using (var iocContainer = new Container())
+            using (var iocContainer = new IocContainer())
             {
                 Verify.That(iocContainer).IsNotNull();
             }
@@ -550,7 +550,7 @@ namespace Munq.Test
         [TestMethod]
         public void MultipleResolvesReturnDifferentInstances()
         {
-            using (var container = new Container())
+            using (var container = new IocContainer())
             {
                 container.Register<IFoo>(c => new Foo1());
                 var result1 = container.Resolve<IFoo>();
@@ -568,7 +568,7 @@ namespace Munq.Test
         [TestMethod]
         public void CanRegisterAndResolveMultipleTypes()
         {
-            using (var container = new Container())
+            using (var container = new IocContainer())
             {
                 container.Register<IFoo>(c => new Foo1());
                 container.Register<IBar>(c => new Bar1());
@@ -586,7 +586,7 @@ namespace Munq.Test
         [TestMethod]
         public void DifferentNamedRegistrationsResolveToDifferentTypes()
         {
-            using (var container = new Container())
+            using (var container = new IocContainer())
             {
                 container.Register<IFoo>("Foo1", c => new Foo1());
                 container.Register<IFoo>("Foo2", c => new Foo2());
@@ -611,7 +611,7 @@ namespace Munq.Test
         [TestMethod]
         public void NamedAndUnnamedRegistrationsResolveToDifferentTypes()
         {
-            using (var container = new Container())
+            using (var container = new IocContainer())
             {
                 container.Register<IFoo>(c => new Foo1());
                 container.Register<IFoo>("Foo2", c => new Foo2());
@@ -633,7 +633,7 @@ namespace Munq.Test
         [TestMethod]
         public void UnnamedTypeRegistrationReturnsRegistration()
         {
-            using (var container = new Container())
+            using (var container = new IocContainer())
             {
                 var result = container.Register<IFoo, Foo1>();
                 Verify.That(result).IsNotNull().IsAnInstanceOfType(typeof(IRegistration));
@@ -642,7 +642,7 @@ namespace Munq.Test
         [TestMethod]
         public void UnnamedTypeRegistrationResolvesToCorrectType()
         {
-            using (var container = new Container())
+            using (var container = new IocContainer())
             {
                 container.Register<IFoo, Foo1>();
                 var result = container.Resolve<IFoo>();
@@ -654,7 +654,7 @@ namespace Munq.Test
         [TestMethod]
         public void UnnamedTypeWithParametersRegistrationResolvesToCorrectType()
         {
-            using (var container = new Container())
+            using (var container = new IocContainer())
             {
                 container.Register<IFoo, Foo1>();
                 container.Register<IBar, Bar1>();
@@ -671,7 +671,7 @@ namespace Munq.Test
         [TestMethod]
         public void NnamedTypeRegistrationReturnsRegistration()
         {
-            using (var container = new Container())
+            using (var container = new IocContainer())
             {
                 var result = container.Register<IFoo, Foo1>("bob");
                 Verify.That(result).IsNotNull().IsAnInstanceOfType(typeof(IRegistration));
@@ -680,7 +680,7 @@ namespace Munq.Test
         [TestMethod]
         public void NamedTypeRegistrationResolvesToCorrectType()
         {
-            using (var container = new Container())
+            using (var container = new IocContainer())
             {
                 container.Register<IFoo, Foo1>("bob");
                 var result = container.Resolve<IFoo>("bob");
@@ -692,7 +692,7 @@ namespace Munq.Test
         [TestMethod]
         public void NamedTypeWithParametersRegistrationResolvesToCorrectType()
         {
-            using (var container = new Container())
+            using (var container = new IocContainer())
             {
                 container.Register<IFoo, Foo1>();
                 container.Register<IBar, Bar1>();
@@ -709,7 +709,7 @@ namespace Munq.Test
         [TestMethod]
         public void TypeRegisterWhenTImplHasNoPublicConstructorThrows()
          {
-             using( var container = new Container())
+             using( var container = new IocContainer())
              {
                 Verify.TheExpectedException(typeof(ArgumentException)).IsThrownWhen(
                     () =>container.Register<INoConstructor, NoConstructor>()

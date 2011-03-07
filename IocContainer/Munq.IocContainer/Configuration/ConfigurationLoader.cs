@@ -13,7 +13,7 @@ namespace Munq.Configuration
         /// then call the RegisterIn method on the type.
         /// </summary>
         /// <param name="container">The Munq IOC container to register class factories in.</param>
-		public static void FindAndRegisterDependencies(Container container)
+		public static void FindAndRegisterDependencies(IocContainer container)
 		{
 			// get all the assemblies in the bin directory
 			string binPath = HttpContext.Current != null ? HttpContext.Current.Server.MapPath("/bin")
@@ -21,7 +21,7 @@ namespace Munq.Configuration
 			CallRegistrarsInDirectory(container, binPath);
 		}
 
-		public static void CallRegistrarsInDirectory(Container container, string binPath, string filePattern = "*.dll")
+		public static void CallRegistrarsInDirectory(IocContainer container, string binPath, string filePattern = "*.dll")
 		{
 			var assemblyNames = Directory.GetFiles(binPath, filePattern);
 
@@ -29,7 +29,7 @@ namespace Munq.Configuration
 				CallRegistrarsInAssembly(container, filename);
 
 		}
-		public static void CallRegistrarsInAssembly(Container container, string filename)
+		public static void CallRegistrarsInAssembly(IocContainer container, string filename)
 		{
 			var assembly = Assembly.LoadFile(filename);
 			// find all the types that implements IMunqConfig ...

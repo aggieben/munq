@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Munq
 {
-	public partial class Container : IContainerFluent, IDisposable
+	public partial class IocContainer : IContainerFluent, IDisposable
 	{
 		private readonly TypeRegistry typeRegistry = new TypeRegistry();
 
@@ -24,6 +22,13 @@ namespace Munq
 
 		#region IDisposable Members
 
+		/// <summary>
+		/// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+		/// </summary>
+		/// <remarks>
+		/// Disposes of all Container scoped (ContainerLifetime) instances cached in the type registry, and
+		/// disposes of the type registry itself.
+		/// </remarks>
 		public void Dispose()
 		{
 			Dispose(true);
@@ -44,27 +49,8 @@ namespace Munq
 			disposed = true;
 		}
 
-		~Container() { Dispose(false); }
+		~IocContainer() { Dispose(false); }
 
 		#endregion
-
-		#region Resolve All Methods
-		public IEnumerable<object> ResolveAll(Type type)
-		{
-			var registrations = typeRegistry.All(type);
-			var instances     = new List<object>();
-			foreach (var reg in registrations)
-			{
-				instances.Add(reg.GetInstance());
-			}
-			return instances;
-		}
-
-		public IEnumerable<TType> ResolveAll<TType>() where TType : class
-		{
-			return ResolveAll(typeof(TType)).Cast<TType>();
-		}
-		#endregion
-
 	}
 }

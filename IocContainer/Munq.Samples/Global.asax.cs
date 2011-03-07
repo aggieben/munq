@@ -16,7 +16,7 @@ namespace Munq.Samples
         /// <summary>
         /// This is the application-wide instance of the Munq.IocContainer
         /// </summary>
-        public static Container IocContainer;
+        public static IocContainer IocContainer;
 
         public static void RegisterRoutes(RouteCollection routes)
         {
@@ -32,7 +32,7 @@ namespace Munq.Samples
 
         protected void Application_Start()
         {
-            IocContainer = new Container();
+            IocContainer = new IocContainer();
 
             AreaRegistration.RegisterAllAreas();
 

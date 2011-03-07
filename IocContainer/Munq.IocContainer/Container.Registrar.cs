@@ -5,16 +5,9 @@ using System.Text;
 
 namespace Munq
 {
-	public partial class Container : IDependecyRegistrar
+	public partial class IocContainer : IDependecyRegistrar
 	{
 		#region Register Func Members
-		/// <summary>
-		/// Registers a function to create instances of a type
-		/// </summary>
-		/// <typeparam name="TType">The type being registered</typeparam>
-		/// <param name="func">The function that creates the type.  
-		/// The function takes a single parameter of type Container</param>
-		/// <returns>An IRegistration that can be used to configure the behavior of the registration</returns>
 		public IRegistration Register<TType>(Func<IDependencyResolver, TType> func)
 			where TType : class
 		{

@@ -7,9 +7,9 @@ namespace Munq.Mvc3Samples
 {
 	public class MunqDependencyResolver : System.Web.Mvc.IDependencyResolver
 	{
-		private readonly static Munq.Container _container = new Container();
+		private readonly static Munq.IocContainer _container = new IocContainer();
 
-		public static Container Container { get { return _container; }}
+		public static IocContainer Container { get { return _container; }}
 
 		public object GetService(Type serviceType)
 		{

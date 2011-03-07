@@ -50,12 +50,12 @@ namespace Munq.Test
         //public void MyTestInitialize()
         //{
         //}
-        Container iocContainer;
+        IocContainer iocContainer;
         // Use TestInitialize to run code before running each test 
         [TestInitialize()]
         public void MyTestInitialize()
         {
-            iocContainer = new Munq.Container();
+            iocContainer = new Munq.IocContainer();
         }
 
         // Use TestCleanup to run code after each test has run

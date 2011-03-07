@@ -7,12 +7,12 @@ namespace Performance
 	[System.ComponentModel.Description("Munq")]
 	public class MunqUseCase : UseCase
 	{
-		static Container container;
+		static IocContainer container;
 		static ILifetimeManager singleton;
 
 		static MunqUseCase()
 		{
-			container = new Container();
+			container = new IocContainer();
 			singleton = new Munq.LifetimeManagers.ContainerLifetime();
 
 			container.Register<IWebService>(

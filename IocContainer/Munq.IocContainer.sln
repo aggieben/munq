@@ -3,6 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{275E98ED-5A80-43CC-8F28-F6A390F075AC}"
 	ProjectSection(SolutionItems) = preProject
+		IocContainer.shfbproj = IocContainer.shfbproj
 		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
 		Munq.IocContainer.vsmdi = Munq.IocContainer.vsmdi
 	EndProjectSection
@@ -29,34 +30,31 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.CommonServiceLocator",
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 9
+		SccNumberOfProjects = 8
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs10
 		SccLocalPath0 = .
-		SccProjectUniqueName1 = Munq.Interfaces\\Munq.Interfaces.csproj
-		SccProjectName1 = Munq.Interfaces
-		SccLocalPath1 = Munq.Interfaces
-		SccProjectUniqueName2 = Munq.IocContainer.UnitTests\\Munq.IocContainer.UnitTests.csproj
-		SccProjectName2 = Munq.IocContainer.UnitTests
-		SccLocalPath2 = Munq.IocContainer.UnitTests
-		SccProjectUniqueName3 = Munq.IocContainer\\Munq.IocContainer.csproj
-		SccProjectName3 = Munq.IocContainer
-		SccLocalPath3 = Munq.IocContainer
-		SccProjectUniqueName4 = Munq.Samples\\Munq.Samples.csproj
-		SccProjectName4 = Munq.Samples
-		SccLocalPath4 = Munq.Samples
-		SccProjectUniqueName5 = Performance\\Source\\Performance.csproj
-		SccProjectName5 = Performance/Source
-		SccLocalPath5 = Performance\\Source
-		SccProjectUniqueName6 = Munq,Mvc3Samples\\Munq.Mvc3Samples.csproj
-		SccProjectName6 = Munq,Mvc3Samples
-		SccLocalPath6 = Munq,Mvc3Samples
-		SccProjectUniqueName7 = Munq.MVC2\\Munq.MVC2.csproj
-		SccProjectName7 = Munq.MVC2
-		SccLocalPath7 = Munq.MVC2
-		SccProjectUniqueName8 = Munq.CommonServiceLocator\\Munq.CommonServiceLocator.csproj
-		SccProjectName8 = Munq.CommonServiceLocator
-		SccLocalPath8 = Munq.CommonServiceLocator
+		SccProjectUniqueName1 = Munq.IocContainer.UnitTests\\Munq.IocContainer.UnitTests.csproj
+		SccProjectName1 = Munq.IocContainer.UnitTests
+		SccLocalPath1 = Munq.IocContainer.UnitTests
+		SccProjectUniqueName2 = Munq.IocContainer\\Munq.IocContainer.csproj
+		SccProjectName2 = Munq.IocContainer
+		SccLocalPath2 = Munq.IocContainer
+		SccProjectUniqueName3 = Munq.Samples\\Munq.Samples.csproj
+		SccProjectName3 = Munq.Samples
+		SccLocalPath3 = Munq.Samples
+		SccProjectUniqueName4 = Performance\\Source\\Performance.csproj
+		SccProjectName4 = Performance/Source
+		SccLocalPath4 = Performance\\Source
+		SccProjectUniqueName5 = Munq,Mvc3Samples\\Munq.Mvc3Samples.csproj
+		SccProjectName5 = Munq,Mvc3Samples
+		SccLocalPath5 = Munq,Mvc3Samples
+		SccProjectUniqueName6 = Munq.MVC2\\Munq.MVC2.csproj
+		SccProjectName6 = Munq.MVC2
+		SccLocalPath6 = Munq.MVC2
+		SccProjectUniqueName7 = Munq.CommonServiceLocator\\Munq.CommonServiceLocator.csproj
+		SccProjectName7 = Munq.CommonServiceLocator
+		SccLocalPath7 = Munq.CommonServiceLocator
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Munq.IocContainer.vsmdi

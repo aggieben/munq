@@ -8,12 +8,12 @@ namespace Performance
 	[System.ComponentModel.Description("MunqGeneric")]
 	public class MunqGenericUseCase : UseCase
 	{
-		static Container container;
+		static IocContainer container;
 		static ILifetimeManager singleton = new ContainerLifetime();
 
 		static MunqGenericUseCase()
 		{
-			container = new Container();
+			container = new IocContainer();
 
 			//container.Register<IWebService, WebService>();
 			container.Register<IAuthenticator, Authenticator>();

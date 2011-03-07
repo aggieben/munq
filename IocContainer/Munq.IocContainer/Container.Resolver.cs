@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Munq
 {
-	public partial class Container : IDependencyResolver
+	public partial class IocContainer : IDependencyResolver
 	{
 		#region Resolve Members
 		/// <summary>
@@ -81,6 +81,25 @@ namespace Munq
 			return typeRegistry.ContainsKey(name, type);
 		}
 		#endregion
+
+		#region Resolve All Methods
+		public IEnumerable<object> ResolveAll(Type type)
+		{
+			var registrations = typeRegistry.All(type);
+			var instances = new List<object>();
+			foreach (var reg in registrations)
+			{
+				instances.Add(reg.GetInstance());
+			}
+			return instances;
+		}
+
+		public IEnumerable<TType> ResolveAll<TType>() where TType : class
+		{
+			return ResolveAll(typeof(TType)).Cast<TType>();
+		}
+		#endregion
+	
 		#region LazyResolve Members
 		//--------------------------------------------------------
 		// Lazy Resolve methods returns a delegate that, when called
