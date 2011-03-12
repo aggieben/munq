@@ -2,58 +2,6 @@
 
 namespace Munq
 {
-	internal class UnNamedRegistrationKey : IRegistrationKey
-	{
-		internal Type InstanceType;
-
-		public UnNamedRegistrationKey(Type type)
-		{
-			InstanceType = type;
-		}
-
-		public Type GetInstanceType() { return InstanceType; }
-
-		// comparison methods
-		public override bool Equals(object obj)
-		{
-			var r = obj as UnNamedRegistrationKey;
-			return (r != null) && Object.ReferenceEquals(InstanceType, r.InstanceType);
-		}
-
-		public override int GetHashCode()
-		{
-			return InstanceType.GetHashCode();
-		}
-	}
-
-	internal class NamedRegistrationKey : IRegistrationKey
-	{
-		internal Type InstanceType;
-		internal string Name;
-
-		public NamedRegistrationKey(string name, Type type)
-		{
-			Name = name ?? String.Empty;
-			InstanceType = type;
-		}
-
-		public Type GetInstanceType() { return InstanceType; }
-
-		// comparison methods
-		public override bool Equals(object obj)
-		{
-			var r = obj as NamedRegistrationKey;
-			return (r != null) &&
-				Object.ReferenceEquals(InstanceType, r.InstanceType) &&
-				String.Compare(Name, r.Name, true) == 0; // ignore case
-		}
-
-		public override int GetHashCode()
-		{
-			return InstanceType.GetHashCode();
-		}
-	}
-
 	internal class Registration : IRegistration
 	{
 		internal ILifetimeManager LifetimeManager;

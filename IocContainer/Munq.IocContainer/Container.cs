@@ -2,6 +2,11 @@
 
 namespace Munq
 {
+	/// <summary>
+	/// The implementation of the IOC container.  Implements the IDependencyRegistrar and
+	/// IDependencyResolver, along with the IContainerFluent and IDisposable interfaces.
+	/// The container is thread safe.
+	/// </summary>
 	public partial class IocContainer : IContainerFluent, IDisposable
 	{
 		private readonly TypeRegistry typeRegistry = new TypeRegistry();
@@ -10,9 +15,11 @@ namespace Munq
 		private bool disposed;
 
 		// null for the lifetime manager is the same as AlwaysNew, but slightly faster.
+		/// <inheritdoc />
 		public ILifetimeManager DefaultLifetimeManager { get; set; }
 
 		#region Fluent Interface Members
+		/// <inheritdoc />
 		public IContainerFluent UsesDefaultLifetimeManagerOf(ILifetimeManager lifetimeManager)
 		{
 			DefaultLifetimeManager = lifetimeManager;
@@ -35,6 +42,10 @@ namespace Munq
 			GC.SuppressFinalize(this);
 		}
 
+		/// <summary>
+		/// Implements the Disposed(boolean disposing) method of Disposable pattern.
+		/// </summary>
+		/// <param name="disposing">True if disposing.</param>
 		protected virtual void Dispose(bool disposing)
 		{
 			// Check to see if Dispose has already been called.
@@ -49,6 +60,9 @@ namespace Munq
 			disposed = true;
 		}
 
+		/// <summary>
+		/// The finalizer just ensures the container is disposed.
+		/// </summary>
 		~IocContainer() { Dispose(false); }
 
 		#endregion

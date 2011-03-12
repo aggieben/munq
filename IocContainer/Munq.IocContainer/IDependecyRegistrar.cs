@@ -56,14 +56,14 @@ namespace Munq
 		IRegistration GetRegistration<TType>(string name) where TType : class;
 
 		/// <include file='XmlDocumentation/IDependencyRegistrar.xml' path='IDependencyRegistrar/Members[@name="GetRegistration3"]/*' />
-		IRegistration GetRegistration(string name, Type type);
-		/// <include file='XmlDocumentation/IDependencyRegistrar.xml' path='IDependencyRegistrar/Members[@name="GetRegistration4"]/*' />
 		IRegistration GetRegistration(Type type);
+		/// <include file='XmlDocumentation/IDependencyRegistrar.xml' path='IDependencyRegistrar/Members[@name="GetRegistration4"]/*' />
+		IRegistration GetRegistration(string name, Type type);
 
 		// ---- Get Registrations ----------------------------------------------------------
 		/// <include file='XmlDocumentation/IDependencyRegistrar.xml' path='IDependencyRegistrar/Members[@name="GetRegistrations1"]/*' />
-		IEnumerable<IRegistration> GetRegistrations(Type type);
-		/// <include file='XmlDocumentation/IDependencyRegistrar.xml' path='IDependencyRegistrar/Members[@name="GetRegistrations2"]/*' />
 		IEnumerable<IRegistration> GetRegistrations<TType>() where TType : class;
+		/// <include file='XmlDocumentation/IDependencyRegistrar.xml' path='IDependencyRegistrar/Members[@name="GetRegistrations2"]/*' />
+		IEnumerable<IRegistration> GetRegistrations(Type type);
 	}
 }

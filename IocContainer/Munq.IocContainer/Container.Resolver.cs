@@ -8,26 +8,25 @@ namespace Munq
 	public partial class IocContainer : IDependencyResolver
 	{
 		#region Resolve Members
-		/// <summary>
-		/// Returns an instance of a registered type
-		/// </summary>
-		/// <typeparam name="TType">The type to resolve</typeparam>
-		/// <returns>An instance of the type.  Throws a KeyNoFoundException if not registered.</returns>
+		/// <include file='XmlDocumentation/IDependencyResolver.xml' path='IDependencyResolver/Members[@name="Resolve1"]/*' />
 		public TType Resolve<TType>() where TType : class
 		{
 			return Resolve(null, typeof(TType)) as TType;
 		}
 
+		/// <include file='XmlDocumentation/IDependencyResolver.xml' path='IDependencyResolver/Members[@name="Resolve2"]/*' />
 		public TType Resolve<TType>(string name) where TType : class
 		{
 			return Resolve(name, typeof(TType)) as TType;
 		}
 
+		/// <include file='XmlDocumentation/IDependencyResolver.xml' path='IDependencyResolver/Members[@name="Resolve3"]/*' />
 		public object Resolve(Type type)
 		{
 			return Resolve(null, type);
 		}
 
+		/// <include file='XmlDocumentation/IDependencyResolver.xml' path='IDependencyResolver/Members[@name="Resolve4"]/*' />
 		public object Resolve(string name, Type type)
 		{
 			try
@@ -55,27 +54,29 @@ namespace Munq
 		}
 		#endregion
 
-		#region Resolve Members
-		/// <summary>
-		/// Returns an instance of a registered type
-		/// </summary>
-		/// <typeparam name="TType">The type to resolve</typeparam>
-		/// <returns>An instance of the type.  Throws a KeyNoFoundException if not registered.</returns>
-		public bool CanResolve<TType>() where TType : class
+		#region CanResolve Members
+
+		/// <include file='XmlDocumentation/IDependencyResolver.xml' path='IDependencyResolver/Members[@name="CanResolve1"]/*' />
+		public bool CanResolve<TType>()
+				where TType : class
 		{
 			return CanResolve(null, typeof(TType));
 		}
 
-		public bool CanResolve<TType>(string name) where TType : class
+		/// <include file='XmlDocumentation/IDependencyResolver.xml' path='IDependencyResolver/Members[@name="CanResolve2"]/*' />
+		public bool CanResolve<TType>(string name)
+				where TType : class
 		{
 			return CanResolve(name, typeof(TType));
 		}
 
+		/// <include file='XmlDocumentation/IDependencyResolver.xml' path='IDependencyResolver/Members[@name="CanResolve3"]/*' />
 		public bool CanResolve(Type type)
 		{
 			return CanResolve(null, type);
 		}
 
+		/// <include file='XmlDocumentation/IDependencyResolver.xml' path='IDependencyResolver/Members[@name="CanResolve4"]/*' />
 		public bool CanResolve(string name, Type type)
 		{
 			return typeRegistry.ContainsKey(name, type);
@@ -83,6 +84,7 @@ namespace Munq
 		#endregion
 
 		#region Resolve All Methods
+		/// <include file='XmlDocumentation/IDependencyResolver.xml' path='IDependencyResolver/Members[@name="ResolveAll1"]/*' />
 		public IEnumerable<object> ResolveAll(Type type)
 		{
 			var registrations = typeRegistry.All(type);
@@ -94,6 +96,7 @@ namespace Munq
 			return instances;
 		}
 
+		/// <include file='XmlDocumentation/IDependencyResolver.xml' path='IDependencyResolver/Members[@name="ResolveAll2"]/*' />
 		public IEnumerable<TType> ResolveAll<TType>() where TType : class
 		{
 			return ResolveAll(typeof(TType)).Cast<TType>();
@@ -101,26 +104,26 @@ namespace Munq
 		#endregion
 	
 		#region LazyResolve Members
-		//--------------------------------------------------------
-		// Lazy Resolve methods returns a delegate that, when called
-		// resolves the instance.  Used in case where you wish to delay
-		// the actual instantiation of the class as it may use a scarce 
-		// resource, or logic may not need to resolve it at all.
+		/// <include file='XmlDocumentation/IDependencyResolver.xml' path='IDependencyResolver/Members[@name="LazyResolve1"]/*' />
 		public Func<TType> LazyResolve<TType>() where TType : class
 		{
 			return LazyResolve<TType>(null);
 		}
 
+		/// <include file='XmlDocumentation/IDependencyResolver.xml' path='IDependencyResolver/Members[@name="LazyResolve2"]/*' />
 		public Func<TType> LazyResolve<TType>(string name) where TType : class
 		{
 			return () => Resolve<TType>(name);
 		}
 
+		/// <include file='XmlDocumentation/IDependencyResolver.xml' path='IDependencyResolver/Members[@name="LazyResolve3"]/*' />
 		public Func<Object> LazyResolve(Type type)
 		{
 			return LazyResolve(null, type);
 		}
 
+		/// <include file='XmlDocumentation/IDependencyResolver.xml' path='IDependencyResolver/Members[@name="LazyResolve4"]/*' />
+		/// <inheritdoc />
 		public Func<Object> LazyResolve(string name, Type type)
 		{
 			return () => Resolve(name, type);

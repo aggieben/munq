@@ -400,29 +400,161 @@
 		<param name="ireg">
 			The Registration to be removed from the container.
 		</param>
+		<example>
+			The following gets a Registration and removes it from the container.
+			<code>
+				var container = new IocContainer();
+				container.Register&lt;IMagicUser, Elf&gt;("Elf");
+				...
+				// this works
+				var newPlayer = container.Resolve&lt;IMagicUser&gt;("Elf");
+				...
+				// Remove Elf from the possible magic users
+				var registration = container.GetRegistration&lt;IMagicUser&gt;("Elf");
+				container.Remove(registration);
+				...
+				// this throws a KeyNotFoundException
+				var newPlayer = container.Resolve&lt;IMagicUser&gt;("Elf");
+			</code>
+		</example>
 	</Members>
 	
 	<Members name="GetRegistration1">
-
+		<summary>
+			Returns an Registration of a registered type
+		</summary>
+		<typeparam name="TType">The type to get the Registration for.</typeparam>
+		<returns>An Registration for the type.  Throws a KeyNoFoundException if not registered.</returns>
+		<example>
+			This example gets a Registration and invalidates the cached value.
+			<code>
+				var container = new IocContainer();
+				container.Register&lt;IGameBoard, 3DGameBoard&gt;()
+						 .WithLifetimeManager(new ContainerLifeTime());
+				...
+				// this create the instance, and caches it in the container
+				var gameBoard = container.Resolve&lt;IGameBoard&gt;();
+				...
+				// force a new gameboard
+				var registration = container.GetRegistration&lt;IGameBoard&gt;();
+				registration.InvalidateInstanceCache();
+			</code>
+		</example>
 	</Members>
 	
 	<Members name="GetRegistration2">
-
+		<summary>
+			Returns an Registration of a registered type
+		</summary>
+		<typeparam name="TType">The type to get the Registration for.</typeparam>
+		<param name="name">The name associated with the named registration to get.</param>
+		<returns>An Registration for the type.  Throws a KeyNoFoundException if not registered.</returns>
+		<example>
+			This example uses GetRegistration to ensure that the interface is Registered.
+			<code>
+				var container = new IocContainer();
+				...
+				IRegistration reg;
+				try
+				{
+					reg = container.GetRegistration&lt;IArmory&gt;();
+				}
+				catch(KeyNotFoundException)
+				{
+					reg = container.Register&lt;IArmor, ElvenFortArmory&gt;();
+				}
+				// make sure it is a new instance.
+				reg.InvalidateInstanceCache();
+			</code>
+		</example>
 	</Members>
 	
 	<Members name="GetRegistration3">
-
+		<summary>
+			Returns an Registration of a registered type
+		</summary>
+		<param name="type">The type to get the Registration for.</param>
+		<returns>An Registration for the type.  Throws a KeyNoFoundException if not registered.</returns>
+		<example>
+			This example gets a Registration and invalidates the cached value.
+			<code>
+				var container = new IocContainer();
+				container.Register&lt;IGameBoard, 3DGameBoard&gt;()
+				.WithLifetimeManager(new ContainerLifeTime());
+				...
+				// this create the instance, and caches it in the container
+				var gameBoard = container.Resolve&lt;IGameBoard&gt;();
+				...
+				// force a new gameboard
+				var registration = container.GetRegistration(typeof(IGameBoard));
+				registration.InvalidateInstanceCache();
+			</code>
+		</example>
 	</Members>
 	
 	<Members name="GetRegistration4">
+		<summary>
+			Returns an Registration of a registered type
+		</summary>
+		<param name="name">The name associated with the named registration to get.</param>
+		<param name="type">The type to get the Registration for.</param>
+		<returns>An Registration for the type.  Throws a KeyNoFoundException if not registered.</returns>
+		<example>
+			This example uses GetRegistration to ensure that the interface is Registered.
+			<code>
+				var container = new IocContainer();
+				...
+				IRegistration reg;
+				try
+				{
+					reg = container.GetRegistration("Elf",typeof(IArmory));
+				}
+				catch(KeyNotFoundException)
+				{
+					reg = container.Register&lt;IArmor, ElvenFortArmory&gt;("Elf");
+				}
+				// make sure it is a new instance.
+				reg.InvalidateInstanceCache();
+			</code>
+		</example>
 
 	</Members>
 	
 	<Members name="GetRegistrations1">
-
+		<summary>
+			Gets all Registrations for the specified type.
+		</summary>
+		<typeparam name="TType">The type for which the Registrations are required.</typeparam>
+		<returns>An list of the registration of the specified type.</returns>
+		<example>
+			This example gets a list of the names of plugins registered.
+			<code>
+				...
+				public IList&lt;string&gt; GetPluginNames(IocContainer container)
+				{
+					var registrations = container.GetRegistrations&lt;IPlugin&gt;();
+					return registrations.Select(reg =&gt; reg.Name).ToList();
+				}
+			</code>
+		</example>
 	</Members>
 	
 	<Members name="GetRegistrations2">
-
+		<summary>
+			Gets all Registrations for the specified type.
+		</summary>
+		<param name="type">The type for which the Registrations are required.</param>
+		<returns>An list of the registration of the specified type.</returns>
+		<example>
+			This example gets a list of the names of plugins registered.
+			<code>
+				...
+				public IList&lt;string&gt; GetPluginNames(IocContainer container)
+				{
+					var registrations = container.GetRegistrations(typeof(IPlugin));
+					return registrations.Select(reg =&gt; reg.Name).ToList();
+				}
+			</code>
+		</example>
 	</Members>
 </IDependencyRegistrar> 
