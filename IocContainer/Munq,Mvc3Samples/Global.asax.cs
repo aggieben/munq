@@ -8,6 +8,7 @@ using Munq.Mvc3Samples.Models;
 using Munq;
 using Munq.Mvc3Samples.Controllers;
 using System.Web.Security;
+using Munq.MVC3;
 
 namespace Munq.Mvc3Samples
 {

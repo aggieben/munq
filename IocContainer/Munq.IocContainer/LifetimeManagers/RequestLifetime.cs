@@ -1,4 +1,9 @@
-﻿using System.Web;
+﻿// --------------------------------------------------------------------------------------------------
+// © Copyright 2011 by Matthew Dennis.
+// Released under the Microsoft Public License (Ms-PL) http://www.opensource.org/licenses/ms-pl.html
+// --------------------------------------------------------------------------------------------------
+
+using System.Web;
 
 namespace Munq.LifetimeManagers
 {
@@ -6,10 +11,61 @@ namespace Munq.LifetimeManagers
 	/// A lifetime manager that scopes the lifetime of created instances to the duration of the
 	/// current HttpRequest.
 	/// </summary>
+	/// <example>
+	/// In Web applications, it is sometime desirable to ensure that all classes use the same instance
+	/// of a dependency, but only for the duration of the request.  One example might be a Repository
+	/// that implements the Unit of Work pattern, such as an Entity Framework base repository.
+	/// <code>
+	/// public class ArticleRepository : IArticleRepository
+	/// {
+	///    ...
+	/// }
+	/// 
+	/// public class SpanishTranslator : IArticleTranslator
+	/// {
+	///     public SpanishTranslator(IArticleRepository repository)
+	///     {
+	///         ...
+	///     }
+	///     ...
+	/// }
+	///  
+	/// public class ArticleController : IController 
+	/// {
+	///     IArticleRepository _repository;
+	///     IArticleTranslator _translator;
+	///     public ArticleController(IArticleRepository repository, IArticleTranslator translator)
+	///     {
+	///         _repository = repository;
+	///         _translator = translator;
+	///     }
+	///     
+	///     public ActionResult Save(ArticleModel article)
+	///     {
+	///         _repository.Save(article);
+	///         _translator.Save(article); // uses the same IArticleRepository instance
+	///         _repository.AcceptChanges();
+	///     }
+	///     ...
+	/// }
+	/// 
+	///     // initialization code, probably in global.ascx
+	///	protected void Application_Start()
+	///	{
+	///		DependencyResolver.SetResolver(new MunqDependencyResolver());
+	///		var ioc = MunqDependencyResolver.Container;
+	///		var requestLifetime = new RequestLifetime();
+	///		ioc.Register&lt;IArticleRepository, ArticleRepository&gt;()
+	///		   .WithLifetimeManager(requestLifetime);
+	///		ioc.Register&lt;IArticleTranslator, ArticleTranslator&gt;()
+	///		   .WithLifetimeManager(requestLifetime);
+	///     ...
+	/// </code>
+	/// </example>
 	public class RequestLifetime : ILifetimeManager
 	{
 		private HttpContextBase testContext;
-		private object _lock = new object();
+		private readonly object _lock = new object();
 
 		/// <summary>
 		/// Return the HttpContext if running in a web application, the test 

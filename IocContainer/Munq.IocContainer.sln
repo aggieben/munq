@@ -28,9 +28,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.MVC2", "Munq.MVC2\Munq
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.CommonServiceLocator", "Munq.CommonServiceLocator\Munq.CommonServiceLocator.csproj", "{67057544-2727-4C7B-904D-77ACEBEBB1C4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.MVC3", "Munq.MVC3\Munq.MVC3.csproj", "{50151038-B122-4529-876B-BC21B24DC8A2}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 8
+		SccNumberOfProjects = 9
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs10
 		SccLocalPath0 = .
@@ -55,6 +57,9 @@ Global
 		SccProjectUniqueName7 = Munq.CommonServiceLocator\\Munq.CommonServiceLocator.csproj
 		SccProjectName7 = Munq.CommonServiceLocator
 		SccLocalPath7 = Munq.CommonServiceLocator
+		SccProjectUniqueName8 = Munq.MVC3\\Munq.MVC3.csproj
+		SccProjectName8 = Munq.MVC3
+		SccLocalPath8 = Munq.MVC3
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Munq.IocContainer.vsmdi
@@ -92,6 +97,10 @@ Global
 		{67057544-2727-4C7B-904D-77ACEBEBB1C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67057544-2727-4C7B-904D-77ACEBEBB1C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67057544-2727-4C7B-904D-77ACEBEBB1C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50151038-B122-4529-876B-BC21B24DC8A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50151038-B122-4529-876B-BC21B24DC8A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50151038-B122-4529-876B-BC21B24DC8A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50151038-B122-4529-876B-BC21B24DC8A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -65,6 +65,10 @@
   <ItemGroup>
     <ContentLayout Include="Content\Content Layout.content" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="License.aml" />
+    <None Include="Content\License2.aml" />
+  </ItemGroup>
   <!-- Import the SHFB build targets -->
   <Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" />
 </Project>

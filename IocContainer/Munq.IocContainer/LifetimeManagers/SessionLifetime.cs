@@ -1,10 +1,16 @@
-﻿using System.Web;
+﻿// --------------------------------------------------------------------------------------------------
+// © Copyright 2011 by Matthew Dennis.
+// Released under the Microsoft Public License (Ms-PL) http://www.opensource.org/licenses/ms-pl.html
+// --------------------------------------------------------------------------------------------------
+
+using System.Web;
 
 namespace Munq.LifetimeManagers
 {
 	/// <summary>
 	/// A lifetime manager that scopes the lifetime of created instances to the current browser
-	/// session.
+	/// session.  An example of a class that might have Session Lifetime would be a Shopping Cart,
+	/// or a multi-page entry form.
 	/// </summary>
 	public class SessionLifetime : ILifetimeManager
 	{

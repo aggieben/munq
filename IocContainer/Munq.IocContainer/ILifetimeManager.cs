@@ -1,7 +1,14 @@
-﻿namespace Munq
+﻿// --------------------------------------------------------------------------------------------------
+// © Copyright 2011 by Matthew Dennis.
+// Released under the Microsoft Public License (Ms-PL) http://www.opensource.org/licenses/ms-pl.html
+// --------------------------------------------------------------------------------------------------
+
+namespace Munq
 {
 	/// <summary>
-	/// Defines the functionality for Lifetime Managers.
+	/// Defines the functionality for Lifetime Managers.  Implementation should instantiate an 
+	/// instance store and use the Registration's Key property to index the data in the store.
+	/// This allows one lifetime manager to service multiple Registrations.
 	/// </summary>
 	public interface ILifetimeManager
 	{

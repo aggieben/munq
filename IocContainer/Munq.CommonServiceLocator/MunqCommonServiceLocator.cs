@@ -1,4 +1,9 @@
-﻿using System;
+﻿// --------------------------------------------------------------------------------------------------
+// © Copyright 2011 by Matthew Dennis.
+// Released under the Microsoft Public License (Ms-PL) http://www.opensource.org/licenses/ms-pl.html
+// --------------------------------------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -54,14 +59,14 @@ namespace Munq.CommonServiceLocator
 	
 		public object  GetService(Type serviceType)
 		{
- 				try
- 				{
- 				return GetInstance(serviceType);
- 				}
- 				catch (ActivationException)
- 				{
- 					return null;
- 				}
+				try
+				{
+				return GetInstance(serviceType);
+				}
+				catch (ActivationException)
+				{
+					return null;
+				}
 		}
 	}
 }

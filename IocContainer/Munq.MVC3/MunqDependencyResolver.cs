@@ -1,9 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿// --------------------------------------------------------------------------------------------------
+// © Copyright 2011 by Matthew Dennis.
+// Released under the Microsoft Public License (Ms-PL) http://www.opensource.org/licenses/ms-pl.html
+// --------------------------------------------------------------------------------------------------
 
-namespace Munq.Mvc3Samples
+using System;
+using System.Collections.Generic;
+
+namespace Munq.MVC3
 {
 	public class MunqDependencyResolver : System.Web.Mvc.IDependencyResolver
 	{

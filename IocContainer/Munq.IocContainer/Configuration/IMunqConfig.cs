@@ -1,4 +1,9 @@
-﻿namespace Munq.Configuration
+﻿// --------------------------------------------------------------------------------------------------
+// © Copyright 2011 by Matthew Dennis.
+// Released under the Microsoft Public License (Ms-PL) http://www.opensource.org/licenses/ms-pl.html
+// --------------------------------------------------------------------------------------------------
+
+namespace Munq.Configuration
 {
 	/// <summary>
 	/// This interface is defined on classes that are used to dynamically register dependencies 

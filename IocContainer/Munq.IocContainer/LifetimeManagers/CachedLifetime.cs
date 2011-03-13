@@ -1,4 +1,9 @@
-﻿using System;
+﻿// --------------------------------------------------------------------------------------------------
+// © Copyright 2011 by Matthew Dennis.
+// Released under the Microsoft Public License (Ms-PL) http://www.opensource.org/licenses/ms-pl.html
+// --------------------------------------------------------------------------------------------------
+
+using System;
 using System.Web;
 using System.Web.Caching;
 
@@ -11,14 +16,41 @@ namespace Munq.LifetimeManagers
 	/// The cache can be invalidated at any time.  After that, the next Resolve will create a new 
 	/// instance will be created and cached.  Don't assume that instances are the same.
 	/// </remarks>
+	/// <example>
+	/// This example uses the IocContainer to cache RSS feeds for 15 minutes, and reloads on the
+	/// next request after that.
+	/// <code>
+	///      var container = new IocContainer();
+	///      var cachedFor15Minutes = new CachedLifetime().ExpiresAfter(new TimeSpan(0, 15, 0));
+	///      
+	///		 container.Register&lt;IRssFeed&gt;("Munq",    c => new RssFeed("http://munq.codeplex.com/Project/ProjectRss.aspx"))
+	///		          .WithLifetimeManager(cachedFor15Minutes);
+	///		          
+	///		 container.Register&lt;IRssFeed&gt;("TheGu",   c => new RssFeed("http://weblogs.asp.net/scottgu/rss.aspx"))
+	///		          .WithLifetimeManager(cachedFor15Minutes);
+	///		          
+	///		 container.Register&lt;IRssFeed&gt;("Haacked", c => new RssFeed("http://feeds.haacked.com/haacked/"))
+	///		          .WithLifetimeManager(cachedFor15Minutes);
+	///		 ...         
+	///      var feed = container.Resolve&lt;IRssFeed&gt;("TheGu");
+	/// </code>
+	/// </example>
 	public class CachedLifetime : ILifetimeManager
 	{
-		private CacheDependency _dependencies;
-		private DateTime _absoluteExpiration = Cache.NoAbsoluteExpiration;
-		private TimeSpan _slidingExpiration  = Cache.NoSlidingExpiration;
+		private enum Expires
+		{
+			None,
+			OnDateTime,
+			AfterFixedDuration,
+			AfterSlidingDuration
+		};
+		private Expires  _expirationKind     = Expires.None;
+		private DateTime _expiresOn          = Cache.NoAbsoluteExpiration;
+		private TimeSpan _duration           = Cache.NoSlidingExpiration;
 		private CacheItemPriority _priority  = CacheItemPriority.Default;
+		private CacheDependency _dependencies;
 		private CacheItemRemovedCallback _onRemoveCallback;
-		private object _lock = new object();
+		private readonly object _lock = new object();
 
 		#region ILifetimeManager Members
 		/// <summary>
@@ -31,18 +63,44 @@ namespace Munq.LifetimeManagers
 		{
 			Cache cache = HttpRuntime.Cache;
 
-			object instance = cache[registration.Key];
+			string key = registration.Key;
+			object instance = cache[key];
 			if (instance == null)
 			{
 				lock (_lock)
 				{
-					instance = cache[registration.Key];
+					instance = cache[key];
 					if (instance == null)
 					{
 						instance = registration.CreateInstance();
 
-						cache.Insert(registration.Key, instance, _dependencies, _absoluteExpiration,
-										_slidingExpiration, _priority, _onRemoveCallback);
+						if (_expiresOn == Cache.NoAbsoluteExpiration &&
+							_duration == Cache.NoSlidingExpiration)
+							_expirationKind = Expires.None;
+
+						switch (_expirationKind)
+						{
+							case Expires.None:
+								cache.Insert(key, instance, _dependencies, Cache.NoAbsoluteExpiration,
+										Cache.NoSlidingExpiration, _priority, _onRemoveCallback);
+								break;
+
+							case Expires.OnDateTime:
+								cache.Insert(key, instance, _dependencies, _expiresOn,
+										Cache.NoSlidingExpiration, _priority, _onRemoveCallback);
+								break;
+
+							case Expires.AfterFixedDuration:
+								cache.Insert(key, instance, _dependencies, DateTime.Now.Add(_duration),
+										Cache.NoSlidingExpiration, _priority, _onRemoveCallback);
+								break;
+
+							case Expires.AfterSlidingDuration:
+								cache.Insert(key, instance, _dependencies, Cache.NoAbsoluteExpiration,
+									_duration, _priority, _onRemoveCallback);
+								break;
+						}
+
 					}
 				}
 			}
@@ -81,23 +139,46 @@ namespace Munq.LifetimeManagers
 		public CachedLifetime ExpiresOn(DateTime absoluteExpiration)
 		{
 			if (absoluteExpiration != Cache.NoAbsoluteExpiration)
-				_slidingExpiration =  Cache.NoSlidingExpiration;
+			{
+				_duration       = Cache.NoSlidingExpiration;
+				_expirationKind = Expires.OnDateTime;
+			}
 
-			_absoluteExpiration = absoluteExpiration;
+			_expiresOn = absoluteExpiration;
 			return this;
 		}
 
 		/// <summary>
-		/// Sets the duration the cached item will remain valid.
+		/// Sets the duration the cached item will remain valid.  This is a sliding duration.
 		/// </summary>
-		/// <param name="slidingExpiration">The duration.</param>
+		/// <param name="duration">The duration. Use Cache.NoSlidingExpiration to disable.</param>
 		/// <returns>The CachedLifetime instance (allows chaining).</returns>
-		public CachedLifetime ExpiresAfterNotAccessedFor(TimeSpan slidingExpiration)
+		public CachedLifetime ExpiresAfterNotAccessedFor(TimeSpan duration)
 		{
-			if (slidingExpiration  != Cache.NoSlidingExpiration)
-				_absoluteExpiration = Cache.NoAbsoluteExpiration;
+			if (duration != Cache.NoSlidingExpiration)
+			{
+				_expiresOn      = Cache.NoAbsoluteExpiration;
+				_expirationKind = Expires.AfterSlidingDuration;
+			}
 
-			_slidingExpiration = slidingExpiration;
+			_duration = duration;
+			return this;
+		}
+
+		/// <summary>
+		/// Sets the duration the cached item will remain valid.  This is a fixed duration.
+		/// </summary>
+		/// <param name="duration">The duration. Use Cache.NoSlidingExpiration to disable.</param>
+		/// <returns>The CachedLifetime instance (allows chaining).</returns>
+		public CachedLifetime ExpiresAfter(TimeSpan duration)
+		{
+			if (duration != Cache.NoSlidingExpiration)
+			{
+				_expiresOn      = Cache.NoAbsoluteExpiration;
+				_expirationKind = Expires.AfterFixedDuration;
+			}
+
+			_duration = duration;
 			return this;
 		}
 
