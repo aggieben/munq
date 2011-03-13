@@ -14,7 +14,8 @@ namespace Munq
 		object _lock = new object();
 
 
-		public Registration(IDependencyResolver container, string name, Type type, Func<IDependencyResolver, object> factory)
+		public Registration(IDependencyResolver container, string name, Type type, 
+							Func<IDependencyResolver, object> factory)
 		{
 			LifetimeManager = null;
 			Container       = container;
@@ -26,18 +27,12 @@ namespace Munq
 
 		public string Key
 		{
-			get
-			{
-				return _key;
-			}
+			get { return _key; }
 		}
 
 		public Type ResolvesTo
 		{
-			get
-			{
-				return _type;
-			}
+			get { return _type; }
 		}
 
 		public string Name { get; private set; }
@@ -66,17 +61,15 @@ namespace Munq
 
 		public object GetInstance()
 		{
-			return (LifetimeManager != null)
-				? LifetimeManager.GetInstance(this)
-				: Factory(Container);
+			return Instance ??
+				((LifetimeManager != null) ? LifetimeManager.GetInstance(this) : Factory(Container));
 		}
 
 		public void InvalidateInstanceCache()
 		{
+			Instance = null;
 			if (LifetimeManager != null)
 				LifetimeManager.InvalidateInstanceCache(this);
-			else
-				Instance = null;
 		}
 	}
 }

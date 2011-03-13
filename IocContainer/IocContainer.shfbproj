@@ -23,7 +23,7 @@
       <DocumentationSource sourceFile="Munq.IocContainer\bin\Debug\Munq.IocContainer.dll" />
       <DocumentationSource sourceFile="Munq.IocContainer\bin\Debug\Munq.IocContainer.XML" />
     </DocumentationSources>
-    <CopyrightText>&amp;amp%3bcopy%3b 2011 by Matthew Dennis</CopyrightText>
+    <CopyrightText>&amp;#169%3b 2011 by Matthew Dennis</CopyrightText>
     <HelpTitle>Munq IOC Container Class Library Help File</HelpTitle>
     <NamespaceSummaries>
       <NamespaceSummaryItem name="Munq" isDocumented="True" xmlns="">This is the root namespce for the Munq IOC Container.  Most interfaces and classes for the IOC Container are defined at this level.</NamespaceSummaryItem>

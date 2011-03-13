@@ -2,6 +2,10 @@
 
 namespace Munq.LifetimeManagers
 {
+	/// <summary>
+	/// A lifetime manager that scopes the lifetime of created instances to the current browser
+	/// session.
+	/// </summary>
 	public class SessionLifetime : ILifetimeManager
 	{
 		private HttpSessionStateBase testSession;
@@ -26,20 +30,20 @@ namespace Munq.LifetimeManagers
 		/// Gets the instance from the Session, if available, otherwise creates a new
 		/// instance and stores in the Session.
 		/// </summary>
-		/// <param name="creator">The creator (registration) to create a new instance.</param>
+		/// <param name="registration">The creator (registration) to create a new instance.</param>
 		/// <returns>The instance.</returns>
-		public object GetInstance(IRegistration creator)
+		public object GetInstance(IRegistration registration)
 		{
-			object instance = Session[creator.Key];
+			object instance = Session[registration.Key];
 			if (instance == null)
 			{
 				lock (_lock)
 				{
-					instance = Session[creator.Key];
+					instance = Session[registration.Key];
 					if (instance == null)
 					{
-						instance             = creator.CreateInstance();
-						Session[creator.Key] = instance;
+						instance             = registration.CreateInstance();
+						Session[registration.Key] = instance;
 					}
 				}
 			}
@@ -58,7 +62,10 @@ namespace Munq.LifetimeManagers
 
 		#endregion
 
-		// only used for testing.  Has no effect when in web application
+		/// <summary>
+		///  Only used for testing.  Has no effect when in web application
+		/// </summary>
+		/// <param name="context"></param>
 		public void SetContext(HttpContextBase context)
 		{
 			testSession = context.Session;

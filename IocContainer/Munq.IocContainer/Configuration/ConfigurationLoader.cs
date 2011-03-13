@@ -6,13 +6,18 @@ using System.Reflection;
 
 namespace Munq.Configuration
 {
-    public class ConfigurationLoader
-    {
-        /// <summary>
-        /// Find all the types that implement the IMunqConfig interface, create an instance and 
-        /// then call the RegisterIn method on the type.
-        /// </summary>
-        /// <param name="container">The Munq IOC container to register class factories in.</param>
+	/// <summary>
+	/// This static class contains methods to discover classes that implement the IMunqConfig interface
+	/// and to call the RegisterIn method on them.
+	/// </summary>
+	public static class ConfigurationLoader
+	{
+		/// <summary>
+		/// Finds all the types that implement the IMunqConfig interface, create an instance and 
+		/// then call the RegisterIn method on the type.  The bin directory is checked for web
+		/// applications, the current directory for Windows applications.
+		/// </summary>
+		/// <param name="container">The Munq IOC container to register class factories in.</param>
 		public static void FindAndRegisterDependencies(IocContainer container)
 		{
 			// get all the assemblies in the bin directory
@@ -21,6 +26,13 @@ namespace Munq.Configuration
 			CallRegistrarsInDirectory(container, binPath);
 		}
 
+		/// <summary>
+		/// Finds all the types that implement the IMunqConfig interface, create an instance and 
+		/// then call the RegisterIn method on the type.
+		/// </summary>
+		/// <param name="container">The Munq IOC container to register the class factories in.</param>
+		/// <param name="binPath">The path of the directory to search.</param>
+		/// <param name="filePattern">The optional file pattern for files to check. The default is *.dll</param>
 		public static void CallRegistrarsInDirectory(IocContainer container, string binPath, string filePattern = "*.dll")
 		{
 			var assemblyNames = Directory.GetFiles(binPath, filePattern);
@@ -29,6 +41,13 @@ namespace Munq.Configuration
 				CallRegistrarsInAssembly(container, filename);
 
 		}
+
+		/// <summary>
+		/// Finds all classes the IMunqConfig interface in an assembly and call the RegisterIn
+		/// method on each.
+		/// </summary>
+		/// <param name="container">The Munq IOC Container.</param>
+		/// <param name="filename">The full filename to be loaded and checked.</param>
 		public static void CallRegistrarsInAssembly(IocContainer container, string filename)
 		{
 			var assembly = Assembly.LoadFile(filename);

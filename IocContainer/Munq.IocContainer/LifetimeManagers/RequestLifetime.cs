@@ -2,6 +2,10 @@
 
 namespace Munq.LifetimeManagers
 {
+	/// <summary>
+	/// A lifetime manager that scopes the lifetime of created instances to the duration of the
+	/// current HttpRequest.
+	/// </summary>
 	public class RequestLifetime : ILifetimeManager
 	{
 		private HttpContextBase testContext;
@@ -27,20 +31,20 @@ namespace Munq.LifetimeManagers
 		/// Gets the instance from the Request Items, if available, otherwise creates a new
 		/// instance and stores in the Request Items.
 		/// </summary>
-		/// <param name="creator">The creator (registration) to create a new instance.</param>
+		/// <param name="registration">The creator (registration) to create a new instance.</param>
 		/// <returns>The instance.</returns>
-		public object GetInstance(IRegistration creator)
+		public object GetInstance(IRegistration registration)
 		{
-			object instance = Context.Items[creator.Key];
+			object instance = Context.Items[registration.Key];
 			if (instance == null)
 			{
 				lock (_lock)
 				{
-					instance = Context.Items[creator.Key];
+					instance = Context.Items[registration.Key];
 					if (instance == null)
 					{
-						instance                   = creator.CreateInstance();
-						Context.Items[creator.Key] = instance;
+						instance                   = registration.CreateInstance();
+						Context.Items[registration.Key] = instance;
 					}
 				}
 			}
@@ -58,11 +62,13 @@ namespace Munq.LifetimeManagers
 
 		#endregion
 
-		// only used for testing.  Has no effect when in web application
+		/// <summary>
+		/// Only used for testing.  Has no effect when in web application
+		/// </summary>
+		/// <param name="context"></param>
 		public void SetContext(HttpContextBase context)
 		{
 			testContext = context;
 		}
-
 	}
 }

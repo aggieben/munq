@@ -27,6 +27,20 @@ namespace Munq
 		}
 		#endregion
 
+		#region constructors
+		/// <summary>
+		/// Initializes a new instance of the IocContainer class;
+		/// The types IocContainer, IDependencyRegistrar, and IDependencyResolver are all registered
+		/// to resolve to this instance of the class.
+		/// </summary>
+		public IocContainer()
+		{
+			RegisterInstance<IocContainer>(this);
+			RegisterInstance<IDependecyRegistrar>(this);
+			RegisterInstance<IDependencyResolver>(this);
+		}
+		#endregion
+
 		#region IDisposable Members
 
 		/// <summary>

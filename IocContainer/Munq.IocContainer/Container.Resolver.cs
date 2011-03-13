@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Munq
 {
@@ -85,6 +84,12 @@ namespace Munq
 
 		#region Resolve All Methods
 		/// <include file='XmlDocumentation/IDependencyResolver.xml' path='IDependencyResolver/Members[@name="ResolveAll1"]/*' />
+		public IEnumerable<TType> ResolveAll<TType>() where TType : class
+		{
+			return ResolveAll(typeof(TType)).Cast<TType>();
+		}
+
+		/// <include file='XmlDocumentation/IDependencyResolver.xml' path='IDependencyResolver/Members[@name="ResolveAll2"]/*' />
 		public IEnumerable<object> ResolveAll(Type type)
 		{
 			var registrations = typeRegistry.All(type);
@@ -94,12 +99,6 @@ namespace Munq
 				instances.Add(reg.GetInstance());
 			}
 			return instances;
-		}
-
-		/// <include file='XmlDocumentation/IDependencyResolver.xml' path='IDependencyResolver/Members[@name="ResolveAll2"]/*' />
-		public IEnumerable<TType> ResolveAll<TType>() where TType : class
-		{
-			return ResolveAll(typeof(TType)).Cast<TType>();
 		}
 		#endregion
 	
