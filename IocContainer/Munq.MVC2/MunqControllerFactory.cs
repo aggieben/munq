@@ -8,43 +8,59 @@ using System.Web.Mvc;
 
 using System.Web.Routing;
 
-
-
-namespace Munq.MVC
+namespace Munq.MVC2
 {
-    public class MunqControllerFactory : IControllerFactory
-    {
-        public IocContainer IOC { get; private set; }
+	/// <summary>
+	/// Implements the MVC2 IControllerFactory interface using the Munq IOC Container.
+	/// Requires a reference to Munq.MVC2.dll.
+	/// </summary>
+	public class MunqControllerFactory : IControllerFactory
+	{
+		/// <summary>
+		/// Gets the IOC container used by the Controller Factory.
+		/// </summary>
+		public IocContainer IOC { get; private set; }
 
-        public MunqControllerFactory(IocContainer container)
-        {
-            IOC = container;
-        }
+		/// <inheritdoc />
+		public MunqControllerFactory(IocContainer container)
+		{
+			IOC = container;
+		}
 
-        #region IControllerFactory Members
+		#region IControllerFactory Members
 
-        public IController CreateController(RequestContext requestContext, string controllerName)
-        {
-            try
-            {
-                return IOC.Resolve<IController>(controllerName);
-            }
-            catch
-            {
-                return null;
-            }
-        }
+		/// <summary>
+		/// Uses the Munq IOC Container to create an instance of the requested controller.
+		/// </summary>
+		/// <param name="requestContext">The current Http Request Context.</param>
+		/// <param name="controllerName">The name of the controller, without the 'Controller' suffix.</param>
+		/// <returns>The controller instance if resolved, null otherwise.</returns>
+		public IController CreateController(RequestContext requestContext, string controllerName)
+		{
+			try
+			{
+				return IOC.Resolve<IController>(controllerName);
+			}
+			catch
+			{
+				return null;
+			}
+		}
 
-        public void ReleaseController(IController controller)
-        {
-            var disposable = controller as IDisposable;
+		/// <summary>
+		/// Disposes of the controller.
+		/// </summary>
+		/// <param name="controller">The controller to release.</param>
+		public void ReleaseController(IController controller)
+		{
+			var disposable = controller as IDisposable;
 
-            if (disposable != null)
-            {
-                disposable.Dispose();
-            }
-        }
+			if (disposable != null)
+			{
+				disposable.Dispose();
+			}
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }
