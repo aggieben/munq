@@ -17,6 +17,27 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.IocContainer.UnitTests", "Munq.IocContainer.UnitTests\Munq.IocContainer.UnitTests.csproj", "{17AF53D1-D6C9-453B-ABD5-27DF99830014}"
 EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 6
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs10
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Munq.CommonServiceLocator\\Munq.CommonServiceLocator.csproj
+		SccProjectName1 = Munq.CommonServiceLocator
+		SccLocalPath1 = Munq.CommonServiceLocator
+		SccProjectUniqueName2 = Munq.IocContainer\\Munq.IocContainer.csproj
+		SccProjectName2 = Munq.IocContainer
+		SccLocalPath2 = Munq.IocContainer
+		SccProjectUniqueName3 = Munq.MVC2\\Munq.MVC2.csproj
+		SccProjectName3 = Munq.MVC2
+		SccLocalPath3 = Munq.MVC2
+		SccProjectUniqueName4 = Munq.MVC3\\Munq.MVC3.csproj
+		SccProjectName4 = Munq.MVC3
+		SccLocalPath4 = Munq.MVC3
+		SccProjectUniqueName5 = Munq.IocContainer.UnitTests\\Munq.IocContainer.UnitTests.csproj
+		SccProjectName5 = Munq.IocContainer.UnitTests
+		SccLocalPath5 = Munq.IocContainer.UnitTests
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
