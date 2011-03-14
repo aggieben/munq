@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Munq.MVC3</name>
+    </assembly>
+    <members>
+        <member name="T:Munq.MVC3.MunqDependencyResolver">
+            <summary>
+            Implements the MVC3 IDependencyResolver interface using the Munq IOC Container.
+            Requires a reference to Munq.MVC3.dll.
+            </summary>
+        </member>
+        <member name="M:Munq.MVC3.MunqDependencyResolver.GetService(System.Type)">
+            <summary>
+            Resolves the specified type.
+            </summary>
+            <param name="serviceType">The type to resolve.</param>
+            <returns>The instance the type resolves to, or null.</returns>
+        </member>
+        <member name="M:Munq.MVC3.MunqDependencyResolver.GetServices(System.Type)">
+            <summary>
+            Resolves all possible instances of the specified type.
+            </summary>
+            <param name="serviceType">The type to resolve.</param>
+            <returns>The list of instances the type resolves to, may be empty.</returns>
+        </member>
+        <member name="P:Munq.MVC3.MunqDependencyResolver.Container">
+            <summary>
+            Gets the Munq IocContainer used by the MVC3 IDependencyResolver.
+            </summary>
+        </member>
+    </members>
+</doc>
