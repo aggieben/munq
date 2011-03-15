@@ -63,7 +63,9 @@
     <Compile Include="TypeRegistry.cs" />
     <Compile Include="UnNamedRegistrationKey.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="NuGetPkg\Lib\Info.txt" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="NuGetPkg\Package.nuspec">
       <SubType>Designer</SubType>
