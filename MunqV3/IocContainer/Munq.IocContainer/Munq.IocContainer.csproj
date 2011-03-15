@@ -65,11 +65,18 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="NuGetPkg\Package.nuspec">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages\NuGet.CommandLine.1.2.20311.3\NuGet.CommandLine.1.2.20311.3.nupkg" />
     <None Include="XmlDocumentation\IContainerFluent.xml" />
     <None Include="XmlDocumentation\IDependencyRegistrar.xml" />
     <None Include="XmlDocumentation\IDependencyResolver.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetPath) $(ProjectDir)\NuGetPkg\Lib\</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
