@@ -1,1 +1,0 @@
-﻿This directory hold the Munq.IocContainer.dll after a build for inclusion in the NuGet Package.

@@ -64,9 +64,6 @@
     <Compile Include="UnNamedRegistrationKey.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="NuGetPkg\Lib\Info.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="NuGetPkg\Package.nuspec">
       <SubType>Designer</SubType>
     </None>
@@ -74,6 +71,9 @@
     <None Include="XmlDocumentation\IContainerFluent.xml" />
     <None Include="XmlDocumentation\IDependencyRegistrar.xml" />
     <None Include="XmlDocumentation\IDependencyResolver.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NuGetPkg\Lib\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
