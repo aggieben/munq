@@ -49,13 +49,21 @@
       <Name>Munq.IocContainer</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="NuGetPkg\Lib\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Dependencies\Microsoft.Practices.ServiceLocation.dll" />
     <None Include="Dependencies\Microsoft.Practices.ServiceLocation.pdb" />
     <None Include="Dependencies\Microsoft.Practices.ServiceLocation.XML" />
+    <None Include="NuGetPkg\Package.nuspec">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetPath) $(ProjectDir)\NuGetPkg\Lib\</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

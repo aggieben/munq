@@ -13,9 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.IocContainer", "Munq.I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.MVC2", "Munq.MVC2\Munq.MVC2.csproj", "{9AADBF05-4C24-434E-A52E-37B29CC98C00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.MVC3", "Munq.MVC3\Munq.MVC3.csproj", "{50151038-B122-4529-876B-BC21B24DC8A2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.IocContainer.UnitTests", "Munq.IocContainer.UnitTests\Munq.IocContainer.UnitTests.csproj", "{17AF53D1-D6C9-453B-ABD5-27DF99830014}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.MVC3", "Munq.MVC3\Munq.MVC3.csproj", "{50151038-B122-4529-876B-BC21B24DC8A2}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
@@ -32,12 +32,12 @@ Global
 		SccProjectUniqueName3 = Munq.MVC2\\Munq.MVC2.csproj
 		SccProjectName3 = Munq.MVC2
 		SccLocalPath3 = Munq.MVC2
-		SccProjectUniqueName4 = Munq.MVC3\\Munq.MVC3.csproj
-		SccProjectName4 = Munq.MVC3
-		SccLocalPath4 = Munq.MVC3
-		SccProjectUniqueName5 = Munq.IocContainer.UnitTests\\Munq.IocContainer.UnitTests.csproj
-		SccProjectName5 = Munq.IocContainer.UnitTests
-		SccLocalPath5 = Munq.IocContainer.UnitTests
+		SccProjectUniqueName4 = Munq.IocContainer.UnitTests\\Munq.IocContainer.UnitTests.csproj
+		SccProjectName4 = Munq.IocContainer.UnitTests
+		SccLocalPath4 = Munq.IocContainer.UnitTests
+		SccProjectUniqueName5 = Munq.MVC3\\Munq.MVC3.csproj
+		SccProjectName5 = Munq.MVC3
+		SccLocalPath5 = Munq.MVC3
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,14 +56,14 @@ Global
 		{9AADBF05-4C24-434E-A52E-37B29CC98C00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AADBF05-4C24-434E-A52E-37B29CC98C00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9AADBF05-4C24-434E-A52E-37B29CC98C00}.Release|Any CPU.Build.0 = Release|Any CPU
-		{50151038-B122-4529-876B-BC21B24DC8A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{50151038-B122-4529-876B-BC21B24DC8A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{50151038-B122-4529-876B-BC21B24DC8A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{50151038-B122-4529-876B-BC21B24DC8A2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{17AF53D1-D6C9-453B-ABD5-27DF99830014}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{17AF53D1-D6C9-453B-ABD5-27DF99830014}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17AF53D1-D6C9-453B-ABD5-27DF99830014}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17AF53D1-D6C9-453B-ABD5-27DF99830014}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50151038-B122-4529-876B-BC21B24DC8A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50151038-B122-4529-876B-BC21B24DC8A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50151038-B122-4529-876B-BC21B24DC8A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50151038-B122-4529-876B-BC21B24DC8A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
