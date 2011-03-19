@@ -1,4 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Topics>
-  <Topic id="98821637-14bb-415a-bc69-f0fb84e08ae2" visible="True" apiParentMode="InsertAfter" />
+  <Topic id="2f6c26de-3ed4-4bc2-89f6-a0351feb8827" visible="True" title="Munq IOC Container">
+    <Topic id="98821637-14bb-415a-bc69-f0fb84e08ae2" visible="True" apiParentMode="InsertAfter" />
+  </Topic>
 </Topics>

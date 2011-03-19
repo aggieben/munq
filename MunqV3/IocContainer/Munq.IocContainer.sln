@@ -17,6 +17,25 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.IocContainer.UnitTests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.MVC3", "Munq.MVC3\Munq.MVC3.csproj", "{50151038-B122-4529-876B-BC21B24DC8A2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Help", "Help", "{E10AFCB4-A3D4-4343-9957-A976F1354E0E}"
+	ProjectSection(SolutionItems) = preProject
+		Help\Documentation.chm = Help\Documentation.chm
+		Help\Documentation.msha = Help\Documentation.msha
+		Help\Documentation.mshc = Help\Documentation.mshc
+		Help\HelpContentSetup.msha = Help\HelpContentSetup.msha
+		Help\HelpLibraryManagerLauncher.exe = Help\HelpLibraryManagerLauncher.exe
+		Help\Install_Documentation.bat = Help\Install_Documentation.bat
+		Help\LastBuild.log = Help\LastBuild.log
+		Help\Remove_Documentation.bat = Help\Remove_Documentation.bat
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{72EF068B-7596-4BE3-9E3F-0A8DFD8E9574}"
+	ProjectSection(SolutionItems) = preProject
+		Content\Content Layout.content = Content\Content Layout.content
+		Content\License.aml = Content\License.aml
+		Content\Munq IOC Container.aml = Content\Munq IOC Container.aml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 6
@@ -67,5 +86,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E10AFCB4-A3D4-4343-9957-A976F1354E0E} = {EF69FA60-5683-4A79-B006-6174A7DA1917}
+		{72EF068B-7596-4BE3-9E3F-0A8DFD8E9574} = {EF69FA60-5683-4A79-B006-6174A7DA1917}
 	EndGlobalSection
 EndGlobal
