@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EF69FA60-5683-4A79-B006-6174A7DA1917}"
 	ProjectSection(SolutionItems) = preProject
-		..\IocContainer.shfbproj = ..\IocContainer.shfbproj
+		IocContainer.shfbproj = IocContainer.shfbproj
 		Tools\NuGet.exe = Tools\NuGet.exe
 	EndProjectSection
 EndProject
