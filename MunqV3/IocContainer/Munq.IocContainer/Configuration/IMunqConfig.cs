@@ -17,6 +17,6 @@ namespace Munq.Configuration
 		/// register type factories in the Munq IOC container
 		/// </summary>
 		/// <param name="container">The Munq IOC Container.</param>
-		void RegisterIn(IDependecyRegistrar container);
+		void RegisterIn(IocContainer container);
 	}
 }
