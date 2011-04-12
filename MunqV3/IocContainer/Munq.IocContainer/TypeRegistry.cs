@@ -52,12 +52,8 @@ namespace Munq
 
 		private static IRegistrationKey MakeKey(string name, Type type)
 		{
-			IRegistrationKey key;
-			if (name == null)
-				key = new UnNamedRegistrationKey(type);
-			else
-				key = new NamedRegistrationKey(name, type);
-			return key;
+			return (name == null ? (IRegistrationKey)new UnNamedRegistrationKey(type)
+								 : (IRegistrationKey)new NamedRegistrationKey(name, type));
 		}
 
 		public void Dispose()

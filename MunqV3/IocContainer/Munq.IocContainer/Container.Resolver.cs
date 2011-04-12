@@ -52,6 +52,12 @@ namespace Munq
 						throw new KeyNotFoundException();
 					}
 				}
+
+				if (type.IsInterface)
+				{
+					// TODO search for a registration where ResolvesTo derives from type
+					// Register(type, c => c.Resolve(reg.ResolvesTo)
+				}
 			}
 
 			throw new KeyNotFoundException();
