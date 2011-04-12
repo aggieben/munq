@@ -55,8 +55,16 @@ namespace Munq
 
 				if (type.IsInterface)
 				{
-					// TODO search for a registration where ResolvesTo derives from type
-					// Register(type, c => c.Resolve(reg.ResolvesTo)
+                    var regs = typeRegistry.GetDerived(name, type);
+                    var reg = regs.FirstOrDefault();
+                    if (reg != null)
+                    {
+                        object instance = reg.GetInstance();
+                        Register(type, (c) => c.Resolve(instance.GetType()));
+                        return instance;
+                    }
+                    else
+						throw new KeyNotFoundException();
 				}
 			}
 

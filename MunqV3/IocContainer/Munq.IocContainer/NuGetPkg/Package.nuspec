@@ -2,15 +2,18 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
 	<id>Munq.IocContainer</id>
-	<version>3.0.1</version>
+	<version>3.0.2</version>
 	<authors>Matthew Dennis</authors>
 	<owners>Matthew Dennis</owners>
 	<licenseUrl>http://www.opensource.org/licenses/ms-pl.html</licenseUrl>
 	<projectUrl>http://Munq.codeplex.com</projectUrl>
 	<requireLicenseAcceptance>false</requireLicenseAcceptance>
 	<description>Munq IOC Container - A very fast Dependency Injection container for Web Applications.
-	This minor release changes IMunqConfig.RegisterIn's parameter from IDependencyRegistrar to IocContainer
-	so the Resolve methods can be called.</description>
-	<tags>DI ASP.NET web MVC</tags>
+	3.0.1 -This minor release changes IMunqConfig.RegisterIn's parameter from
+    IDependencyRegistrar to IocContainer so the Resolve methods can be called.
+    3.0.2 -This minor release will resolve an interface to a registered class without having 
+    Register the interface.
+    </description>
+	<tags>DI ASP.NET web MVC IOC</tags>
   </metadata>
 </package>
