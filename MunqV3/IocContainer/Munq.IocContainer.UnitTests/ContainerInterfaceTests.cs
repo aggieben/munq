@@ -291,6 +291,19 @@ namespace Munq.Test
             var result = iocContainer.Resolve<IFoo>();
             Verify.That(result).IsNotNull().IsAnInstanceOfType(typeof(Foo1));
         }
+
+        [TestMethod]
+        public void RegisteredClassesCanBeResolvedAllByInterface()
+        {
+            iocContainer.Register<Foo1, Foo1>();
+            iocContainer.Register<Foo2, Foo2>();
+            iocContainer.Register<Bar1, Bar1>();
+
+            var results = iocContainer.ResolveAll<IFoo>();
+            Verify.That(results).IsNotNull()
+                                .IsAnInstanceOfType(typeof(IEnumerable<IFoo>));
+            Verify.That(results.Count()).IsEqualTo(2);
+        }
         #endregion
 
         #region Lazy Resolve Tests

@@ -111,7 +111,7 @@ namespace Munq
 		/// <include file='XmlDocumentation/IDependencyResolver.xml' path='IDependencyResolver/Members[@name="ResolveAll2"]/*' />
 		public IEnumerable<object> ResolveAll(Type type)
 		{
-			var registrations = typeRegistry.All(type);
+			var registrations = typeRegistry.GetDerived(type);
 			var instances = new List<object>();
 			foreach (var reg in registrations)
 			{

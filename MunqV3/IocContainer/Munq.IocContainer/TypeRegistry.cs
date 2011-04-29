@@ -40,6 +40,13 @@ namespace Munq
             return regs;
         }
 
+        public IEnumerable<Registration> GetDerived(Type type)
+        {
+            var regs = typeRegistrations.Values
+                       .Where(r => type.IsAssignableFrom(r.ResolvesTo));
+            return regs;
+        }
+
         public bool ContainsKey(string name, Type type)
 		{
 			IRegistrationKey key = MakeKey(name, type);
