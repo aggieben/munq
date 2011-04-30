@@ -60,7 +60,7 @@ namespace Munq
                     if (reg != null)
                     {
                         object instance = reg.GetInstance();
-                        Register(type, (c) => c.Resolve(instance.GetType()));
+                        Register(name, type, (c) => c.Resolve(name, instance.GetType()));
                         return instance;
                     }
                     else
