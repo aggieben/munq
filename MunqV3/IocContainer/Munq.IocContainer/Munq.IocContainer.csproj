@@ -55,7 +55,6 @@
     <Compile Include="LifetimeManagers\AlwaysNewLifetime.cs" />
     <Compile Include="LifetimeManagers\CachedLifetime.cs" />
     <Compile Include="LifetimeManagers\ContainerLifetime.cs" />
-    <Compile Include="LifetimeManagers\LifetimeExtensions.cs" />
     <Compile Include="LifetimeManagers\RequestLifetime.cs" />
     <Compile Include="LifetimeManagers\SessionLifetime.cs" />
     <Compile Include="LifetimeManagers\ThreadLocalStorageLifetime.cs" />

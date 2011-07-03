@@ -17,19 +17,23 @@ namespace Munq.CommonServiceLocator
 	/// </summary>
 	public class MunqCommonServiceLocator : IServiceLocator
 	{
-		private readonly Munq.IDependencyResolver _resolver;
+		private readonly Munq.IocContainer _container;
 
 		/// <summary>
 		/// Initializes an instance of the MunqCommonServiceLocator class.  Registers the instance
 		/// to resolve IServiceLocator.
 		/// </summary>
-		public MunqCommonServiceLocator()
+		public MunqCommonServiceLocator(Munq.IocContainer container)
 		{
-			IocContainer container = new Munq.IocContainer();
-			container.RegisterInstance<IServiceLocator>(this);
-			_resolver = container;
-
+            container.RegisterInstance<IServiceLocator>(this);
+			_container = container;
 		}
+
+        public MunqCommonServiceLocator() : this (new Munq.IocContainer())
+        {
+        }
+
+        public Munq.IocContainer Container { get { return _container; } }
 
 		/// <summary>
 		/// Gets a list of a instances that resolve the specified type.
@@ -48,7 +52,7 @@ namespace Munq.CommonServiceLocator
 		/// <returns>A list of instances.</returns>
 		public IEnumerable<object> GetAllInstances(Type serviceType)
 		{
-			return _resolver.ResolveAll(serviceType);
+			return _container.ResolveAll(serviceType);
 		}
 
 		/// <summary>
@@ -82,7 +86,7 @@ namespace Munq.CommonServiceLocator
 		{
 			try
 			{
-				return _resolver.Resolve(key, serviceType);
+				return _container.Resolve(key, serviceType);
 			}
 			catch
 			{
