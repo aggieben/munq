@@ -63,7 +63,7 @@ namespace Munq
 							   .OrderBy(c => c.GetParameters().Length)
 							   .LastOrDefault();
 			if (constructor == null)
-				throw new ArgumentException("The requested class does not have a public constructor.");
+				throw new ArgumentException(String.Format("The requested class {0} does not have a public constructor.", implType));
 
 			return constructor;
 		}

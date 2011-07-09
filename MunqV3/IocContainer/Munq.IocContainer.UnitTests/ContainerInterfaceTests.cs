@@ -278,11 +278,11 @@ namespace Munq.Test
         [TestMethod]
         public void AttemptingToResolveANonexistingEntryThrows()
         {
-            Verify.TheExpectedException(typeof(KeyNotFoundException)).IsThrownWhen(
-               () => iocContainer.Resolve<IFoo>("Bob")
-            );
-
-        }
+            
+                Verify.TheExpectedException(typeof(KeyNotFoundException))
+                    .IsThrownWhen(() => iocContainer.Resolve<IFoo>("Bob"))
+                    .AndHasAMessageThat().IsEqualTo("Munq IocContainer failed to resolve Munq.Test.IFoo");            
+         }
 
         [TestMethod]
         public void RegisteredClassCanBeResolvedByInterface()
@@ -442,7 +442,7 @@ namespace Munq.Test
         {
             Verify.TheExpectedException(typeof(KeyNotFoundException)).IsThrownWhen(
                 () => iocContainer.GetRegistration<IFoo>("Bob")
-             );
+             ).AndHasAMessageThat().IsEqualTo("Registration not found for Munq.Test.IFoo");
         }
 
         /// <summary>
@@ -453,7 +453,7 @@ namespace Munq.Test
         {
             Verify.TheExpectedException(typeof(KeyNotFoundException)).IsThrownWhen(
                 () => iocContainer.GetRegistration("Bob", typeof(IFoo))
-             );
+             ).AndHasAMessageThat().IsEqualTo("Registration not found for Munq.Test.IFoo");
         }
 
         /// <summary>
@@ -464,7 +464,7 @@ namespace Munq.Test
         {
             Verify.TheExpectedException(typeof(KeyNotFoundException)).IsThrownWhen(
                 () => iocContainer.GetRegistration<IFoo>()
-             );
+             ).AndHasAMessageThat().IsEqualTo("Registration not found for Munq.Test.IFoo");
         }
 
         /// <summary>
@@ -475,7 +475,7 @@ namespace Munq.Test
         {
             Verify.TheExpectedException(typeof(KeyNotFoundException)).IsThrownWhen(
                 () => iocContainer.GetRegistration(typeof(IFoo))
-             );
+             ).AndHasAMessageThat().IsEqualTo("Registration not found for Munq.Test.IFoo");
         }
 
         /// <summary>
@@ -734,7 +734,7 @@ namespace Munq.Test
              {
                 Verify.TheExpectedException(typeof(ArgumentException)).IsThrownWhen(
                     () =>container.Register<INoConstructor, NoConstructor>()
-                );
+                ).AndHasAMessageThat().IsEqualTo("The requested class Munq.Test.NoConstructor does not have a public constructor.");
 
              }
          }

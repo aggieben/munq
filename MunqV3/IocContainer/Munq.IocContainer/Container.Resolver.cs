@@ -37,7 +37,7 @@ namespace Munq
 			{
 				return typeRegistry.Get(name, type).GetInstance();
 			}
-			catch (KeyNotFoundException)
+			catch (KeyNotFoundException knfe)
 			{
 				if (type.IsClass)
 				{
@@ -45,11 +45,11 @@ namespace Munq
 					{
 						var func = CreateInstanceDelegateFactory.Create(type);
 						Register(name, type, func);
-						return func(this);
+						return Resolve(name, type);
 					}
 					catch
 					{
-						throw new KeyNotFoundException();
+                        throw new KeyNotFoundException(ResolveFailureMessage(type), knfe);
 					}
 				}
 
@@ -64,11 +64,11 @@ namespace Munq
                         return instance;
                     }
                     else
-						throw new KeyNotFoundException();
+                        throw new KeyNotFoundException(ResolveFailureMessage(type), knfe);
 				}
+                throw new KeyNotFoundException(ResolveFailureMessage(type), knfe);
 			}
 
-			throw new KeyNotFoundException();
 		}
 		#endregion
 
@@ -146,6 +146,11 @@ namespace Munq
 		{
 			return () => Resolve(name, type);
 		}
-		#endregion
+
+        private static string ResolveFailureMessage(Type type)
+        {
+            return String.Format("Munq IocContainer failed to resolve {0}", type);
+        }
+        #endregion
 	}
 }
