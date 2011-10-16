@@ -11,6 +11,8 @@ namespace Munq
 {
 	public partial class IocContainer : IDependecyRegistrar
 	{
+        private const string STR_RegistrationNotFoundFor = "Registration not found for {0}";
+
 		#region Register Func Members
 		/// <inheritdoc />
 		public IRegistration Register<TType>(Func<IDependencyResolver, TType> func)
@@ -135,7 +137,7 @@ namespace Munq
             }
             catch (KeyNotFoundException ex)
             {
-               throw new KeyNotFoundException(String.Format("Registration not found for {0}", type), ex);
+               throw new KeyNotFoundException(String.Format(STR_RegistrationNotFoundFor, type), ex);
             }
 		}
 

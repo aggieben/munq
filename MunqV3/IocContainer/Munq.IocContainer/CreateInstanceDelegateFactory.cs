@@ -20,40 +20,50 @@ namespace Munq
 	internal class CreateInstanceDelegateFactory
 	   
 	{
-		/// <summary>
+        private const string STR_TheRequestedClassDoesNotHaveAPublicConstructor = 
+                "The requested class {0} does not have a public constructor.";
+
+        /// <summary>
 		/// Build a delegate to return an instance of the specified type given an instance of IocContainer.
 		/// Finds the public constructor with the most parameters.  The resulting method calls the container
 		/// to resolve each parameter in the constructor.
 		/// </summary>
 		/// <param name="tImpl">The class to be resolved.</param>
 		/// <returns>The delegate to create an instance of the class.</returns>
-		public static System.Func<IDependencyResolver, object> Create(Type tImpl)
-		{
-			ParameterExpression container = Expression.Parameter(typeof(IDependencyResolver), "container");
-			NewExpression exp             = BuildExpression(tImpl, container);
-			return Expression.Lambda<System.Func<IDependencyResolver, object>>(
-					exp,
-					new ParameterExpression[] { container }
-				).Compile();
-		}
+        public static Func<IDependencyResolver, object> Create(Type tImpl)
+        {
+            ParameterExpression container = Expression.Parameter(typeof(IDependencyResolver), "container");
+            NewExpression exp = BuildExpression(tImpl, container);
+            return Expression.Lambda<Func<IDependencyResolver, object>>(
+                    exp,
+                    new ParameterExpression[] { container }
+                ).Compile();
+        }
 
 		private static NewExpression BuildExpression(Type type, ParameterExpression container)
 		{
-			ConstructorInfo constructor = GetConstructorInfo(type);
-			ParameterInfo[] parameters  = constructor.GetParameters();
+            if (!type.IsGenericTypeDefinition)
+            {
+                ConstructorInfo constructor = GetConstructorInfo(type);
+                ParameterInfo[] parameters = constructor.GetParameters();
 
-			// create the arguments for the constructor	
-			List<Expression> arguments = new List<Expression>();
+                // create the arguments for the constructor	
+                List<Expression> arguments = new List<Expression>();
 
-			foreach (var paramInfo in parameters)
-			{
-				var p = Expression.Call(container, "Resolve", new Type[] { paramInfo.ParameterType },
-				  new Expression[] { });
-				arguments.Add(p);
-			}
+                foreach (var paramInfo in parameters)
+                {
+                    var p = Expression.Call(container, "Resolve", new Type[] { paramInfo.ParameterType },
+                      new Expression[] { });
+                    arguments.Add(p);
+                }
 
-			// create the new MyClass( ... ) call
-			return Expression.New(constructor, arguments);
+                // create the new MyClass( ... ) call
+                return Expression.New(constructor, arguments);
+            }
+            else
+            {
+                return null;
+            }
 		}
 
 		private static ConstructorInfo GetConstructorInfo(Type implType)
@@ -63,7 +73,7 @@ namespace Munq
 							   .OrderBy(c => c.GetParameters().Length)
 							   .LastOrDefault();
 			if (constructor == null)
-				throw new ArgumentException(String.Format("The requested class {0} does not have a public constructor.", implType));
+				throw new ArgumentException(String.Format(STR_TheRequestedClassDoesNotHaveAPublicConstructor, implType));
 
 			return constructor;
 		}

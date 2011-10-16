@@ -11,12 +11,12 @@ namespace Munq
 	{
 		internal ILifetimeManager LifetimeManager;
 		internal Func<IDependencyResolver, object> Factory;
-		private string _key;
-		private Type _type;
+        private readonly string _key;
+        private readonly Type _type;
 
 		public object Instance;
-		IDependencyResolver Container;
-		object _lock = new object();
+        private readonly IDependencyResolver Container;
+        private readonly object _lock = new object();
 
 
 		public Registration(IDependencyResolver container, string name, Type type, 
@@ -27,7 +27,7 @@ namespace Munq
 			Factory         = factory;
 			Name            = name;
 			_type           = type;
-			_key            = "[" + (name ?? "null") + "]:" + type.Name;
+            _key            = String.Format("[{0}]:{1}", (name ?? "null"), type.FullName);
 		}
 
 		public string Key

@@ -12,13 +12,6 @@ namespace Munq.Test
     [TestClass]
     public class ContainerInterfaceTests
     {
-        public ContainerInterfaceTests()
-        {
-            //
-            // TODO: Add constructor logic here
-            //
-        }
-
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
@@ -531,9 +524,9 @@ namespace Munq.Test
         [TestMethod]
         public void GetRegistrationsReturnsAnEmptyListIfNoRegistrationsOfTheRequesetedType()
         {
-            var namelessFoo = iocContainer.Register<IFoo>(c => new Foo1());
-            var bobFoo = iocContainer.Register<IFoo>("Bob", c => new Foo2());
-            var billFoo = iocContainer.Register<IFoo>("Bill", c => new Foo2());
+            iocContainer.Register<IFoo>(c => new Foo1());
+            iocContainer.Register<IFoo>("Bob", c => new Foo2());
+            iocContainer.Register<IFoo>("Bill", c => new Foo2());
 
             var result = iocContainer.GetRegistrations<IBar>();
 
@@ -738,6 +731,19 @@ namespace Munq.Test
 
              }
          }
+
+        [TestMethod]
+        public void RegisteringOpenGenericTypesResolves()
+        {
+            using ( var container = new IocContainer())
+            {
+                container.Register(typeof(IFoo<>), typeof(Foo<>));
+
+                var result = container.Resolve<IFoo<int>>();
+
+                Verify.That(result).IsNotNull().IsAnInstanceOfType(typeof(Foo<int>));
+            }
+        }
          #endregion
 
     }

@@ -15,23 +15,12 @@ namespace Munq.Test
     [TestClass()]
     public class CachedLifetimeTest
     {
-        private TestContext testContextInstance;
 
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
         ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
+        public TestContext TestContext { get; set; }
 
         #region Additional test attributes
         // 
@@ -134,7 +123,7 @@ namespace Munq.Test
             var cachedltm = new CachedLifetime()
                 .ExpiresOn(DateTime.UtcNow.AddSeconds(2));
 
-            var ireg = iocContainer.Register<IFoo>(c => new Foo1())
+            iocContainer.Register<IFoo>(c => new Foo1())
                 .WithLifetimeManager(cachedltm);
 
             var result1 = iocContainer.Resolve<IFoo>();
@@ -160,7 +149,7 @@ namespace Munq.Test
             var cachedltm = new CachedLifetime()
                 .ExpiresAfterNotAccessedFor(new TimeSpan(0,0,1));
 
-            var ireg = iocContainer.Register<IFoo>(c => new Foo1())
+            iocContainer.Register<IFoo>(c => new Foo1())
                 .WithLifetimeManager(cachedltm);
 
             var result1 = iocContainer.Resolve<IFoo>();
@@ -196,7 +185,7 @@ namespace Munq.Test
                 .ExpiresAfterNotAccessedFor(new TimeSpan(0, 0, 1))
                 .CallbackOnRemoval(RemovedCallback);
 
-            var ireg = iocContainer.Register<IFoo>(c => new Foo1())
+            iocContainer.Register<IFoo>(c => new Foo1())
                 .WithLifetimeManager(cachedltm);
             
             itemRemoved = false;
@@ -231,12 +220,10 @@ namespace Munq.Test
             dependencyFile.WriteLine("This is a file that the cache item is dependent on.");
             dependencyFile.Close();
 
-            var cacheDependency = new CacheDependency(filePath);
-
             var cachedltm = new CachedLifetime()
-                                .IsDependentOn(cacheDependency);
+                                .IsDependentOn(new CacheDependency(filePath));
 
-            var ireg = iocContainer.Register<IFoo>(c => new Foo1())
+            iocContainer.Register<IFoo>(c => new Foo1())
                 .WithLifetimeManager(cachedltm);
 
             var result1 = iocContainer.Resolve<IFoo>();

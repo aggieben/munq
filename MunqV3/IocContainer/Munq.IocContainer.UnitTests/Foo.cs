@@ -67,4 +67,11 @@
     {
         private NoConstructor() { }
     }
+
+    // interface and classes for generic intercase tests
+    public interface IFoo<T>
+    { }
+
+    public class Foo<T> : IFoo<T>
+    { }
 }

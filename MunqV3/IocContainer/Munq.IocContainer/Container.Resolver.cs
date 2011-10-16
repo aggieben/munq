@@ -45,7 +45,8 @@ namespace Munq
 					{
 						var func = CreateInstanceDelegateFactory.Create(type);
 						Register(name, type, func);
-						return Resolve(name, type);
+                        // Thanks to dfullerton for catching this.
+                        return typeRegistry.Get(name, type).GetInstance(); 
 					}
 					catch
 					{

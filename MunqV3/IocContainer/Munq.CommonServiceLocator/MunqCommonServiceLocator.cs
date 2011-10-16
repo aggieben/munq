@@ -29,10 +29,17 @@ namespace Munq.CommonServiceLocator
 			_container = container;
 		}
 
+        /// <summary>
+        /// Initializes an instance of the MunqCommonServiceLocator class.  Registers the instance
+        /// to resolve IServiceLocator.
+        /// </summary>
         public MunqCommonServiceLocator() : this (new Munq.IocContainer())
         {
         }
 
+        /// <summary>
+        /// Gets the IOC Container used by the service locator.
+        /// </summary>
         public Munq.IocContainer Container { get { return _container; } }
 
 		/// <summary>

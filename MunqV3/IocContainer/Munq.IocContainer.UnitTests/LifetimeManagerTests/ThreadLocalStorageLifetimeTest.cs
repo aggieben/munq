@@ -12,23 +12,12 @@ namespace Munq.Test
     [TestClass()]
     public class ThreadLocalStorageLifetimeTest
     {
-        private TestContext testContextInstance;
 
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
         ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
+        public TestContext TestContext { get; set; }
 
         #region Additional test attributes
         // 
@@ -79,34 +68,41 @@ namespace Munq.Test
 
             var requestltm = new ThreadLocalStorageLifetime();
 
-            var container = new IocContainer();
-            container.Register<IFoo>(c => new Foo1())
-                .WithLifetimeManager(requestltm);
-
-            IFoo result1 = container.Resolve<IFoo>();
-            IFoo result2 = container.Resolve<IFoo>();
-
-            IFoo result3=null;
-            IFoo result4=null;
-
-            // get values on a different thread
-            var t = Task.Factory.StartNew(() =>
+            using (var container = new IocContainer())
             {
-                result3 = container.Resolve<IFoo>();
-                result4 = container.Resolve<IFoo>();
-            });
+                container.Register<IFoo>(c => new Foo1()).WithLifetimeManager(requestltm);
+                IFoo result1 = container.Resolve<IFoo>();
+                IFoo result2 = container.Resolve<IFoo>();
+                IFoo result3 = null;
+                IFoo result4 = null;
+                // get values on a different thread
+                var t = Task.Factory.StartNew(() =>
+                {
+                    result3 = container.Resolve<IFoo>();
+                    result4 = container.Resolve<IFoo>();
+                });
+                t.Wait();
+                // check the results
+                Verify.That(result3).IsNotNull();
+                Verify.That(result4).IsNotNull().IsTheSameObjectAs(result3);
+                Verify.That(result2).IsNotNull();
+                Verify.That(result1).IsNotNull().IsTheSameObjectAs(result2).IsNotTheSameObjectAs(result3);
+            }
+        }
 
-            t.Wait();
+        [TestMethod]
+        public void ShouldResolveGenerics()
+        {
+            var lifetime = new ThreadLocalStorageLifetime();
+            using (var container = new Munq.IocContainer())
+            {
+                container.Register<IFoo<int>, Foo<int>>().WithLifetimeManager(lifetime);
+                container.Register<IFoo<string>, Foo<string>>().WithLifetimeManager(lifetime);
+                Assert.IsNotNull(container.Resolve<IFoo<int>>());
+                // works
+                Assert.IsNotNull(container.Resolve<IFoo<string>>());
+            }  // fails
 
-            // check the results
-            Verify.That(result3).IsNotNull(); 
-            Verify.That(result4).IsNotNull()
-                        .IsTheSameObjectAs(result3);
-
-            Verify.That(result2).IsNotNull();
-            Verify.That(result1).IsNotNull()
-                        .IsTheSameObjectAs(result2)
-                        .IsNotTheSameObjectAs(result3);
         }
     }
 }
