@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
 	<id>Munq.CommonServiceLocator</id>
-	<version>3.0.2</version>
+	<version>3.1.0</version>
 	<authors>Matthew Dennis</authors>
 	<owners>Matthew Dennis</owners>
 	<licenseUrl>http://www.opensource.org/licenses/ms-pl.html</licenseUrl>
@@ -11,8 +11,8 @@
 	<description>An implementation of the Common Service Locator interface using the Munq IOC Container.</description>
 	<tags>DI ASP.NET web</tags>
 	<dependencies>
-	  <dependency id="Munq.IocContainer" version="3.0.4" />
-		<dependency id="CommonServiceLocator" version="1.0" />
+	  <dependency id="Munq.IocContainer" version="3.1.0" />
+		<dependency id="CommonServiceLocator" version="1.1" />
 	</dependencies>
   </metadata>
 </package>
