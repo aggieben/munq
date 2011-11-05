@@ -744,6 +744,22 @@ namespace Munq.Test
                 Verify.That(result).IsNotNull().IsAnInstanceOfType(typeof(Foo<int>));
             }
         }
+
+		[TestMethod]
+		public void RegisteringOpenGenericTypesResolvesMultipleTypes()
+		{
+			using (var container = new IocContainer())
+			{
+				container.Register(typeof(IFoo<>), typeof(Foo<>));
+
+				var result1 = container.Resolve<IFoo<int>>();
+				var result2 = container.Resolve<IFoo<string>>();
+
+				Verify.That(result1).IsNotNull().IsAnInstanceOfType(typeof(Foo<int>));
+				Verify.That(result2).IsNotNull().IsAnInstanceOfType(typeof(Foo<string>));
+			}
+		}
+
          #endregion
 
     }

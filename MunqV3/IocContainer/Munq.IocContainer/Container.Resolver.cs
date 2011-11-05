@@ -39,37 +39,82 @@ namespace Munq
 			}
 			catch (KeyNotFoundException knfe)
 			{
-				if (type.IsClass)
+				return HandleUnResolved(knfe, name, type);
+			}
+
+		}
+
+		private object HandleUnResolved(Exception knfe, string name, Type type)
+		{
+			if (type.IsGenericType)
+			{
+				object result = ResolveUsingOpenType(knfe, name, type);
+				if (result!=null)
+					return result;
+			}
+
+			if (type.IsClass)
+			{
+				try
 				{
+					var func = CreateInstanceDelegateFactory.Create(type);
+					Register(name, type, func);
+					// Thanks to dfullerton for catching this.
+					return typeRegistry.Get(name, type).GetInstance();
+				}
+				catch
+				{
+					throw new KeyNotFoundException(ResolveFailureMessage(type), knfe);
+				}
+			}
+
+			if (type.IsInterface)
+			{
+				var regs = typeRegistry.GetDerived(name, type);
+				var reg = regs.FirstOrDefault();
+				if (reg != null)
+				{
+					object instance = reg.GetInstance();
+					Register(name, type, (c) => c.Resolve(name, instance.GetType()));
+					return instance;
+				}
+				else
+					throw new KeyNotFoundException(ResolveFailureMessage(type), knfe);
+			}
+			throw new KeyNotFoundException(ResolveFailureMessage(type), knfe);
+		}
+
+		private object ResolveUsingOpenType(Exception knfe, string name, Type type)
+		{
+			if (type.ContainsGenericParameters)
+				throw new KeyNotFoundException(ResolveFailureMessage(type), knfe);
+			else
+			{
+				// Look for an Open Type Definition registration
+				// create a type using the registered Open Type
+				// Try and resolve this type
+				var definition = type.GetGenericTypeDefinition();
+				var arguments  = type.GetGenericArguments();
+				if (opentypeRegistry.ContainsKey(name, definition))
+				{
+					var reg      = opentypeRegistry.Get(name, definition);
+					var implType = reg.ImplType;
+					var newType  = implType.MakeGenericType(arguments);
 					try
 					{
-						var func = CreateInstanceDelegateFactory.Create(type);
-						Register(name, type, func);
-                        // Thanks to dfullerton for catching this.
-                        return typeRegistry.Get(name, type).GetInstance(); 
+						if (CanResolve(name, newType))
+							return Resolve(name, newType);
+
+						Register(name, type, newType).WithLifetimeManager(reg.LifetimeManager);
+						return typeRegistry.Get(name, type).GetInstance();
 					}
 					catch
 					{
-                        throw new KeyNotFoundException(ResolveFailureMessage(type), knfe);
+						return null;
 					}
 				}
-
-				if (type.IsInterface)
-				{
-                    var regs = typeRegistry.GetDerived(name, type);
-                    var reg = regs.FirstOrDefault();
-                    if (reg != null)
-                    {
-                        object instance = reg.GetInstance();
-                        Register(name, type, (c) => c.Resolve(name, instance.GetType()));
-                        return instance;
-                    }
-                    else
-                        throw new KeyNotFoundException(ResolveFailureMessage(type), knfe);
-				}
-                throw new KeyNotFoundException(ResolveFailureMessage(type), knfe);
 			}
-
+			return null;
 		}
 		#endregion
 
@@ -121,7 +166,7 @@ namespace Munq
 			return instances;
 		}
 		#endregion
-	
+
 		#region LazyResolve Members
 		/// <include file='XmlDocumentation/IDependencyResolver.xml' path='IDependencyResolver/Members[@name="LazyResolve1"]/*' />
 		public Func<TType> LazyResolve<TType>() where TType : class
@@ -148,10 +193,10 @@ namespace Munq
 			return () => Resolve(name, type);
 		}
 
-        private static string ResolveFailureMessage(Type type)
-        {
-            return String.Format("Munq IocContainer failed to resolve {0}", type);
-        }
-        #endregion
+		private static string ResolveFailureMessage(Type type)
+		{
+			return String.Format("Munq IocContainer failed to resolve {0}", type);
+		}
+		#endregion
 	}
 }

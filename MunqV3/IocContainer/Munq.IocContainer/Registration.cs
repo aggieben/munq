@@ -11,23 +11,36 @@ namespace Munq
 	{
 		internal ILifetimeManager LifetimeManager;
 		internal Func<IDependencyResolver, object> Factory;
-        private readonly string _key;
-        private readonly Type _type;
+		private readonly string _key;
+		private readonly Type _regType;
+		private readonly Type _implType;
 
 		public object Instance;
-        private readonly IDependencyResolver Container;
-        private readonly object _lock = new object();
+		private readonly IDependencyResolver Container;
+		private readonly object _lock = new object();
 
 
-		public Registration(IDependencyResolver container, string name, Type type, 
+		public Registration(IDependencyResolver container, string name, Type regType,
 							Func<IDependencyResolver, object> factory)
 		{
 			LifetimeManager = null;
-			Container       = container;
-			Factory         = factory;
-			Name            = name;
-			_type           = type;
-            _key            = String.Format("[{0}]:{1}", (name ?? "null"), type.FullName);
+			Container = container;
+			Factory = factory;
+			Name = name;
+			_regType = regType;
+			_implType = null;
+			_key = String.Format("[{0}]:{1}", (name ?? "null"), regType.FullName);
+		}
+
+		public Registration(IDependencyResolver container, string name, Type regType, Type implType)
+		{
+			LifetimeManager = null;
+			Container = container;
+			Factory = null;
+			Name = name;
+			_regType = regType;
+			_implType = implType;
+			_key = String.Format("[{0}]:{1}", (name ?? "null"), implType.FullName);
 		}
 
 		public string Key
@@ -37,10 +50,18 @@ namespace Munq
 
 		public Type ResolvesTo
 		{
-			get { return _type; }
+			get { return _regType; }
 		}
 
-		public string Name { get; private set; }
+		public Type ImplType
+		{
+			get
+			{
+				return _implType;
+			}
+		}
+
+        public string Name { get; private set; }
 
 		public IRegistration WithLifetimeManager(ILifetimeManager manager)
 		{

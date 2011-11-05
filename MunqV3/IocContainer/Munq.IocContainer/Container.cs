@@ -15,6 +15,7 @@ namespace Munq
 	public partial class IocContainer : IContainerFluent, IDisposable
 	{
 		private readonly TypeRegistry typeRegistry = new TypeRegistry();
+		private readonly TypeRegistry opentypeRegistry = new TypeRegistry();
 
 		// Track whether Dispose has been called.
 		private bool disposed;

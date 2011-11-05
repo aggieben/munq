@@ -11,7 +11,7 @@ namespace Munq
 {
 	public partial class IocContainer : IDependecyRegistrar
 	{
-        private const string STR_RegistrationNotFoundFor = "Registration not found for {0}";
+		private const string STR_RegistrationNotFoundFor = "Registration not found for {0}";
 
 		#region Register Func Members
 		/// <inheritdoc />
@@ -73,7 +73,18 @@ namespace Munq
 		/// <inheritdoc />
 		public IRegistration Register(string name, Type tType, Type tImpl)
 		{
-			return Register(name, tType, CreateInstanceDelegateFactory.Create(tImpl));
+			if (tType.ContainsGenericParameters)
+				return RegisterOpenType(name, tType, tImpl);
+			else
+				return Register(name, tType, CreateInstanceDelegateFactory.Create(tImpl));
+		}
+
+		private IRegistration RegisterOpenType(string name, Type tType, Type tImpl)
+		{
+			var entry = new Registration(this, name, tType, tImpl);
+			entry.WithLifetimeManager(DefaultLifetimeManager);
+			opentypeRegistry.Add(entry);
+			return entry;
 		}
 		#endregion
 
@@ -131,14 +142,14 @@ namespace Munq
 		/// <inheritdoc />
 		public IRegistration GetRegistration(string name, Type type)
 		{
-            try
-            {
-                return typeRegistry.Get(name, type);
-            }
-            catch (KeyNotFoundException ex)
-            {
-               throw new KeyNotFoundException(String.Format(STR_RegistrationNotFoundFor, type), ex);
-            }
+			try
+			{
+				return typeRegistry.Get(name, type);
+			}
+			catch (KeyNotFoundException ex)
+			{
+				throw new KeyNotFoundException(String.Format(STR_RegistrationNotFoundFor, type), ex);
+			}
 		}
 
 		/// <inheritdoc />
