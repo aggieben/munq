@@ -4,7 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EF69FA60-5683-4A79-B006-6174A7DA1917}"
 	ProjectSection(SolutionItems) = preProject
 		IocContainer.shfbproj = IocContainer.shfbproj
-		Tools\NuGet.exe = Tools\NuGet.exe
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munq.CommonServiceLocator", "Munq.CommonServiceLocator\Munq.CommonServiceLocator.csproj", "{67057544-2727-4C7B-904D-77ACEBEBB1C4}"
