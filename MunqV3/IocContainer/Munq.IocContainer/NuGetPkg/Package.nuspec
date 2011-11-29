@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
 	<id>Munq.IocContainer</id>
-	<version>3.1.0</version>
+	<version>3.1.1</version>
 	<authors>Matthew Dennis</authors>
 	<owners>Matthew Dennis</owners>
 	<licenseUrl>http://www.opensource.org/licenses/ms-pl.html</licenseUrl>
@@ -11,6 +11,7 @@
 	<summary>Munq IOC Container - A very fast Dependency Injection container for Web Applications.</summary>
 	<description>
 		Munq IOC Container - A very fast Dependency Injection container for Web Applications.
+		3.1.1 - Release Build,  Oops :(
 		3.1.0 - Adds support for Open Generics ie; Register(typeof(IFoo&lt;&gt;), typeof(Foo&lt;&gt;)); 
 		        allows Resolve&lt;IFoo&lt;string&gt;&gt;();
 		3.0.5 - Adds more information to exceptions.
