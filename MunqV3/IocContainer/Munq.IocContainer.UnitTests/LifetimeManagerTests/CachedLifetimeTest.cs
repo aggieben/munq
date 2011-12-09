@@ -249,6 +249,48 @@ namespace Munq.Test
                         .IsNotTheSameObjectAs(result3);
         }
 
+		/// <summary>
+		/// verify Cached Lifetime returns same instance for same if cache not expired
+		/// </summary>
+		[TestMethod]
+		public void CachedLifetimeManagerExtensionReturnsSameObjectIfCacheNotExpired()
+		{
+
+			iocContainer.Register<IFoo>(c => new Foo1()).AsCached();
+
+			var result1 = iocContainer.Resolve<IFoo>();
+			var result2 = iocContainer.Resolve<IFoo>();
+
+			var result3 = iocContainer.Resolve<IFoo>();
+
+			Verify.That(result1).IsNotNull()
+						.IsTheSameObjectAs(result2)
+						.IsTheSameObjectAs(result3);
+		}
+
+		/// <summary>
+		/// verify Cached Lifetime returns differnt instance  if cache expired
+		/// </summary>
+		[TestMethod]
+		public void CachedLifetimeManageExtensionrReturnsDifferentObjectIfCacheExpired()
+		{
+			var ireg = iocContainer.Register<IFoo>(c => new Foo1()).AsCached();
+
+			var result1 = iocContainer.Resolve<IFoo>();
+			var result2 = iocContainer.Resolve<IFoo>();
+
+			// simulate expiry
+			ireg.InvalidateInstanceCache();
+
+			var result3 = iocContainer.Resolve<IFoo>();
+
+			Verify.That(result1).IsNotNull()
+						.IsTheSameObjectAs(result2)
+						.IsNotTheSameObjectAs(result3);
+			Verify.That(result3).IsNotNull();
+		}
+
+
         /// <summary>
         ///A test for WithPriority
         ///</summary>

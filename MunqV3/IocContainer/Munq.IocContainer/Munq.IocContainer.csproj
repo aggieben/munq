@@ -52,6 +52,7 @@
     <Compile Include="ILifetimeManager.cs" />
     <Compile Include="IRegistration.cs" />
     <Compile Include="IRegistrationKey.cs" />
+    <Compile Include="LifetimeExtensions.cs" />
     <Compile Include="LifetimeManagers\AlwaysNewLifetime.cs" />
     <Compile Include="LifetimeManagers\CachedLifetime.cs" />
     <Compile Include="LifetimeManagers\ContainerLifetime.cs" />

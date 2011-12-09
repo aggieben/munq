@@ -83,5 +83,30 @@ namespace Munq.Test
                 Verify.That(result1).IsNotNull().IsTheSameObjectAs(result2).IsNotTheSameObjectAs(result3);
             }
         }
+
+		/// <summary>
+		/// verify Request Lifetime returns same instance for same request, 
+		/// different for different request
+		/// </summary>
+		[TestMethod]
+		public void RequestLifetimeManagerExtensionReturnsSameObjectForSameRequest()
+		{
+			var context1 = new FakeHttpContext("Http://fakeUrl1.com");
+			var context2 = new FakeHttpContext("Http://fakeUrl2.com");
+
+			using (var container = new IocContainer())
+			{
+				container.Register<IFoo>(c => new Foo1()).AsRequestSingleton();
+				LifetimeExtensions.HttpContext = context1;
+				var result1 = container.Resolve<IFoo>();
+				var result2 = container.Resolve<IFoo>();
+				LifetimeExtensions.HttpContext = context2;
+				var result3 = container.Resolve<IFoo>();
+				Verify.That(result3).IsNotNull();
+				Verify.That(result2).IsNotNull();
+				Verify.That(result1).IsNotNull().IsTheSameObjectAs(result2).IsNotTheSameObjectAs(result3);
+			}
+		}
+
     }
 }

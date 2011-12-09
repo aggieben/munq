@@ -86,5 +86,28 @@ namespace Munq.Test
 
             Verify.That(foo3).IsAnInstanceOfType(typeof(IFoo));
         }
+
+		/// <summary>
+		/// Verifies that the AlwaysNew LifetimeManager Always Returns a New Instance
+		///</summary>
+		[TestMethod()]
+		public void AlwayNewLifetimeManagerExtensionAlwaysReturnsNewInstance()
+		{
+			iocContainer.Register<IFoo>(c => new Foo1()).AsAlwaysNew();
+
+			var foo1 = iocContainer.Resolve<IFoo>();
+			var foo2 = iocContainer.Resolve<IFoo>();
+			var foo3 = iocContainer.Resolve<IFoo>();
+
+			Verify.That(foo1).IsAnInstanceOfType(typeof(IFoo))
+						.IsNotTheSameObjectAs(foo2)
+						.IsNotTheSameObjectAs(foo3);
+
+			Verify.That(foo2).IsAnInstanceOfType(typeof(IFoo))
+						.IsNotTheSameObjectAs(foo3);
+
+			Verify.That(foo3).IsAnInstanceOfType(typeof(IFoo));
+		}
+
     }
 }

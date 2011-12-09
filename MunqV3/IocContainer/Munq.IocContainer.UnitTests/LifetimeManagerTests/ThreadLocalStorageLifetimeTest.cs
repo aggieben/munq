@@ -90,7 +90,37 @@ namespace Munq.Test
             }
         }
 
-        [TestMethod]
+		/// <summary>
+		/// verify Request Lifetime returns same instance for same request, 
+		/// different for different request
+		/// </summary>
+		[TestMethod]
+		public void ThreadLocalStorageLifetimeExtensionManagerReturnsSameObjectForSameRequest()
+		{
+
+			using (var container = new IocContainer())
+			{
+				container.Register<IFoo>(c => new Foo1()).AsThreadSingleton();
+				IFoo result1 = container.Resolve<IFoo>();
+				IFoo result2 = container.Resolve<IFoo>();
+				IFoo result3 = null;
+				IFoo result4 = null;
+				// get values on a different thread
+				var t = Task.Factory.StartNew(() =>
+				{
+					result3 = container.Resolve<IFoo>();
+					result4 = container.Resolve<IFoo>();
+				});
+				t.Wait();
+				// check the results
+				Verify.That(result3).IsNotNull();
+				Verify.That(result4).IsNotNull().IsTheSameObjectAs(result3);
+				Verify.That(result2).IsNotNull();
+				Verify.That(result1).IsNotNull().IsTheSameObjectAs(result2).IsNotTheSameObjectAs(result3);
+			}
+		}
+		
+		[TestMethod]
         public void ShouldResolveGenerics()
         {
             var lifetime = new ThreadLocalStorageLifetime();

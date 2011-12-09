@@ -88,5 +88,25 @@ namespace Munq.Test
                         .IsTheSameObjectAs(result2)
                         .IsTheSameObjectAs(result3);
         }
+
+		/// <summary>
+		/// Verifies that the Container LifetimeManager Always Returns a Same Instance
+		///</summary>
+		[TestMethod()]
+		public void ContainerLifetimeManagerExtensionAlwaysReturnsSameInstance()
+		{
+			iocContainer.Register<IFoo>(c => new Foo1()).AsContainerSingleton();
+
+			var result1 = iocContainer.Resolve<IFoo>();
+			var result2 = iocContainer.Resolve<IFoo>();
+			var result3 = iocContainer.Resolve<IFoo>();
+
+			Verify.That(result3).IsNotNull();
+			Verify.That(result2).IsNotNull();
+			Verify.That(result1).IsNotNull()
+						.IsTheSameObjectAs(result2)
+						.IsTheSameObjectAs(result3);
+		}
+
     }
 }
