@@ -11,6 +11,7 @@
 	<summary>Munq IOC Container - A very fast Dependency Injection container for Web Applications.</summary>
 	<description>
 		Munq IOC Container - A very fast Dependency Injection container for Web Applications.
+		3.1.4 - Disposes of RequestLifeTime instance when HttpRequest ends.
 		3.1.3 - re-add extension methods introduced in 3.0.4 but went missing :(
 		3.1.2 - fixes an issue with the ConfigurationLoader causing resolved object to not cast to their own type.
 		3.1.1 - Release Build,  Oops :(

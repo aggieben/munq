@@ -4,6 +4,7 @@
 // --------------------------------------------------------------------------------------------------
 
 using System.Web;
+using System;
 
 namespace Munq.LifetimeManagers
 {
@@ -64,8 +65,30 @@ namespace Munq.LifetimeManagers
 	/// </example>
 	public class RequestLifetime : ILifetimeManager
 	{
-		private HttpContextBase testContext;
+		private static bool _disposerInstalled = false;
+        private HttpContextBase testContext;
 		private readonly object _lock = new object();
+
+		static void EnsureDisposerInstalled()
+		{
+			if (!_disposerInstalled && HttpContext.Current != null)
+			{
+				var applicationInstance = HttpContext.Current.ApplicationInstance;
+				applicationInstance.EndRequest += Disposer;
+				_disposerInstalled = true;
+			}
+		}
+
+		static void Disposer(object sender, EventArgs e)
+		{
+			var context = HttpContext.Current;
+
+			foreach (var item in context.Items.Values)
+			{
+				if (item is IDisposable)
+					(item as IDisposable).Dispose();
+			}
+		}
 
 		/// <summary>
 		/// Return the HttpContext if running in a web application, the test 
@@ -99,7 +122,8 @@ namespace Munq.LifetimeManagers
 					instance = Context.Items[registration.Key];
 					if (instance == null)
 					{
-						instance                   = registration.CreateInstance();
+						EnsureDisposerInstalled();
+						instance                        = registration.CreateInstance();
 						Context.Items[registration.Key] = instance;
 					}
 				}
@@ -107,6 +131,7 @@ namespace Munq.LifetimeManagers
 
 			return instance;
 		}
+
 		/// <summary>
 		/// Invalidates the cached value.
 		/// </summary>

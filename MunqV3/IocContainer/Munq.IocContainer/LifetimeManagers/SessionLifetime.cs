@@ -15,7 +15,7 @@ namespace Munq.LifetimeManagers
 	public class SessionLifetime : ILifetimeManager
 	{
 		private HttpSessionStateBase testSession;
-		private object _lock = new object();
+		private readonly object _lock = new object();
 
 		/// <summary>
 		/// Gets the Session.

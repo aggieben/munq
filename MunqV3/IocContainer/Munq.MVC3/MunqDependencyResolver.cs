@@ -12,9 +12,9 @@ namespace Munq.MVC3
 	/// Implements the MVC3 IDependencyResolver interface using the Munq IOC Container.
 	/// Requires a reference to Munq.MVC3.dll.
 	/// </summary>
-	public class MunqDependencyResolver : System.Web.Mvc.IDependencyResolver
+	public class MunqDependencyResolver : System.Web.Mvc.IDependencyResolver, IDisposable
 	{
-		private readonly static Munq.IocContainer _container = new IocContainer();
+		private static Munq.IocContainer _container = new IocContainer();
 
 		/// <summary>
 		/// Gets the Munq IocContainer used by the MVC3 IDependencyResolver.
@@ -38,7 +38,6 @@ namespace Munq.MVC3
 			}
 		}
 
-
 		/// <summary>
 		/// Resolves all possible instances of the specified type.
 		/// </summary>
@@ -47,6 +46,27 @@ namespace Munq.MVC3
 		public IEnumerable<object> GetServices(Type serviceType)
 		{
 			return Container.ResolveAll(serviceType);
+		}
+
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+				if (_container != null)
+				{
+					_container.Dispose();
+					_container = null;
+				}
+		}
+
+		~MunqDependencyResolver()
+		{
+			Dispose(false);
 		}
 	}
 }

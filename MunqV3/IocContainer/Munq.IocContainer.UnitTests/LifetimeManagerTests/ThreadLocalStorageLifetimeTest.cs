@@ -12,50 +12,19 @@ namespace Munq.Test
     [TestClass()]
     public class ThreadLocalStorageLifetimeTest
     {
-
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext { get; set; }
-
-        #region Additional test attributes
-        // 
-        //You can use the following additional attributes as you write your tests:
-        //
-        //Use ClassInitialize to run code before running the first test in the class
-        //[ClassInitialize()]
-        //public static void MyClassInitialize(TestContext testContext)
-        //{
-        //}
-
-        IocContainer iocContainer;
-        // Use TestInitialize to run code before running each test 
-        [TestInitialize()]
-        public void MyTestInitialize()
-        {
-            iocContainer = new Munq.IocContainer();
-        }
-
-        // Use TestCleanup to run code after each test has run
-        [TestCleanup()]
-        public void MyTestCleanup()
-        {
-            // remove the registrations, and cache values
-            iocContainer.Dispose();
-        }
-        #endregion
-
         /// <summary>
         /// Verify that Can Set the DefaultLifetimeManager To ThreadLocalStorageLifetime
         ///</summary>
         [TestMethod()]
         public void CanSetDefaultLifetimeManagerToThreadLocalStorageLifetime()
         {
-            var lifetime = new ThreadLocalStorageLifetime();
-            iocContainer.UsesDefaultLifetimeManagerOf(lifetime);
+			using (var iocContainer = new IocContainer())
+			{
+				var lifetime = new ThreadLocalStorageLifetime();
+				iocContainer.UsesDefaultLifetimeManagerOf(lifetime);
 
-            Verify.That(iocContainer.DefaultLifetimeManager).IsTheSameObjectAs(lifetime);
+				Verify.That(iocContainer.DefaultLifetimeManager).IsTheSameObjectAs(lifetime);
+			}
         }
 
         /// <summary>
@@ -65,9 +34,7 @@ namespace Munq.Test
         [TestMethod]
         public void ThreadLocalStorageLifetimeManagerReturnsSameObjectForSameRequest()
         {
-
             var requestltm = new ThreadLocalStorageLifetime();
-
             using (var container = new IocContainer())
             {
                 container.Register<IFoo>(c => new Foo1()).WithLifetimeManager(requestltm);
@@ -97,7 +64,6 @@ namespace Munq.Test
 		[TestMethod]
 		public void ThreadLocalStorageLifetimeExtensionManagerReturnsSameObjectForSameRequest()
 		{
-
 			using (var container = new IocContainer())
 			{
 				container.Register<IFoo>(c => new Foo1()).AsThreadSingleton();

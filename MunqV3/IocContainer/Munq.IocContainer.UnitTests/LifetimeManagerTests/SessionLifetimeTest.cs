@@ -13,50 +13,19 @@ namespace Munq.Test
 	[TestClass()]
 	public class SessionLifetimeTest
 	{
-
-		/// <summary>
-		///Gets or sets the test context which provides
-		///information about and functionality for the current test run.
-		///</summary>
-		public TestContext TestContext { get; set; }
-
-		#region Additional test attributes
-		// 
-		//You can use the following additional attributes as you write your tests:
-		//
-		//Use ClassInitialize to run code before running the first test in the class
-		//[ClassInitialize()]
-		//public static void MyClassInitialize(TestContext testContext)
-		//{
-		//}
-
-		IocContainer iocContainer;
-		// Use TestInitialize to run code before running each test 
-		[TestInitialize()]
-		public void MyTestInitialize()
-		{
-			iocContainer = new Munq.IocContainer();
-		}
-
-		// Use TestCleanup to run code after each test has run
-		[TestCleanup()]
-		public void MyTestCleanup()
-		{
-			// remove the registrations, and cache values
-			iocContainer.Dispose();
-		}
-		#endregion
-
 		/// <summary>
 		/// Verify that Can Set the DefaultLifetimeManager To RequestLifetime
 		///</summary>
 		[TestMethod()]
 		public void CanSetDefaultLifetimeManagerToRequestLifetime()
 		{
-			var lifetime = new RequestLifetime();
-			iocContainer.UsesDefaultLifetimeManagerOf(lifetime);
+			using (var iocContainer = new IocContainer())
+			{
+				var lifetime = new RequestLifetime();
+				iocContainer.UsesDefaultLifetimeManagerOf(lifetime);
 
-			Verify.That(iocContainer.DefaultLifetimeManager).IsTheSameObjectAs(lifetime);
+				Verify.That(iocContainer.DefaultLifetimeManager).IsTheSameObjectAs(lifetime);
+			}
 		}
 
 		/// <summary>

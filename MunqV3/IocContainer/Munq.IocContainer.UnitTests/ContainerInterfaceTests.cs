@@ -13,42 +13,6 @@ namespace Munq.Test
     public class ContainerInterfaceTests
     {
         /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext { get; set; }
-
-        #region Additional test attributes
-        //
-        // You can use the following additional attributes as you write your tests:
-        //
-        // Use ClassInitialize to run code before running the first test in the class
-        // [ClassInitialize()]
-        // public static void MyClassInitialize(TestContext testContext) { }
-        //
-        // Use ClassCleanup to run code after all tests in a class have run
-        // [ClassCleanup()]
-        // public static void MyClassCleanup() { }
-        //
-
-        IocContainer iocContainer;
-        // Use TestInitialize to run code before running each test 
-        [TestInitialize()]
-        public void MyTestInitialize()
-        {
-            iocContainer = new Munq.IocContainer();
-        }
-
-        // Use TestCleanup to run code after each test has run
-        [TestCleanup()]
-        public void MyTestCleanup()
-        {
-            iocContainer.Dispose();
-        }
-
-        #endregion
-
-        /// <summary>
         /// verify that we can create a container object
         /// </summary>
         [TestMethod]
@@ -65,65 +29,80 @@ namespace Munq.Test
         /// <summary>
         /// Verifies that the GenericNamelessRegister method returns an IRegistration
         /// </summary>
-        [TestMethod]
-        public void GenericNamelessRegistrationReturnsRegistrationObject()
-        {
-            var result = iocContainer.Register<IFoo>(c => new Foo1());
+		[TestMethod]
+		public void GenericNamelessRegistrationReturnsRegistrationObject()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				var result = iocContainer.Register<IFoo>(c => new Foo1());
 
-            Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
-            Verify.That(result.Name).IsNull();
-        }
+				Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
+				Verify.That(result.Name).IsNull();
+			}
+		}
 
         /// <summary>
         /// Verifies that the GenericNamedRegister method returns an IRegistration
         /// </summary>
-        [TestMethod]
-        public void GenericNamedRegistrationReturnsRegistrationObject()
-        {
-            var result = iocContainer.Register<IFoo>("Bob", c => new Foo1());
+		[TestMethod]
+		public void GenericNamedRegistrationReturnsRegistrationObject()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				var result = iocContainer.Register<IFoo>("Bob", c => new Foo1());
 
-            Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
-            Verify.That(result.Name).IsAStringThat().IsEqualTo("Bob");
-        }
+				Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
+				Verify.That(result.Name).IsAStringThat().IsEqualTo("Bob");
+			}
+		}
 
         /// <summary>
         /// Verifies that the NonGenericNamelessRegister method returns an IRegistration
         /// </summary>
-        [TestMethod]
-        public void NonGenericNamelessRegistrationReturnsRegistrationObject()
-        {
-            var result = iocContainer.Register(typeof(IFoo), c => new Foo1());
+		[TestMethod]
+		public void NonGenericNamelessRegistrationReturnsRegistrationObject()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				var result = iocContainer.Register(typeof(IFoo), c => new Foo1());
 
-            Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
-            Verify.That(result.Name).IsNull();
-        }
+				Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
+				Verify.That(result.Name).IsNull();
+			}
+		}
 
         /// <summary>
         /// Verifies that the NonGenericNamedRegister method returns an IRegistration
         /// </summary>
-        [TestMethod]
-        public void NonGenericNamedRegistrationReturnsRegistrationObject()
-        {
-            var result = iocContainer.Register("Bob", typeof(IFoo), c => new Foo1());
+		[TestMethod]
+		public void NonGenericNamedRegistrationReturnsRegistrationObject()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				var result = iocContainer.Register("Bob", typeof(IFoo), c => new Foo1());
 
-            Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
-            Verify.That(result.Name).IsAStringThat().IsEqualTo("Bob");
-        }
+				Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
+				Verify.That(result.Name).IsAStringThat().IsEqualTo("Bob");
+			}
+		}
 
         /// <summary>
         /// Verifies that registering a second factory method resolving to the same type
         /// with the same name overwrites the existing factory method.
         /// </summary>
-        [TestMethod]
-        public void RegisteringASecondFactoryForSameTypeAndNameOverwitesFirst()
-        {
-            iocContainer.Register("Bob", typeof(IFoo), c => new Foo1());
-            iocContainer.Register("Bob", typeof(IFoo), c => new Foo2());
+		[TestMethod]
+		public void RegisteringASecondFactoryForSameTypeAndNameOverwitesFirst()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				iocContainer.Register("Bob", typeof(IFoo), c => new Foo1());
+				iocContainer.Register("Bob", typeof(IFoo), c => new Foo2());
 
-            var result = iocContainer.Resolve<IFoo>("Bob");
+				var result = iocContainer.Resolve<IFoo>("Bob");
 
-            Verify.That(result).IsAnInstanceOfType(typeof(Foo2));
-        }
+				Verify.That(result).IsAnInstanceOfType(typeof(Foo2));
+			}
+		}
 
         #endregion
 
@@ -131,57 +110,69 @@ namespace Munq.Test
         /// <summary>
         /// Verifies that the GenericNamelessRegisterInstance method returns an IRegistration
         /// </summary>
-        [TestMethod]
-        public void GenericNamelessInstanceRegistrationReturnsRegistrationObject()
-        {
-            var fooInstance = new Foo1();
+		[TestMethod]
+		public void GenericNamelessInstanceRegistrationReturnsRegistrationObject()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				var fooInstance = new Foo1();
 
-            var result = iocContainer.RegisterInstance<IFoo>(fooInstance);
+				var result = iocContainer.RegisterInstance<IFoo>(fooInstance);
 
-            Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
-            Verify.That(result.Name).IsNull();
-        }
+				Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
+				Verify.That(result.Name).IsNull();
+			}
+		}
 
         /// <summary>
         /// Verifies that the GenericNamedRegisterInstance method returns an IRegistration
         /// </summary>
-        [TestMethod]
-        public void GenericNamedInstanceRegistrationReturnsRegistrationObject()
-        {
-            var fooInstance = new Foo1();
+		[TestMethod]
+		public void GenericNamedInstanceRegistrationReturnsRegistrationObject()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				var fooInstance = new Foo1();
 
-            var result = iocContainer.RegisterInstance("Bob", fooInstance);
+				var result = iocContainer.RegisterInstance("Bob", fooInstance);
 
-            Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
-            Verify.That(result.Name).IsAStringThat().IsEqualTo("Bob");
-        }
+				Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
+				Verify.That(result.Name).IsAStringThat().IsEqualTo("Bob");
+			}
+		}
 
         /// <summary>
         /// Verifies that the NonGenericNamelessRegisterInstance method returns an IRegistration
         /// </summary>
-        [TestMethod]
-        public void NonGenericNamelessInstanceRegistrationReturnsRegistrationObject()
-        {
-            var fooInstance = new Foo1();
+		[TestMethod]
+		public void NonGenericNamelessInstanceRegistrationReturnsRegistrationObject()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				var fooInstance = new Foo1();
 
-            var result = iocContainer.RegisterInstance(typeof(IFoo), fooInstance);
-            Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
-            Verify.That(result.Name).IsNull();
-        }
+				var result = iocContainer.RegisterInstance(typeof(IFoo), fooInstance);
+				Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
+				Verify.That(result.Name).IsNull();
+			}
+		}
 
         /// <summary>
         /// Verifies that the NonGenericNamedRegisterInstance method returns an IRegistration
         /// </summary>
-        [TestMethod]
-        public void NonGenericNamedInstanceRegistrationReturnsRegistrationObject()
-        {
-            var fooInstance = new Foo1();
+		[TestMethod]
+		public void NonGenericNamedInstanceRegistrationReturnsRegistrationObject()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				var fooInstance = new Foo1();
 
-            var result = iocContainer.RegisterInstance("Bob", typeof(IFoo), fooInstance);
+				var result = iocContainer.RegisterInstance("Bob", typeof(IFoo), fooInstance);
 
-            Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
-            Verify.That(result.Name).IsAStringThat().IsEqualTo("Bob");
-        }
+				Verify.That(result).IsAnInstanceOfType(typeof(IRegistration));
+				Verify.That(result.Name).IsAStringThat().IsEqualTo("Bob");
+			}
+		}
         #endregion
 
         /// <summary>
@@ -190,113 +181,135 @@ namespace Munq.Test
         [TestMethod]
         public void CanRemoveRegistration()
         {
-            var reg = iocContainer.Register<IFoo>(c => new Foo1());
+			using (var iocContainer = new IocContainer())
+			{
+				var reg = iocContainer.Register<IFoo>(c => new Foo1());
 
-            var result = iocContainer.GetRegistration<IFoo>();
+				var result = iocContainer.GetRegistration<IFoo>();
 
-            Verify.That(reg).IsTheSameObjectAs(result);
+				Verify.That(reg).IsTheSameObjectAs(result);
 
-            iocContainer.Remove(reg);
+				iocContainer.Remove(reg);
 
-            Verify.TheExpectedException(typeof(KeyNotFoundException)).IsThrownWhen(
-               () => result = iocContainer.GetRegistration<IFoo>()
-            );
-
+				Verify.TheExpectedException(typeof(KeyNotFoundException)).IsThrownWhen(
+				   () => result = iocContainer.GetRegistration<IFoo>()
+				);
+			}
         }
 
         #region Resolve Tests
         /// <summary>
         /// Verifies that the GenericNamelessResolve method returns the expected type.
         /// </summary>
-        [TestMethod]
-        public void GenericNamelessResolveReturnsObjectOfExpectedType()
-        {
-            iocContainer.Register<IFoo>(c => new Foo1());
-            var result = iocContainer.Resolve<IFoo>();
+		[TestMethod]
+		public void GenericNamelessResolveReturnsObjectOfExpectedType()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				iocContainer.Register<IFoo>(c => new Foo1());
+				var result = iocContainer.Resolve<IFoo>();
 
-            Verify.That(result)
-                       .IsNotNull()
-                       .IsAnInstanceOfType(typeof(IFoo))
-                       .IsAnInstanceOfType(typeof(Foo1));
-        }
+				Verify.That(result)
+						   .IsNotNull()
+						   .IsAnInstanceOfType(typeof(IFoo))
+						   .IsAnInstanceOfType(typeof(Foo1));
+			}
+		}
 
         /// <summary>
         /// Verifies that the GenericNamedResolve method returns the expected type.
         /// </summary>
-        [TestMethod]
-        public void GenericNamedResolveReturnsObjectOfExpectedType()
-        {
-            iocContainer.Register<IFoo>("Bob", c => new Foo1());
-            var result = iocContainer.Resolve<IFoo>("Bob");
+		[TestMethod]
+		public void GenericNamedResolveReturnsObjectOfExpectedType()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				iocContainer.Register<IFoo>("Bob", c => new Foo1());
+				var result = iocContainer.Resolve<IFoo>("Bob");
 
-            Verify.That(result)
-                       .IsNotNull()
-                       .IsAnInstanceOfType(typeof(IFoo))
-                       .IsAnInstanceOfType(typeof(Foo1));
-        }
+				Verify.That(result)
+						   .IsNotNull()
+						   .IsAnInstanceOfType(typeof(IFoo))
+						   .IsAnInstanceOfType(typeof(Foo1));
+			}
+		}
 
         /// <summary>
         /// Verifies that the NonGenericNamelessResolve method returns the expected type.
         /// </summary>
-        [TestMethod]
-        public void NonGenericNamelessResolveReturnsObjectOfExpectedType()
-        {
-            iocContainer.Register(typeof(IFoo), c => new Foo1());
-            var result = iocContainer.Resolve<IFoo>();
+		[TestMethod]
+		public void NonGenericNamelessResolveReturnsObjectOfExpectedType()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				iocContainer.Register(typeof(IFoo), c => new Foo1());
+				var result = iocContainer.Resolve<IFoo>();
 
-            Verify.That(result)
-                       .IsNotNull()
-                       .IsAnInstanceOfType(typeof(IFoo))
-                       .IsAnInstanceOfType(typeof(Foo1));
-        }
+				Verify.That(result)
+						   .IsNotNull()
+						   .IsAnInstanceOfType(typeof(IFoo))
+						   .IsAnInstanceOfType(typeof(Foo1));
+			}
+		}
 
         /// <summary>
         /// Verifies that the NonGenericNamedResolve method returns the expected type.
         /// </summary>
-        [TestMethod]
-        public void NonGenericNamedResolveReturnsObjectOfExpectedType()
-        {
-            iocContainer.Register("Bob", typeof(IFoo), c => new Foo1());
-            var result = iocContainer.Resolve<IFoo>("Bob");
+		[TestMethod]
+		public void NonGenericNamedResolveReturnsObjectOfExpectedType()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				iocContainer.Register("Bob", typeof(IFoo), c => new Foo1());
+				var result = iocContainer.Resolve<IFoo>("Bob");
 
-            Verify.That(result)
-                       .IsNotNull()
-                       .IsAnInstanceOfType(typeof(IFoo))
-                       .IsAnInstanceOfType(typeof(Foo1));
-        }
+				Verify.That(result)
+						   .IsNotNull()
+						   .IsAnInstanceOfType(typeof(IFoo))
+						   .IsAnInstanceOfType(typeof(Foo1));
+			}
+		}
 
         /// <summary>
         /// Verifies that the Attempting To Resolve A Nonexisting Entry Throws.
         /// </summary>
-        [TestMethod]
-        public void AttemptingToResolveANonexistingEntryThrows()
-        {
-            
-                Verify.TheExpectedException(typeof(KeyNotFoundException))
-                    .IsThrownWhen(() => iocContainer.Resolve<IFoo>("Bob"))
-                    .AndHasAMessageThat().IsEqualTo("Munq IocContainer failed to resolve Munq.Test.IFoo");            
-         }
+		[TestMethod]
+		public void AttemptingToResolveANonexistingEntryThrows()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				Verify.TheExpectedException(typeof(KeyNotFoundException))
+					.IsThrownWhen(() => iocContainer.Resolve<IFoo>("Bob"))
+					.AndHasAMessageThat().IsEqualTo("Munq IocContainer failed to resolve Munq.Test.IFoo");
+			}
+		}
 
-        [TestMethod]
-        public void RegisteredClassCanBeResolvedByInterface()
-        {
-            iocContainer.Register<Foo1, Foo1>();
-            var result = iocContainer.Resolve<IFoo>();
-            Verify.That(result).IsNotNull().IsAnInstanceOfType(typeof(Foo1));
-        }
+		[TestMethod]
+		public void RegisteredClassCanBeResolvedByInterface()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				iocContainer.Register<Foo1, Foo1>();
+				var result = iocContainer.Resolve<IFoo>();
+				Verify.That(result).IsNotNull().IsAnInstanceOfType(typeof(Foo1));
+			}
+		}
 
-        [TestMethod]
-        public void RegisteredClassesCanBeResolvedAllByInterface()
-        {
-            iocContainer.Register<Foo1, Foo1>();
-            iocContainer.Register<Foo2, Foo2>();
-            iocContainer.Register<Bar1, Bar1>();
+		[TestMethod]
+		public void RegisteredClassesCanBeResolvedAllByInterface()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				iocContainer.Register<Foo1, Foo1>();
+				iocContainer.Register<Foo2, Foo2>();
+				iocContainer.Register<Bar1, Bar1>();
 
-            var results = iocContainer.ResolveAll<IFoo>();
-            Verify.That(results).IsNotNull()
-                                .IsAnInstanceOfType(typeof(IEnumerable<IFoo>));
-            Verify.That(results.Count()).IsEqualTo(2);
-        }
+				var results = iocContainer.ResolveAll<IFoo>();
+				Verify.That(results).IsNotNull()
+									.IsAnInstanceOfType(typeof(IEnumerable<IFoo>));
+				Verify.That(results.Count()).IsEqualTo(2);
+			}
+		}
         #endregion
 
         #region Lazy Resolve Tests
@@ -304,19 +317,22 @@ namespace Munq.Test
         /// Verifies that the GenericNamelessLazyResolve method returns 
         /// a delegate that returns the expected type.
         /// </summary>
-        [TestMethod]
-        public void GenericNamelessLazyResolveReturnsDelegateReturningObjectOfExpectedType()
-        {
-            iocContainer.Register<IFoo>(c => new Foo1());
-            var result = iocContainer.LazyResolve<IFoo>();
+		[TestMethod]
+		public void GenericNamelessLazyResolveReturnsDelegateReturningObjectOfExpectedType()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				iocContainer.Register<IFoo>(c => new Foo1());
+				var result = iocContainer.LazyResolve<IFoo>();
 
-            Verify.That(result)
-                       .IsNotNull()
-                       .IsAnInstanceOfType(typeof(Func<IFoo>));
+				Verify.That(result)
+						   .IsNotNull()
+						   .IsAnInstanceOfType(typeof(Func<IFoo>));
 
-            Verify.That(result())
-                       .IsAnInstanceOfType(typeof(Foo1));
-        }
+				Verify.That(result())
+						   .IsAnInstanceOfType(typeof(Foo1));
+			}
+		}
 
         /// <summary>
         /// Verifies that the GenericNamedLazyResolve method returns 
@@ -325,129 +341,156 @@ namespace Munq.Test
         [TestMethod]
         public void GenericNamedLazyResolveReturnsDelegateReturningObjectOfExpectedType()
         {
-            iocContainer.Register<IFoo>("Bob", c => new Foo1());
-            var result = iocContainer.LazyResolve<IFoo>("Bob");
+			using (var iocContainer = new IocContainer())
+			{
+				iocContainer.Register<IFoo>("Bob", c => new Foo1());
+				var result = iocContainer.LazyResolve<IFoo>("Bob");
 
-            Verify.That(result)
-                       .IsNotNull()
-                       .IsAnInstanceOfType(typeof(Func<IFoo>));
+				Verify.That(result)
+						   .IsNotNull()
+						   .IsAnInstanceOfType(typeof(Func<IFoo>));
 
-            Verify.That(result())
-                       .IsAnInstanceOfType(typeof(Foo1));
-        }
+				Verify.That(result())
+						   .IsAnInstanceOfType(typeof(Foo1));
+			}
+		}
 
         /// <summary>
         /// Verifies that the NonGenericNamelessLazyResolve method returns 
         /// a delegate that returns the expected type.
         /// </summary>
-        [TestMethod]
-        public void NonGenericNamelessLazyResolveReturnsDelegateReturningObjectOfExpectedType()
-        {
-            iocContainer.Register(typeof(IFoo), c => new Foo1());
-            var result = iocContainer.LazyResolve(typeof(IFoo));
+		[TestMethod]
+		public void NonGenericNamelessLazyResolveReturnsDelegateReturningObjectOfExpectedType()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				iocContainer.Register(typeof(IFoo), c => new Foo1());
+				var result = iocContainer.LazyResolve(typeof(IFoo));
 
-            Verify.That(result)
-                       .IsNotNull()
-                       .IsAnInstanceOfType(typeof(Func<object>));
+				Verify.That(result)
+						   .IsNotNull()
+						   .IsAnInstanceOfType(typeof(Func<object>));
 
-            Verify.That(result())
-                       .IsAnInstanceOfType(typeof(Foo1));
-        }
+				Verify.That(result())
+						   .IsAnInstanceOfType(typeof(Foo1));
+			}
+		}
 
         /// <summary>
         /// Verifies that the NonGenericNamedLazyResolve method returns 
         /// a delegate that returns the expected type.
         /// </summary>
-        [TestMethod]
-        public void NonGenericNamedLazyResolveReturnsDelegateReturningObjectOfExpectedType()
-        {
-            iocContainer.Register("Bob", typeof(IFoo), c => new Foo1());
+		[TestMethod]
+		public void NonGenericNamedLazyResolveReturnsDelegateReturningObjectOfExpectedType()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				iocContainer.Register("Bob", typeof(IFoo), c => new Foo1());
 
-            var result = iocContainer.LazyResolve("Bob", typeof(IFoo));
+				var result = iocContainer.LazyResolve("Bob", typeof(IFoo));
 
-            Verify.That(result)
-                       .IsNotNull()
-                       .IsAnInstanceOfType(typeof(Func<object>));
+				Verify.That(result)
+						   .IsNotNull()
+						   .IsAnInstanceOfType(typeof(Func<object>));
 
-            Verify.That(result())
-                       .IsAnInstanceOfType(typeof(Foo1));
-        }
+				Verify.That(result())
+						   .IsAnInstanceOfType(typeof(Foo1));
+			}
+		}
         #endregion
 
         #region GetRegistration(s) Tests
         /// <summary>
         /// Verifies that the Generic Nameless GetRegistration Return The Expected Registration.
         /// </summary>
-        [TestMethod]
-        public void GenericNamelessGetRegistrationReturnTheExpectedRegistration()
-        {
-            var expectedRegistration = iocContainer.Register<IFoo>(c => new Foo1());
-            var result = iocContainer.GetRegistration<IFoo>();
+		[TestMethod]
+		public void GenericNamelessGetRegistrationReturnTheExpectedRegistration()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				var expectedRegistration = iocContainer.Register<IFoo>(c => new Foo1());
+				var result = iocContainer.GetRegistration<IFoo>();
 
-            Verify.That(result).IsNotNull()
-                       .IsTheSameObjectAs(expectedRegistration);
-        }
+				Verify.That(result).IsNotNull()
+						   .IsTheSameObjectAs(expectedRegistration);
+			}
+		}
 
         /// <summary>
         /// Verifies that the Generic Named GetRegistration Return The Expected Registration.
         /// </summary>
-        [TestMethod]
-        public void GenericNamedGetRegistrationReturnTheExpectedRegistration()
-        {
-            var expectedRegistration = iocContainer.Register<IFoo>("Bob", c => new Foo1());
-            var result = iocContainer.GetRegistration<IFoo>("Bob");
+		[TestMethod]
+		public void GenericNamedGetRegistrationReturnTheExpectedRegistration()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				var expectedRegistration = iocContainer.Register<IFoo>("Bob", c => new Foo1());
+				var result = iocContainer.GetRegistration<IFoo>("Bob");
 
-            Verify.That(result).IsNotNull()
-                       .IsTheSameObjectAs(expectedRegistration);
-        }
+				Verify.That(result).IsNotNull()
+						   .IsTheSameObjectAs(expectedRegistration);
+			}
+		}
 
         /// <summary>
         /// Verifies that the NonGeneric Nameless GetRegistration Return The Expected Registration.
         /// </summary>
-        [TestMethod]
-        public void NonGenericNamelessGetRegistrationReturnTheExpectedRegistration()
-        {
-            var expectedRegistration = iocContainer.Register(typeof(IFoo), c => new Foo1());
-            var result = iocContainer.GetRegistration<IFoo>();
+		[TestMethod]
+		public void NonGenericNamelessGetRegistrationReturnTheExpectedRegistration()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				var expectedRegistration = iocContainer.Register(typeof(IFoo), c => new Foo1());
+				var result = iocContainer.GetRegistration<IFoo>();
 
-            Verify.That(result).IsNotNull()
-                       .IsTheSameObjectAs(expectedRegistration);
-        }
+				Verify.That(result).IsNotNull()
+						   .IsTheSameObjectAs(expectedRegistration);
+			}
+		}
 
         /// <summary>
         /// Verifies that the NonGeneric Named GetRegistration Return The Expected Registration.
         /// </summary>
-        [TestMethod]
-        public void NonGenericNamedGetRegistrationReturnTheExpectedRegistration()
-        {
-            var expectedRegistration = iocContainer.Register("Bob", typeof(IFoo), c => new Foo1());
-            var result = iocContainer.GetRegistration<IFoo>("Bob");
+		[TestMethod]
+		public void NonGenericNamedGetRegistrationReturnTheExpectedRegistration()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				var expectedRegistration = iocContainer.Register("Bob", typeof(IFoo), c => new Foo1());
+				var result = iocContainer.GetRegistration<IFoo>("Bob");
 
-            Verify.That(result).IsNotNull()
-                       .IsTheSameObjectAs(expectedRegistration);
-        }
+				Verify.That(result).IsNotNull()
+						   .IsTheSameObjectAs(expectedRegistration);
+			}
+		}
 
         /// <summary>
         /// Verifies that the Attempting Generic Get Registration For A Nonexisting Entry Throws.
         /// </summary>
-        [TestMethod]
-        public void AttemptingNamedGenericGetRegistrationForANonexistingEntryThrows()
-        {
-            Verify.TheExpectedException(typeof(KeyNotFoundException)).IsThrownWhen(
-                () => iocContainer.GetRegistration<IFoo>("Bob")
-             ).AndHasAMessageThat().IsEqualTo("Registration not found for Munq.Test.IFoo");
-        }
+		[TestMethod]
+		public void AttemptingNamedGenericGetRegistrationForANonexistingEntryThrows()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				Verify.TheExpectedException(typeof(KeyNotFoundException)).IsThrownWhen(
+					() => iocContainer.GetRegistration<IFoo>("Bob")
+				 ).AndHasAMessageThat().IsEqualTo("Registration not found for Munq.Test.IFoo");
+			}
+		}
 
         /// <summary>
         /// Verifies that the Attempting NonGeneric Get Registration For A Nonexisting Entry Throws.
         /// </summary>
-        [TestMethod]
-        public void AttemptingNonGenericNamedGetRegistrationForANonexistingEntryThrows()
-        {
-            Verify.TheExpectedException(typeof(KeyNotFoundException)).IsThrownWhen(
-                () => iocContainer.GetRegistration("Bob", typeof(IFoo))
-             ).AndHasAMessageThat().IsEqualTo("Registration not found for Munq.Test.IFoo");
-        }
+		[TestMethod]
+		public void AttemptingNonGenericNamedGetRegistrationForANonexistingEntryThrows()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				Verify.TheExpectedException(typeof(KeyNotFoundException)).IsThrownWhen(
+					() => iocContainer.GetRegistration("Bob", typeof(IFoo))
+				 ).AndHasAMessageThat().IsEqualTo("Registration not found for Munq.Test.IFoo");
+			}
+		}
 
         /// <summary>
         /// Verifies that the Attempting Generic Get Registration For A Nonexisting Entry Throws.
@@ -455,10 +498,13 @@ namespace Munq.Test
         [TestMethod]
         public void AttemptingNamelessGenericGetRegistrationForANonexistingEntryThrows()
         {
-            Verify.TheExpectedException(typeof(KeyNotFoundException)).IsThrownWhen(
-                () => iocContainer.GetRegistration<IFoo>()
-             ).AndHasAMessageThat().IsEqualTo("Registration not found for Munq.Test.IFoo");
-        }
+			using (var iocContainer = new IocContainer())
+			{
+				Verify.TheExpectedException(typeof(KeyNotFoundException)).IsThrownWhen(
+					() => iocContainer.GetRegistration<IFoo>()
+				 ).AndHasAMessageThat().IsEqualTo("Registration not found for Munq.Test.IFoo");
+			}
+		}
 
         /// <summary>
         /// Verifies that the Attempting NonGeneric Get Registration For A Nonexisting Entry Throws.
@@ -466,74 +512,86 @@ namespace Munq.Test
         [TestMethod]
         public void AttemptingNonGenericNamelessGetRegistrationForANonexistingEntryThrows()
         {
-            Verify.TheExpectedException(typeof(KeyNotFoundException)).IsThrownWhen(
+			using (var iocContainer = new IocContainer())
+			{
+				Verify.TheExpectedException(typeof(KeyNotFoundException)).IsThrownWhen(
                 () => iocContainer.GetRegistration(typeof(IFoo))
              ).AndHasAMessageThat().IsEqualTo("Registration not found for Munq.Test.IFoo");
-        }
+			}
+		}
 
         /// <summary>
         /// Verifies that Generic GetRegistrations Includes All But Only Expected Registrations.
         /// </summary>
-        [TestMethod]
-        public void GenericGetRegistrationsIncludesAllButOnlyExpectedRegistrations()
-        {
-            var namelessFoo = iocContainer.Register<IFoo>(c => new Foo1());
-            var bobFoo = iocContainer.Register<IFoo>("Bob", c => new Foo2());
-            var billFoo = iocContainer.Register<IFoo>("Bill", c => new Foo2());
-            var janeBar = iocContainer.Register<IBar>("Jane", c => new Bar1());
+		[TestMethod]
+		public void GenericGetRegistrationsIncludesAllButOnlyExpectedRegistrations()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				var namelessFoo = iocContainer.Register<IFoo>(c => new Foo1());
+				var bobFoo = iocContainer.Register<IFoo>("Bob", c => new Foo2());
+				var billFoo = iocContainer.Register<IFoo>("Bill", c => new Foo2());
+				var janeBar = iocContainer.Register<IBar>("Jane", c => new Bar1());
 
-            var result = iocContainer.GetRegistrations<IFoo>();
+				var result = iocContainer.GetRegistrations<IFoo>();
 
-            Verify.That(result.ToList()).IsACollectionThat()
-                       .IsAnInstanceOfType(typeof(List<IRegistration>))
-                       .Count().IsEqualTo(3)
-                       .AllItemsAreInstancesOfType(typeof(IRegistration))
-                       .Contains(namelessFoo)
-                       .Contains(bobFoo)
-                       .Contains(billFoo)
-                       .DoesNotContain(janeBar);
-        }
+				Verify.That(result.ToList()).IsACollectionThat()
+						   .IsAnInstanceOfType(typeof(List<IRegistration>))
+						   .Count().IsEqualTo(3)
+						   .AllItemsAreInstancesOfType(typeof(IRegistration))
+						   .Contains(namelessFoo)
+						   .Contains(bobFoo)
+						   .Contains(billFoo)
+						   .DoesNotContain(janeBar);
+			}
+		}
 
         /// <summary>
         /// Verifies that NonGeneric GetRegistrations Includes All But Only Expected Registrations.
         /// </summary>
-        [TestMethod]
-        public void NonGenericGetRegistrationsIncludesAllButOnlyExpectedRegistrations()
-        {
-            var namelessFoo = iocContainer.Register(typeof(IFoo), c => new Foo1());
-            var bobFoo = iocContainer.Register("Bob", typeof(IFoo), c => new Foo2());
-            var billFoo = iocContainer.Register("Bill", typeof(IFoo), c => new Foo2());
-            var janeBar = iocContainer.Register("Jane", typeof(IBar), c => new Bar1());
+		[TestMethod]
+		public void NonGenericGetRegistrationsIncludesAllButOnlyExpectedRegistrations()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				var namelessFoo = iocContainer.Register(typeof(IFoo), c => new Foo1());
+				var bobFoo = iocContainer.Register("Bob", typeof(IFoo), c => new Foo2());
+				var billFoo = iocContainer.Register("Bill", typeof(IFoo), c => new Foo2());
+				var janeBar = iocContainer.Register("Jane", typeof(IBar), c => new Bar1());
 
-            var result = iocContainer.GetRegistrations(typeof(IFoo));
+				var result = iocContainer.GetRegistrations(typeof(IFoo));
 
-            Verify.That(result.ToList()).IsACollectionThat()
-                       .IsAnInstanceOfType(typeof(List<IRegistration>))
-                       .Count().IsEqualTo(3)
-                       .AllItemsAreInstancesOfType(typeof(IRegistration))
-                       .Contains(namelessFoo)
-                       .Contains(bobFoo)
-                       .Contains(billFoo)
-                       .DoesNotContain(janeBar);
-        }
+				Verify.That(result.ToList()).IsACollectionThat()
+						   .IsAnInstanceOfType(typeof(List<IRegistration>))
+						   .Count().IsEqualTo(3)
+						   .AllItemsAreInstancesOfType(typeof(IRegistration))
+						   .Contains(namelessFoo)
+						   .Contains(bobFoo)
+						   .Contains(billFoo)
+						   .DoesNotContain(janeBar);
+			}
+		}
 
         /// <summary>
         /// Verifies that GetRegistrations Returns An Empty List If No Registrations Of
         /// The Requeseted Type.
         /// </summary>
-        [TestMethod]
-        public void GetRegistrationsReturnsAnEmptyListIfNoRegistrationsOfTheRequesetedType()
-        {
-            iocContainer.Register<IFoo>(c => new Foo1());
-            iocContainer.Register<IFoo>("Bob", c => new Foo2());
-            iocContainer.Register<IFoo>("Bill", c => new Foo2());
+		[TestMethod]
+		public void GetRegistrationsReturnsAnEmptyListIfNoRegistrationsOfTheRequesetedType()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				iocContainer.Register<IFoo>(c => new Foo1());
+				iocContainer.Register<IFoo>("Bob", c => new Foo2());
+				iocContainer.Register<IFoo>("Bill", c => new Foo2());
 
-            var result = iocContainer.GetRegistrations<IBar>();
+				var result = iocContainer.GetRegistrations<IBar>();
 
-            Verify.That(result.ToList()).IsACollectionThat()
-                       .IsAnInstanceOfType(typeof(List<IRegistration>))
-                       .Count().IsEqualTo(0);
-        }
+				Verify.That(result.ToList()).IsACollectionThat()
+						   .IsAnInstanceOfType(typeof(List<IRegistration>))
+						   .Count().IsEqualTo(0);
+			}
+		}
         #endregion
 
         #region FluentInterface Tests
@@ -541,19 +599,22 @@ namespace Munq.Test
         /// Verify that UsesDefaultLifetimeManagerOf Changes The LifetimeManager
         /// That New Registrations Are Created With
         /// </summary>
-        [TestMethod]
-        public void UsesDefaultLifetimeManagerOfChangesTheDefaultLifetimeManager()
-        {
-            var aLifetimeManager = new LifetimeManagers.ContainerLifetime();
-            iocContainer.UsesDefaultLifetimeManagerOf(aLifetimeManager);
+		[TestMethod]
+		public void UsesDefaultLifetimeManagerOfChangesTheDefaultLifetimeManager()
+		{
+			using (var iocContainer = new IocContainer())
+			{
+				var aLifetimeManager = new LifetimeManagers.ContainerLifetime();
+				iocContainer.UsesDefaultLifetimeManagerOf(aLifetimeManager);
 
-            iocContainer.Register<IFoo>(c => new Foo1());
-            var foo1 = iocContainer.Resolve<IFoo>();
-            var foo2 = iocContainer.Resolve<IFoo>();
+				iocContainer.Register<IFoo>(c => new Foo1());
+				var foo1 = iocContainer.Resolve<IFoo>();
+				var foo2 = iocContainer.Resolve<IFoo>();
 
-            Verify.That(iocContainer.DefaultLifetimeManager).IsTheSameObjectAs(aLifetimeManager);
-            Verify.That(foo1).IsTheSameObjectAs(foo2);
-        }
+				Verify.That(iocContainer.DefaultLifetimeManager).IsTheSameObjectAs(aLifetimeManager);
+				Verify.That(foo1).IsTheSameObjectAs(foo2);
+			}
+		}
         #endregion
 
         #region Additional Tests

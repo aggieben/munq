@@ -15,9 +15,9 @@ namespace Munq.CommonServiceLocator
 	/// An implementation of the Common Service Locator interface using the Munq IOC Container.
 	/// Requires a reference Munq.CommonServiceLocator.dll.
 	/// </summary>
-	public class MunqCommonServiceLocator : IServiceLocator
+	public class MunqCommonServiceLocator : IServiceLocator, IDisposable
 	{
-		private readonly Munq.IocContainer _container;
+		private Munq.IocContainer _container;
 
 		/// <summary>
 		/// Initializes an instance of the MunqCommonServiceLocator class.  Registers the instance
@@ -25,22 +25,22 @@ namespace Munq.CommonServiceLocator
 		/// </summary>
 		public MunqCommonServiceLocator(Munq.IocContainer container)
 		{
-            container.RegisterInstance<IServiceLocator>(this);
+			container.RegisterInstance<IServiceLocator>(this);
 			_container = container;
 		}
 
-        /// <summary>
-        /// Initializes an instance of the MunqCommonServiceLocator class.  Registers the instance
-        /// to resolve IServiceLocator.
-        /// </summary>
-        public MunqCommonServiceLocator() : this (new Munq.IocContainer())
-        {
-        }
+		/// <summary>
+		/// Initializes an instance of the MunqCommonServiceLocator class.  Registers the instance
+		/// to resolve IServiceLocator.
+		/// </summary>
+		public MunqCommonServiceLocator() : this (new Munq.IocContainer())
+		{
+		}
 
-        /// <summary>
-        /// Gets the IOC Container used by the service locator.
-        /// </summary>
-        public Munq.IocContainer Container { get { return _container; } }
+		/// <summary>
+		/// Gets the IOC Container used by the service locator.
+		/// </summary>
+		public Munq.IocContainer Container { get { return _container; } }
 
 		/// <summary>
 		/// Gets a list of a instances that resolve the specified type.
@@ -126,6 +126,25 @@ namespace Munq.CommonServiceLocator
 				{
 					return null;
 				}
+		}
+
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+				if (_container != null)
+				{
+					_container.Dispose();
+					_container = null;
+				}
+		}
+		~MunqCommonServiceLocator()
+		{
+			Dispose(false);
 		}
 	}
 }

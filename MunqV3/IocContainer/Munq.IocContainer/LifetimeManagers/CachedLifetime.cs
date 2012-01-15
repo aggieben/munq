@@ -35,7 +35,7 @@ namespace Munq.LifetimeManagers
 	///      var feed = container.Resolve&lt;IRssFeed&gt;("TheGu");
 	/// </code>
 	/// </example>
-	public class CachedLifetime : ILifetimeManager
+	public class CachedLifetime : ILifetimeManager, IDisposable
 	{
 		private enum Expires
 		{
@@ -203,6 +203,24 @@ namespace Munq.LifetimeManagers
 		{
 			_onRemoveCallback = onRemoveCallback;
 			return this;
+		}
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+				if (_dependencies != null)
+				{
+					_dependencies.Dispose();
+					_dependencies = null;
+				}
+		}
+		~CachedLifetime()
+		{
+			Dispose(false);
 		}
 	}
 }

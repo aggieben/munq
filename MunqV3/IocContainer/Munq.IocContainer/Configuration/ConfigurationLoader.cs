@@ -55,8 +55,7 @@ namespace Munq.Configuration
 		/// <param name="filename">The full filename to be loaded and checked.</param>
 		public static void CallRegistrarsInAssembly(IocContainer container, string filename)
 		{
-			AssemblyName assemblyName = new AssemblyName();
-			assemblyName.Name = Path.GetFileNameWithoutExtension(filename);
+			AssemblyName assemblyName = new AssemblyName() { Name = Path.GetFileNameWithoutExtension(filename) };
             var assembly = Assembly.Load(assemblyName);
 			// find all the types that implements IMunqConfig ...
 			var registrars = assembly.GetExportedTypes()

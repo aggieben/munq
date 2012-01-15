@@ -8,10 +8,12 @@ namespace $rootnamespace$.App_Start {
 	public static class MunqMvc3Startup {
 		public static void PreStart() {
 			DependencyResolver.SetResolver(new MunqDependencyResolver());
-			var ioc = MunqDependencyResolver.Container;
 
-			// TODO: Register Dependencies
+			// TODO: Register Dependencies in Global.asax Application_Start
+			// var ioc = MunqDependencyResolver.Container;
+			// Munq.Configuration.ConfigurationLoader.FindAndRegisterDependencies(ioc); // Optional
 			// ioc.Register<IMyRepository, MyRepository>();
+			// ...
 		}
 	}
 }

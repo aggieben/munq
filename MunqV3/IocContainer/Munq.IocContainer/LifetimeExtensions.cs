@@ -7,10 +7,10 @@ namespace Munq
 {
 	public static class LifetimeExtensions
 	{
-		readonly static CachedLifetime    cachedLifetime               = new CachedLifetime();
-		readonly static ContainerLifetime containerLifetime            = new ContainerLifetime();
-		readonly static RequestLifetime   requestLifetime              = new RequestLifetime();
-		readonly static SessionLifetime   sessionLifetime              = new SessionLifetime();
+		readonly static CachedLifetime             cachedLifetime      = new CachedLifetime();
+		readonly static ContainerLifetime          containerLifetime   = new ContainerLifetime();
+		readonly static RequestLifetime            requestLifetime     = new RequestLifetime();
+		readonly static SessionLifetime            sessionLifetime     = new SessionLifetime();
 		readonly static ThreadLocalStorageLifetime threadLocalLifetime = new ThreadLocalStorageLifetime();
 
 		public static IRegistration AsAlwaysNew(this IRegistration reg)
