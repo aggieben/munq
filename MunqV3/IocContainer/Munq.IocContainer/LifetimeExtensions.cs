@@ -48,7 +48,7 @@ namespace Munq
 		{
 			set
 			{
-				requestLifetime.SetContext(value);
+				RequestLifetime.SetContext(value);
 				sessionLifetime.SetContext(value);
 			} 
 		}

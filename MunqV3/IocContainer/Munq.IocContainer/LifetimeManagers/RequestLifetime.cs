@@ -5,6 +5,7 @@
 
 using System.Web;
 using System;
+using System.Collections.Generic;
 
 namespace Munq.LifetimeManagers
 {
@@ -65,28 +66,25 @@ namespace Munq.LifetimeManagers
 	/// </example>
 	public class RequestLifetime : ILifetimeManager
 	{
-		private static bool _disposerInstalled = false;
-        private HttpContextBase testContext;
+		private const string MunqRequestLtItemsKey = "MunqRequestLtItemsKey";
+        private static HttpContextBase testContext;
 		private readonly object _lock = new object();
 
-		static void EnsureDisposerInstalled()
+		public static void Disposer(object sender, EventArgs e)
 		{
-			if (!_disposerInstalled && HttpContext.Current != null)
+			var application = (HttpApplication)sender;
+			var _context = application.Context;
+			if (_context != null)
 			{
-				var applicationInstance = HttpContext.Current.ApplicationInstance;
-				applicationInstance.EndRequest += Disposer;
-				_disposerInstalled = true;
-			}
-		}
-
-		static void Disposer(object sender, EventArgs e)
-		{
-			var context = HttpContext.Current;
-
-			foreach (var item in context.Items.Values)
-			{
-				if (item is IDisposable)
-					(item as IDisposable).Dispose();
+				Dictionary<string, object> requestLifetimeInstances = (Dictionary<string, object>)_context.Items[MunqRequestLtItemsKey];
+				if (requestLifetimeInstances != null)
+				{
+					foreach (var item in requestLifetimeInstances.Values)
+					{
+						if (item is IDisposable)
+							(item as IDisposable).Dispose();
+					}
+				}
 			}
 		}
 
@@ -94,7 +92,7 @@ namespace Munq.LifetimeManagers
 		/// Return the HttpContext if running in a web application, the test 
 		/// context otherwise.
 		/// </summary>
-		private HttpContextBase Context
+		private static HttpContextBase Context
 		{
 			get
 			{
@@ -102,6 +100,20 @@ namespace Munq.LifetimeManagers
 								? new HttpContextWrapper(HttpContext.Current)
 								: testContext;
 				return context;
+			}
+		}
+
+		private static Dictionary<string, object> RequestLifetimeInstances
+		{
+			get
+			{
+				Dictionary<string, object> requestLifetimeInstances = Context.Items[MunqRequestLtItemsKey] as Dictionary<string, object>;
+				if (requestLifetimeInstances == null)
+				{
+					requestLifetimeInstances = new Dictionary<string, object>();
+					Context.Items[MunqRequestLtItemsKey] = requestLifetimeInstances;
+				}
+				return requestLifetimeInstances;
 			}
 		}
 
@@ -114,17 +126,15 @@ namespace Munq.LifetimeManagers
 		/// <returns>The instance.</returns>
 		public object GetInstance(IRegistration registration)
 		{
-			object instance = Context.Items[registration.Key];
-			if (instance == null)
+			object instance;
+			if (!RequestLifetimeInstances.TryGetValue(registration.Key, out instance))
 			{
 				lock (_lock)
 				{
-					instance = Context.Items[registration.Key];
-					if (instance == null)
+					if (!RequestLifetimeInstances.TryGetValue(registration.Key, out instance))
 					{
-						EnsureDisposerInstalled();
 						instance                        = registration.CreateInstance();
-						Context.Items[registration.Key] = instance;
+						RequestLifetimeInstances[registration.Key] = instance;
 					}
 				}
 			}
@@ -138,7 +148,7 @@ namespace Munq.LifetimeManagers
 		/// <param name="registration">The Registration which is having its value invalidated</param>
 		public void InvalidateInstanceCache(IRegistration registration)
 		{
-			Context.Items.Remove(registration.Key);
+			RequestLifetimeInstances.Remove(registration.Key);
 		}
 
 		#endregion
@@ -147,7 +157,7 @@ namespace Munq.LifetimeManagers
 		/// Only used for testing.  Has no effect when in web application
 		/// </summary>
 		/// <param name="context"></param>
-		public void SetContext(HttpContextBase context)
+		public static void SetContext(HttpContextBase context)
 		{
 			testContext = context;
 		}

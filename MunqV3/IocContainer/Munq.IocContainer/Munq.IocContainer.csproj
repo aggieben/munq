@@ -57,6 +57,7 @@
     <Compile Include="LifetimeManagers\CachedLifetime.cs" />
     <Compile Include="LifetimeManagers\ContainerLifetime.cs" />
     <Compile Include="LifetimeManagers\RequestLifetime.cs" />
+    <Compile Include="LifetimeManagers\RequestLifetimeModule.cs" />
     <Compile Include="LifetimeManagers\SessionLifetime.cs" />
     <Compile Include="LifetimeManagers\ThreadLocalStorageLifetime.cs" />
     <Compile Include="NamedRegistrationKey.cs" />
@@ -66,6 +67,8 @@
     <Compile Include="UnNamedRegistrationKey.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram2.cd" />
+    <None Include="NuGetPkg\Content\web.config.transform" />
     <None Include="NuGetPkg\Package.nuspec">
       <SubType>Designer</SubType>
     </None>

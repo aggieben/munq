@@ -70,7 +70,7 @@ namespace Munq.Test
 
 			using (var container = new IocContainer())
 			{
-				var ireg = container.Register<IFoo>(c => new Foo1()).AsSessionSingleton();
+				container.Register<IFoo>(c => new Foo1()).AsSessionSingleton();
 				LifetimeExtensions.HttpContext = context1;
 				var result1 = container.Resolve<IFoo>();
 				var result2 = container.Resolve<IFoo>();

@@ -49,10 +49,10 @@ namespace Munq.Test
             using (var container = new IocContainer())
             {
                 container.Register<IFoo>(c => new Foo1()).WithLifetimeManager(requestltm);
-                requestltm.SetContext(context1);
+				RequestLifetime.SetContext(context1);
                 var result1 = container.Resolve<IFoo>();
                 var result2 = container.Resolve<IFoo>();
-                requestltm.SetContext(context2);
+				RequestLifetime.SetContext(context2);
                 var result3 = container.Resolve<IFoo>();
                 Verify.That(result3).IsNotNull();
                 Verify.That(result2).IsNotNull();
